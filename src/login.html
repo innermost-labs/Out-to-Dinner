@@ -52,42 +52,68 @@
 	};
 	
 	function registerUser(form, callback) {
+		
 		var usernameIn = form.Email.value;
 		var passwordIn = form.Password.value;
 		var dataIn = {"username":usernameIn,"password":passwordIn};
 		$.ajax( {
 		  type: "POST",
-		  url: "https://api.parse.com/1/users/",
+		  url: "https://api.parse.com/1/users",
 		  contentType: "application/json",
 		  headers: {
 			  "X-Parse-Application-Id": "oEhx7MD4NJ9dmwOTJVYIsDtSPRwxYYlXSwm13dI3",
 			  "X-Parse-REST-API-Key": "jd6bIkiEcWb89gHyQUuMYhst6d6hkWkcB3ySWzUv",
 		  },
-		  data: dataIn,
-		  dataType: "json",
-		  error: function(data){ console.info(data);},
+		data: dataIn,
+		crossDomain: true,
+		processData: false,
+		dataType: "json",
+		beforeSend: function(x) {
+		            if (x && x.overrideMimeType) {
+		              x.overrideMimeType("application/json;charset=UTF-8");
+		            }
+		          },
+		  error: function(xhr){ alert("You fail! loser");},
 	      success: function (data) {
-	          callback(data);
+	          console.info(data);
 	        }
 	    })
 	};
 	
 	</script>
 </head>
+<<<<<<< HEAD
 <body onload ='makeMap()'>	
 	<div id="loginscreen">
 	<form id="login">
+=======
+<body>	
+	
+
+	
+	<div id="first" >
+		<button type="button" onclick=$('#loginscreen').show()>Login</button>
+		<button type="button" onclick=$('#registerscreen').show()>Register</button>
+	</div>
+	<div id="loginscreen" style="display:none">
+		<form id="login">
+>>>>>>> 3fde66e9fbf198d3d403bc16dc412bc8c72d5660
 			<input required name="Email" form="login" type="email">
 			<input required name="Password" form="login" type="password">
 			<input form="login" type="submit" onClick="logInUser(this.form, loggedin)">
 		</form>
 	</div>
+<<<<<<< HEAD
 	<div id="dashboardscreen">
+=======
+	<div id="dashboardscreen" style="display:none" > 
+>>>>>>> 3fde66e9fbf198d3d403bc16dc412bc8c72d5660
 		I put on my robe and wizard hat.
+		
 		<div id="map_canvas"> </div>
-	  	<div id="test"> test text</div></body>		
+	  	<div id="test"> test text</div>	
 	</div>
-	<div id="registerscreen">
+	<div id="registerscreen" style="display:none">
 		<form id="register">
 			Email: <input required name="Email" form="register" type="email"><br />
 			PW: <input required name="Password" form="register" type="password"><br />
