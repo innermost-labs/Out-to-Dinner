@@ -17,13 +17,10 @@ function makeMap(){
 		userId = arguments[0];
 		sessId = arguments[1];
 		markerId = arguments[2];
-		getUser(userId);
 	    if(markerId){
-	        var marker = getMarker(markerId);
-	        alert("do we have a marker id?, yes we do.");
-			lat = marker.location.latitude;
-			long = marker.location.longitude;
-			zoomlevel = 20;	        
+
+	    alert("do we have a marker id?, yes we do.");
+	    return getUserMap(markerId);
 		}else{
 			userHasNoMarker = true;
 		}
@@ -34,12 +31,14 @@ function makeMap(){
     	zoom: zoomlevel,
     	mapTypeId: google.maps.MapTypeId.SATELLITE
     };
+    alert(coord);
     map =  new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
     if(userHasNoMarker){
-        google.maps.event.addListener(map, 'click', function(event) {
-   		addTempMarker(event.latLng);
-	    });
-    }
+		google.maps.event.addListener(map, 'click', function(event) {
+				addTempMarker(event.latLng);
+		});
+	}
+
     getMarkers();
 }
 function getMarkers(){
@@ -59,7 +58,7 @@ function getMarkers(){
 					google.maps.event.addListener(tempmark, 'click', function(event) {
 						for(var j = 0; j < publicmarkers.length; j++){
 							if(publicmarkers[j].marker.position == event.latLng){
-								infowindow.setContent("<div id = 'pincontent'>" + publicmarkers[j].content + userId + "</div>");
+								infowindow.setContent("<div id = 'pincontent'>" + publicmarkers[j].content+"</div>");
 								//todo make the content different based on whether the the owner is checking it or not, edit the pin
 								infowindow.open(map, publicmarkers[j].marker);
 							}
@@ -81,7 +80,7 @@ function addTempMarker(location) {
       marker.setMap(null);
   }
   infowindow = new google.maps.InfoWindow({
-  	content:"<div id='tempwindow'><INPUT TYPE='button' NAME='addmarker' Value='Add to Map' onClick='addMarker("+location.lat()+","+location.lng()+ ")'>"
+  	content:"<div id='tempwindow'><div id='content_box'><form>Pin Content <INPUT TYPE='text'name='content'> </form></div><INPUT TYPE='button' NAME='addmarker' Value='Add to Map' onClick='addMarker("+location.lat()+","+location.lng()+ "," + document.getElementById("content_box").Value+")'></div>"
   });
   marker = new google.maps.Marker({
     position:location,
@@ -97,7 +96,8 @@ function addMarker(newlat, newlong, con){
 					alert("added marker " + ajax.responseText);
 					marker = eval('(' + ajax.responseText + ')');
 					document.getElementById("test").innerHTML = ajax.responseText;
-					editUser({markerId:marker.objectId});
+					alert("markerId:"+marker.objectId);
+					editUser({markerID:marker.objectId});
 					getMarkers();
 					infowindow.close();
 				}
@@ -123,13 +123,24 @@ function xmlhttp(func){
 	temp.onreadystatechange = func;
 	return temp;
 }
-function getMarker(markerId){
+function getUserMap(markerId){
 		var ajax = xmlhttp(function(){
 		if(ajax.readyState == 4){
-			return  eval( "(" + ajax.responseText + ")");
+			marker =  eval( "(" + ajax.responseText + ")");
+			lat = marker.location.latitude;
+			long = marker.location.longitude;
+			zoomlevel = 10;	 
+			var coord = new google.maps.LatLng(lat,long);
+	 			var mapOptions = {
+	    		center: coord,
+	    		zoom: zoomlevel,
+	    		mapTypeId: google.maps.MapTypeId.SATELLITE
+  			};	
+   			map =  new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+   			getMarkers();
 		}
 	});
-	ajax.open("GET", "https://api.parse.com/1/classes/markers/" + markerId,true);
+	ajax.open("GET", "https://api.parse.com/1/classes/markers/" + markerId,false);
 	ajax.setRequestHeader("X-Parse-Application-Id", applicationid);
 	ajax.setRequestHeader("X-Parse-REST-API-Key", apikey);
 	ajax.setRequestHeader("Content-Type","application/json");
@@ -161,7 +172,7 @@ function editUser(jsonToAdd){
 		}
 	});
 	alert(jsonToAdd);
-	ajax.open("PUT", 'https://api.parse.com/1/classes/users/' + userId,true);
+	ajax.open("PUT", "https://api.parse.com/1/users/" + userId,true);
 	ajax.setRequestHeader("X-Parse-Application-Id", applicationid);
 	ajax.setRequestHeader("X-Parse-REST-API-Key", apikey);
 	ajax.setRequestHeader("X-Parse-Session-Token", sessId);
