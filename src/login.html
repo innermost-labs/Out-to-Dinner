@@ -11,11 +11,10 @@
 	<script type="text/javascript" src="maphelper.js"> </script>
 	
 	<script language="javascript">
-	
 	function loggedin(data){
+		
 		$('#loginscreen').hide();
 		$('#dashboardscreen').show();
-		//makeMap();
 		//alert("markerid = " + data.markerId);
 		//alert("marker == null + " + data.markerId == null);
 		makeMap(data.objectId, data.sessionToken, data.markerId);
@@ -25,7 +24,7 @@
 	function registered(data){
 		$('#registerscreen').hide();
 		$('#dashboardscreen').show();
-		makeMap(data.objectId, data.sessionToken, data.markerId);
+		//makeMap(data.objectId, data.sessionToken, data.markerId);
 	}
 	
 	function logInUser(form, callback) {
@@ -34,7 +33,6 @@
 		var dataIn = usernameIn + "&" + passwordIn; 
 
 		<!-- dataIn must be a URL encoded sequence of username and password -->
-
 	   $.ajax( {
 		  type: "GET",
 		  url: "https://api.parse.com/1/login",
@@ -43,6 +41,7 @@
 			  "X-Parse-REST-API-Key": "jd6bIkiEcWb89gHyQUuMYhst6d6hkWkcB3ySWzUv",
 		  },
 		  data: dataIn,
+
 		  contentType: "application/json",
 		   error: function(xhr){ alert(xhr.statusText)},
 	      success: function (data) {
@@ -83,6 +82,7 @@
 	
 	</script>
 </head>
+
 <body>	
 	
 
@@ -93,11 +93,17 @@
 	</div>
 	<div id="loginscreen" style="display:none">
 		<form id="login">
+
+<body onload ='makeMap()'>	
+	<div id="loginscreen">
+	<form id="login">
+
 			<input required name="Email" form="login" type="email">
 			<input required name="Password" form="login" type="password">
 			<input form="login" type="submit" onClick="logInUser(this.form, loggedin)">
 		</form>
 	</div>
+
 	<div id="dashboardscreen" style="display:none" > 
 		I put on my robe and wizard hat.
 		
