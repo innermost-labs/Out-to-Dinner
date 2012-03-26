@@ -81,7 +81,9 @@ function addTempMarker(location) {
       marker.setMap(null);
   }
   infowindow = new google.maps.InfoWindow({
-  	content:"<div id='tempwindow'> <INPUT TYPE='button' NAME='addmarker' Value='Add to Map' onClick='addMarker("+location.lat()+","+location.lng()+ ")'>"
+  	content:"<div id='tempwindow'>
+  			<FORM
+  		 <INPUT TYPE='button' NAME='addmarker' Value='Add to Map' onClick='addMarker("+location.lat()+","+location.lng()+ ")'>"
   });
   marker = new google.maps.Marker({
     position:location,
