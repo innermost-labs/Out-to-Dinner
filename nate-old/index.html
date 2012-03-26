@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>yo</title>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+   		<link rel="stylesheet" type="text/css" href="map.css"/>
+        <script type="text/javascript"
+      		src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCeZsLgeVOHiLdy-NZzbaXhgz6ew731SZc&sensor=false">
+    	</script>
+    	
+    	<script type="text/javascript" src="maphelper.js"> </script>
+  </head>
+  <body onload='makeMap()'>
+    <script type="text/javascript">
+        asdf = xmlhttp(function(){
+          if(asdf.readyState === 4){
+
+            user = eval("(" + asdf.responseText + ")");
+                          document.getElementById("test").innerHTML = "LOGGED ON USER " + user.objectId;
+
+            makeMap(user.objectId, user.sessionToken);
+          }
+        });
+        asdf.open("GET", " https://api.parse.com/1/login?username=test-user&password=hunter2",true);
+        asdf.setRequestHeader("X-Parse-Application-Id", applicationid);
+        asdf.setRequestHeader("X-Parse-REST-API-Key", apikey);
+        asdf.send()
+    </script>
+  	<div id="map_canvas"> </div>
+  	<div id="test"> test text</div></body>
+
+</html>
