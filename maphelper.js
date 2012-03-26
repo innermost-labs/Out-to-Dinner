@@ -10,13 +10,16 @@ var userId = 12;
 var sessId = 12;
 var infowindow = new google.maps.InfoWindow();
 
+
 function makeMap(){
 	var zoomlevel = 4;
+	alert("HELLO");
 	//arguments would be user Id and Session Id, otherwise the user isn't registered and we should use the public map instead.  
 	if(arguments.length == 2){
 		userId = arguments[0];
 		sessId = arguments[1];
 		var user = getUser(userId);
+
 		if(user.markerId != null){
 			var marker = getMarker(user.markerId);
 			lat = marker.location.latitude;
@@ -131,13 +134,15 @@ function getMarker(markerId){
 function getUser(userId){
 		ajax = xmlhttp(function(){
 		if(ajax.readyState == 4){
-			return eval( "(" + ajax.responseText + ")");
+			alert(ajax.responseText);
+			test =  eval( "(" + ajax.responseText + ")");
+			alert(test.objectId)
+			return test;
 		}
 	});
-	ajax.open("GET", "https://api.parse.com/1/classes/users/" + userId,true);
+	ajax.open("GET", "https://api.parse.com/1/users/" + userId,false);
 	ajax.setRequestHeader("X-Parse-Application-Id", applicationid);
 	ajax.setRequestHeader("X-Parse-REST-API-Key", apikey);
-	ajax.setRequestHeader("Content-Type","application/json");
 	ajax.send();
 }
 
@@ -187,8 +192,4 @@ function deletealot(){
 	ajax.setRequestHeader("Content-Type","application/json");
 	ajax.send();
 	
-}
-
-function addtoarray(index, mark, info){
-	publicmarkers[index] = {mark:mark, info:info};
 }
