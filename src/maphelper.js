@@ -8,7 +8,7 @@ var publicmarkers = [];
 var userId = null;
 var sessId = null;
 var infowindow = new google.maps.InfoWindow();
-CHANGE
+
 function makeMap(){
 	var zoomlevel = 4;
 	//arguments would be user Id, Session Id, and the marker id associated with the user otherwise the user isn't registered and we should use the public map instead.  
