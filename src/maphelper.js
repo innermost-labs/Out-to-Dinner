@@ -19,8 +19,9 @@ function makeMap(){
 		markerId = arguments[2];
 	    if(markerId){
 
-	    alert("do we have a marker id?, yes we do.");
-	    return getUserMap(markerId);
+	    	alert("do we have a marker id?, yes we do.");
+	    	return getUserMap(markerId);
+
 		}else{
 			userHasNoMarker = true;
 		}
@@ -42,11 +43,19 @@ function makeMap(){
     getMarkers();
 }
 function getMarkers(){
+	if(marker){
+		marker.setMap(null);
+	}
+	for(i = 0; i < publicmarkers.length; i++){
+			publicmarkers[i].marker.setMap(null);
+	}
+	publicmarkers = [];
 	var	ajax = xmlhttp(function(){
 		if(ajax.readyState == 4){
 			if(ajax.responseText != ""){
 				alert("GOT MARKERS "+ ajax.responseText);
 				var markers = eval("(" + ajax.responseText +")");
+
 				for(var i = 0; i < markers.results.length; i++)
 				{
 					var tempmark = new google.maps.Marker({
@@ -73,14 +82,16 @@ function getMarkers(){
 	ajax.setRequestHeader("X-Parse-REST-API-Key", apikey);
 	ajax.setRequestHeader("Content-Type","application/JSON");
 	ajax.send();
+
 }
 
 function addTempMarker(location) {
-  if(marker){
-      marker.setMap(null);
-  }
-  infowindow = new google.maps.InfoWindow({
-  	content:"<div id='tempwindow'><div id='content_box'><form>Pin Content <INPUT TYPE='text'name='content'> </form></div><INPUT TYPE='button' NAME='addmarker' Value='Add to Map' onClick='addMarker("+location.lat()+","+location.lng()+ "," + document.getElementById("content_box").Value+")'></div>"
+	if(marker){
+		marker.setMap(null);
+	}
+	infowindow.close();
+  	infowindow = new google.maps.InfoWindow({
+  	content:"<div id='tempwindow'><div id='content_box'><form>Pin Content <INPUT TYPE='text'name='content'> </form></div><INPUT TYPE='button' NAME='addmarker' Value='Add to Map' onClick='addMarker("+location.lat()+","+location.lng()+ ")'></div>"
   });
   marker = new google.maps.Marker({
     position:location,
@@ -89,17 +100,54 @@ function addTempMarker(location) {
   infowindow.open(map, marker);
 }
 
-function addMarker(newlat, newlong, con){
+
+function addMarker(newlat, newlong){
+
+	var content = document.getElementById("content_box").Value;
+	alert("adding marker" + markerId + content);
+	if(markerId){
+		changeMarker(newlat, newlong, content);
+	}else{
+		newMarker(newlat,newlong,content);
+	}
+
+}
+
+function changeMarker(newlat, newlong, con){
+	var ajax = xmlhttp(function(){
+		if(ajax.readyState == 4){
+			if(ajax.responseText != ""){
+				alert("Changed Marker " + ajax.responseText);
+				changedMarker = eval('(' + ajax.responseText + ')');
+				infowindow.close();
+				marker.setMap(null);
+				map.panTo(new google.maps.LatLng(newlat,newlong));
+				getMarkers();
+
+			}
+		}
+	});
+	var tosend = {location:{__type:"GeoPoint", latitude:newlat, longitude:newlong}, content:con};
+	alert("changing marker " + JSON.stringify(tosend));
+	ajax.open('PUT', 'https://api.parse.com/1/classes/markers/' + markerId ,true);
+	ajax.setRequestHeader("X-Parse-Application-Id", applicationid);
+	ajax.setRequestHeader("X-Parse-REST-API-Key", apikey);
+	ajax.setRequestHeader("Content-Type","application/json");
+	ajax.send(JSON.stringify(tosend));
+}
+
+
+function newMarker(newlat, newlong, con){
 		var ajax  = xmlhttp(function(){
 			if(ajax.readyState == 4){
 				if(ajax.responseText != ""){
 					alert("added marker " + ajax.responseText);
-					marker = eval('(' + ajax.responseText + ')');
-					document.getElementById("test").innerHTML = ajax.responseText;
+					newMarker = eval('(' + ajax.responseText + ')');
 					alert("markerId:"+marker.objectId);
-					editUser({markerID:marker.objectId});
+				//	editUser({markerID:marker.objectId});
 					getMarkers();
 					infowindow.close();
+					marker.setMap(null);
 				}
 			}
 
@@ -126,9 +174,9 @@ function xmlhttp(func){
 function getUserMap(markerId){
 		var ajax = xmlhttp(function(){
 		if(ajax.readyState == 4){
-			marker =  eval( "(" + ajax.responseText + ")");
-			lat = marker.location.latitude;
-			long = marker.location.longitude;
+			userMarker =  eval( "(" + ajax.responseText + ")");
+			lat = userMarker.location.latitude;
+			long = userMarker.location.longitude;
 			zoomlevel = 10;	 
 			var coord = new google.maps.LatLng(lat,long);
 	 			var mapOptions = {
@@ -137,6 +185,9 @@ function getUserMap(markerId){
 	    		mapTypeId: google.maps.MapTypeId.SATELLITE
   			};	
    			map =  new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+				google.maps.event.addListener(map, 'click', function(event) {
+				addTempMarker(event.latLng);
+			});
    			getMarkers();
 		}
 	});
