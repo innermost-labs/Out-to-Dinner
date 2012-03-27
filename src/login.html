@@ -17,6 +17,7 @@
 		$('#dashboardscreen').show();
 		//alert("markerid = " + data.markerId);
 		//alert("marker == null + " + data.markerId == null);
+		alert(JSON.stringify(data));
 		makeMap(data.objectId, data.sessionToken, data.markerID);
 		//alert("stuff!" + data.objectId);
 	};
@@ -83,7 +84,7 @@
 	</script>
 </head>
 
-<body>	
+<body onload="makeMap()">	
 	
 
 	
@@ -99,7 +100,7 @@
 		</form>
 	</div>
 
-	<div id="dashboardscreen" style="display:none" > 
+	<div id="dashboardscreen" > 
 		I put on my robe and wizard hat.
 		
 		<div id="map_canvas"> </div>
