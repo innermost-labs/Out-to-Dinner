@@ -18,10 +18,10 @@ function makeMap(){
 		userId = arguments[0];
 		sessId = arguments[1];
 		markerId = arguments[2];
-		alert("User ID " + arguments[0] + " markerId " + markerId);
+		//alert("User ID " + arguments[0] + " markerId " + markerId);
 	    if(markerId){
 
-	    	alert("do we have a marker id?, yes we do.");
+	    	//alert("do we have a marker id?, yes we do.");
 	    	return getUserMap(markerId);
 
 		}else{
@@ -65,9 +65,9 @@ function getMarkers(){
 						position:new google.maps.LatLng(markers.results[i].location.latitude, markers.results[i].location.longitude),
 						map:map
 					});
-					alert("markers.results[" + i + "].owner: " + markers.results[i].objectId + " == markerId: " + markerId);
+					//alert("markers.results[" + i + "].owner: " + markers.results[i].objectId + " == markerId: " + markerId);
 					if(markers.results[i].objectId == markerId){
-						alert("hello");
+						//alert("hello");
 						tempmark.setIcon(homeImage);
 					}
 					publicmarkers.push({marker:tempmark, content:markers.results[i].content});	
@@ -75,6 +75,9 @@ function getMarkers(){
 					google.maps.event.addListener(tempmark, 'click', function(event) {
 						for(var j = 0; j < publicmarkers.length; j++){
 							if(publicmarkers[j].marker.position == event.latLng){
+								if(marker){
+									marker.setMap(null);
+								}
 								infowindow.setContent("<div id = 'pincontent'>" + publicmarkers[j].content+"</div>");
 								//todo make the content different based on whether the the owner is checking it or not, edit the pin
 								infowindow.open(map, publicmarkers[j].marker);
@@ -111,6 +114,7 @@ function addTempMarker(location) {
   marker = new google.maps.Marker({
     position:location,
     map: map,
+	icon:"http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png"
   });
   infowindow.open(map, marker);
 }
@@ -135,7 +139,7 @@ function changeMarker(newlat, newlong, con){
 	var ajax = xmlhttp(function(){
 		if(ajax.readyState == 4){
 			if(ajax.responseText != ""){
-				alert("Changed Marker " + ajax.responseText);
+				//alert("Changed Marker " + ajax.responseText);
 				changedMarker = eval('(' + ajax.responseText + ')');
 				infowindow.close();
 				marker.setMap(null);
@@ -147,7 +151,7 @@ function changeMarker(newlat, newlong, con){
 	});
 
 	var tosend = {location:{__type:"GeoPoint", latitude:newlat, longitude:newlong},owner:userId, content:con};
-	alert("changing marker " + JSON.stringify(tosend));
+	//alert("changing marker " + JSON.stringify(tosend));
 	ajax.open('PUT', 'https://api.parse.com/1/classes/markers/' + markerId ,true);
 	ajax.setRequestHeader("X-Parse-Application-Id", applicationid);
 	ajax.setRequestHeader("X-Parse-REST-API-Key", apikey);
@@ -160,9 +164,9 @@ function newMarker(newlat, newlong, con){
 		var ajax  = xmlhttp(function(){
 			if(ajax.readyState == 4){
 				if(ajax.responseText != ""){
-					alert("new marker " + ajax.responseText);
+					//alert("new marker " + ajax.responseText);
 					newMarker = eval('(' + ajax.responseText + ')');
-					alert("UserId: " + userId + " markerId: "+newMarker.objectId);
+					//alert("UserId: " + userId + " markerId: "+newMarker.objectId);
 					editUser(userId, {markerID:newMarker.objectId});
 					getMarkers();
 					infowindow.close();
@@ -195,7 +199,7 @@ function getUserMap(markerId){
 		if(ajax.readyState == 4){
 			if(ajax.responseText != ""){
 				userMarker =  eval( "(" + ajax.responseText + ")");
-				alert(JSON.stringify(userMarker));
+			//	alert(JSON.stringify(userMarker));
 				if(userMarker.objectId){
 					lat = userMarker.location.latitude;
 					long = userMarker.location.longitude;
@@ -244,16 +248,16 @@ function getUser(user){
 }
 
 function editUser(user, jsonToAdd){
-	alert(sessId);
+//	alert(sessId);
 	var ajax = xmlhttp(function(){
 		if(ajax.readyState == 4){
 			if(ajax.responseText != ""){
-			alert("Edited user " + userId +  ":  " + ajax.responseText);
+//			alert("Edited user " + userId +  ":  " + ajax.responseText);
 		}
 			return eval( "(" + ajax.responseText + ")");
 		}
 	});
-	alert("ADDING " + JSON.stringify(jsonToAdd));
+//	alert("ADDING " + JSON.stringify(jsonToAdd));
 	ajax.open("PUT", "https://api.parse.com/1/users/" + user,true);
 	ajax.setRequestHeader("X-Parse-Application-Id", applicationid);
 	ajax.setRequestHeader("X-Parse-REST-API-Key", apikey);
