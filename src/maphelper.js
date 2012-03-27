@@ -19,7 +19,7 @@ function makeMap(){
 		markerId = arguments[2];
 	    if(markerId){
 
-	    	alert("do we have a marker id?, yes we do.");
+	    	//alert("do we have a marker id?, yes we do.");
 	    	return getUserMap(markerId);
 
 		}else{
@@ -32,7 +32,7 @@ function makeMap(){
     	zoom: zoomlevel,
     	mapTypeId: google.maps.MapTypeId.SATELLITE
     };
-    alert(coord);
+    //alert(coord);
     map =  new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
     if(userHasNoMarker){
 		google.maps.event.addListener(map, 'click', function(event) {
@@ -53,7 +53,7 @@ function getMarkers(){
 	var	ajax = xmlhttp(function(){
 		if(ajax.readyState == 4){
 			if(ajax.responseText != ""){
-				alert("GOT MARKERS "+ ajax.responseText);
+				//alert("GOT MARKERS "+ ajax.responseText);
 				var markers = eval("(" + ajax.responseText +")");
 
 				for(var i = 0; i < markers.results.length; i++)
@@ -104,7 +104,7 @@ function addTempMarker(location) {
 function addMarker(newlat, newlong){
 
 	var content = document.getElementById("content_box").Value;
-	alert("adding marker" + markerId + content);
+	//alert("adding marker" + markerId + content);
 	if(markerId){
 		changeMarker(newlat, newlong, content);
 	}else{
@@ -117,7 +117,7 @@ function changeMarker(newlat, newlong, con){
 	var ajax = xmlhttp(function(){
 		if(ajax.readyState == 4){
 			if(ajax.responseText != ""){
-				alert("Changed Marker " + ajax.responseText);
+				////alert("Changed Marker " + ajax.responseText);
 				changedMarker = eval('(' + ajax.responseText + ')');
 				infowindow.close();
 				marker.setMap(null);
@@ -128,7 +128,7 @@ function changeMarker(newlat, newlong, con){
 		}
 	});
 	var tosend = {location:{__type:"GeoPoint", latitude:newlat, longitude:newlong}, content:con};
-	alert("changing marker " + JSON.stringify(tosend));
+	//alert("changing marker " + JSON.stringify(tosend));
 	ajax.open('PUT', 'https://api.parse.com/1/classes/markers/' + markerId ,true);
 	ajax.setRequestHeader("X-Parse-Application-Id", applicationid);
 	ajax.setRequestHeader("X-Parse-REST-API-Key", apikey);
@@ -141,9 +141,9 @@ function newMarker(newlat, newlong, con){
 		var ajax  = xmlhttp(function(){
 			if(ajax.readyState == 4){
 				if(ajax.responseText != ""){
-					alert("added marker " + ajax.responseText);
+					//alert("added marker " + ajax.responseText);
 					newMarker = eval('(' + ajax.responseText + ')');
-					alert("markerId:"+marker.objectId);
+					//alert("markerId:"+marker.objectId);
 				//	editUser({markerID:marker.objectId});
 					getMarkers();
 					infowindow.close();
@@ -154,7 +154,7 @@ function newMarker(newlat, newlong, con){
 			
 		});
 		var tosend = {location:{__type:"GeoPoint", latitude:newlat, longitude:newlong},content:con};
-		alert(JSON.stringify(tosend));
+		//alert(JSON.stringify(tosend));
 		ajax.open('POST', 'https://api.parse.com/1/classes/markers',true);
 		ajax.setRequestHeader("X-Parse-Application-Id", applicationid);
 		ajax.setRequestHeader("X-Parse-REST-API-Key", apikey);
@@ -166,7 +166,7 @@ function xmlhttp(func){
 	try{
 		temp = new XMLHttpRequest();
 	}catch(e){
-		alert("ERROR SUBMITTING AJAX REQUEST");
+		//alert("ERROR SUBMITTING AJAX REQUEST");
 	}
 	temp.onreadystatechange = func;
 	return temp;
@@ -202,7 +202,7 @@ function getUserMap(markerId){
 function getUser(userId){
 		var ajax = xmlhttp(function(){
 		if(ajax.readyState == 4){
-			alert("got user " + userId + " " + ajax.responseText);
+			//alert("got user " + userId + " " + ajax.responseText);
 			return eval( "(" + ajax.responseText + ")");
 		}
 	});
@@ -215,14 +215,14 @@ function getUser(userId){
 }
 
 function editUser(jsonToAdd){
-	alert(sessId);
+	//alert(sessId);
 	var ajax = xmlhttp(function(){
 		if(ajax.readyState == 4){
-			alert("Edited user " + userId +  " " + ajax.responseText);
+			//alert("Edited user " + userId +  " " + ajax.responseText);
 			return eval( "(" + ajax.responseText + ")");
 		}
 	});
-	alert(jsonToAdd);
+	//alert(jsonToAdd);
 	ajax.open("PUT", "https://api.parse.com/1/users/" + userId,true);
 	ajax.setRequestHeader("X-Parse-Application-Id", applicationid);
 	ajax.setRequestHeader("X-Parse-REST-API-Key", apikey);
