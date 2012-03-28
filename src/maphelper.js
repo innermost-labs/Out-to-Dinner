@@ -18,7 +18,7 @@ function makeMap(){
 		userId = arguments[0];
 		sessId = arguments[1];
 		markerId = arguments[2];
-		//alert("User ID " + arguments[0] + " markerId " + markerId);
+		alert("User ID " + arguments[0] + " markerId " + markerId);
 	    if(markerId){
 
 	    	//alert("do we have a marker id?, yes we do.");
@@ -160,7 +160,7 @@ function changeMarker(newlat, newlong, con){
 }
 
 
-function newMarker(newlat, newlong, con){
+function newMarker(newLat, newLong, con){
 		var ajax  = xmlhttp(function(){
 			if(ajax.readyState == 4){
 				if(ajax.responseText != ""){
@@ -168,7 +168,9 @@ function newMarker(newlat, newlong, con){
 					newMarker = eval('(' + ajax.responseText + ')');
 					//alert("UserId: " + userId + " markerId: "+newMarker.objectId);
 					editUser(userId, {markerID:newMarker.objectId});
-					getMarkers();
+					map.setZoom(15);
+					map.panTo(new google.maps.LatLng(newLat, newLong));
+					markerId = newMarker.objectId;
 					infowindow.close();
 					marker.setMap(null);
 				}
@@ -176,7 +178,7 @@ function newMarker(newlat, newlong, con){
 
 			
 		});
-		var tosend = {location:{__type:"GeoPoint", latitude:newlat, longitude:newlong},owner:userId,content:con};
+		var tosend = {location:{__type:"GeoPoint", latitude:newLat, longitude:newLong},owner:userId,content:con};
 		//alert(JSON.stringify(tosend));
 		ajax.open('POST', 'https://api.parse.com/1/classes/markers',true);
 		ajax.setRequestHeader("X-Parse-Application-Id", applicationid);
@@ -232,29 +234,14 @@ function getUserMap(markerId){
 
 }
 
-function getUser(user){
-		var ajax = xmlhttp(function(){
-		if(ajax.readyState == 4){
-			//alert("got user " + user + " " + ajax.responseText);
-			return eval( "(" + ajax.responseText + ")");
-		}
-	});
-	ajax.open("GET", "https://api.parse.com/1/users/" + user,true); //Sahar and Chris edited this line.
-	ajax.setRequestHeader("X-Parse-Application-Id", applicationid);
-	ajax.setRequestHeader("X-Parse-REST-API-Key", apikey);
-	ajax.setRequestHeader("Content-Type","application/json");
-	ajax.send();
-	
-}
-
 function editUser(user, jsonToAdd){
 //	alert(sessId);
 	var ajax = xmlhttp(function(){
 		if(ajax.readyState == 4){
 			if(ajax.responseText != ""){
-//			alert("Edited user " + userId +  ":  " + ajax.responseText);
-		}
-			return eval( "(" + ajax.responseText + ")");
+//				alert("Edited user " + userId +  ":  " + ajax.responseText);
+				getMarkers();
+			}	
 		}
 	});
 //	alert("ADDING " + JSON.stringify(jsonToAdd));
@@ -268,8 +255,14 @@ function editUser(user, jsonToAdd){
 }
 
 function delMarker(ID){
+	alert('deleting marker');
 			var newthing  = xmlhttp(function(){
-		
+			if(newthing.readyState == 4){
+				alert(newthing.responseText);
+				if(newthing.responseText != ""){
+					alert("deleted " + ID);
+				}
+			}
 		});
 		newthing.open("DELETE", "https://api.parse.com/1/classes/markers/"+ID,true);
 		newthing.setRequestHeader("X-Parse-Application-Id", applicationid);
