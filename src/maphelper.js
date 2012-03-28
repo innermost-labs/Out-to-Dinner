@@ -11,7 +11,7 @@ var markerId = null;
 var infowindow = new google.maps.InfoWindow();
 
 function makeMap(){
-	var zoomlevel = 4;
+	
 	//arguments would be user Id, Session Id, and the marker id associated with the user otherwise the user isn't registered and we should use the public map instead.  
     var userHasNoMarker = false;
 	if(arguments.length == 3){
@@ -20,30 +20,75 @@ function makeMap(){
 		markerId = arguments[2];
 		//alert("User ID " + arguments[0] + " markerId " + markerId);
 	    if(markerId){
-
 	    	//alert("do we have a marker id?, yes we do.");
-	    	return getUserMap(markerId);
-
+		    	return getUserMap(markerId);
 		}else{
 			userHasNoMarker = true;
 		}
 	}
 	var coord = new google.maps.LatLng(lat,long);
  	var mapOptions = {
-    	center: coord,
-    	zoom: zoomlevel,
-    	mapTypeId: google.maps.MapTypeId.SATELLITE
+    		center: coord,
+    		zoom: 4,
+    		mapTypeId: google.maps.MapTypeId.SATELLITE
     };
     //alert(coord);
     map =  new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
     if(userHasNoMarker){
 		google.maps.event.addListener(map, 'click', function(event) {
-				addTempMarker(event.latLng);
+			infowindow.close();
+			addTempMarker(event.latLng);
+		});
+	}else{
+ 	   	google.maps.event.addListener(map, 'click', function(event) {
+			infowindow.close();
 		});
 	}
 
     getMarkers();
 }
+
+function getUserMap(markerId){
+	var ajax = xmlhttp(function(){
+		if(ajax.readyState == 4){
+			if(ajax.responseText != ""){
+				userMarker =  eval( "(" + ajax.responseText + ")");
+			//	alert(JSON.stringify(userMarker));
+				if(userMarker.objectId){
+					lat = userMarker.location.latitude;
+					long = userMarker.location.longitude;
+					zoomlevel = 15;	 
+					var coord = new google.maps.LatLng(lat,long);
+			 		var mapOptions = {
+			    			center: coord,
+			    			zoom: zoomlevel,
+			    			mapTypeId: google.maps.MapTypeId.SATELLITE
+					};	
+					map =  new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+					google.maps.event.addListener(map, 'click', function(event) {
+						infowindow.close();
+						addTempMarker(event.latLng);
+					});
+					getMarkers();
+				}else{
+					//this means that the user has a markerId but it points to nothing, so we set the id to null and make the map accordingly
+					editUser(userId, {markerID:null});
+					markerId = null;
+					makeMap(userId, sessId, markerId);
+				}
+			}
+		}	
+	});
+	ajax.open("GET", "https://api.parse.com/1/classes/markers/" + markerId,false);
+	ajax.setRequestHeader("X-Parse-Application-Id", applicationid);
+	ajax.setRequestHeader("X-Parse-REST-API-Key", apikey);
+	ajax.setRequestHeader("Content-Type","application/json");
+	ajax.send();
+
+}
+
+
 function getMarkers(){
 	if(marker){
 		marker.setMap(null);
@@ -105,18 +150,20 @@ function addTempMarker(location) {
 	}
 	infowindow.close();
 	var infoContent;
+	
 	if(markerId){
 		infoContent = "<div id='tempwindow'><form>Edit Content <INPUT TYPE='text' id='content_box'> <INPUT TYPE='button' NAME='addmarker' Value='Change Pin Position' onClick='addMarker("+location.lat()+","+location.lng()+ ")'></form></div>";
 	}else{
 		infoContent = "<div id='tempwindow'><form>Pin Content <INPUT TYPE='text' id='content_box'> <INPUT TYPE='button' NAME='addmarker' Value='Add to Map' onClick='addMarker("+location.lat()+","+location.lng()+ ")'></form></div>";
 	}
+  	
   	infowindow = new google.maps.InfoWindow({
-
   		content:infoContent
-  });
+	});
+  
   marker = new google.maps.Marker({
-    position:location,
-    map: map,
+	position:location,
+	map: map,
 	icon:"http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png"
   });
   infowindow.open(map, marker);
@@ -192,59 +239,16 @@ function newMarker(newLat, newLong, con){
 		ajax.send(JSON.stringify(tosend));
 	}
 
-function xmlhttp(func){
-	try{
-		temp = new XMLHttpRequest();
-	}catch(e){
-		//alert("ERROR SUBMITTING AJAX REQUEST");
-	}
-	temp.onreadystatechange = func;
-	return temp;
-}
-function getUserMap(markerId){
-	var ajax = xmlhttp(function(){
-		if(ajax.readyState == 4){
-			if(ajax.responseText != ""){
-				userMarker =  eval( "(" + ajax.responseText + ")");
-			//	alert(JSON.stringify(userMarker));
-				if(userMarker.objectId){
-					lat = userMarker.location.latitude;
-					long = userMarker.location.longitude;
-					zoomlevel = 15;	 
-					var coord = new google.maps.LatLng(lat,long);
-			 			var mapOptions = {
-			    		center: coord,
-			    		zoom: zoomlevel,
-			    		mapTypeId: google.maps.MapTypeId.SATELLITE
-						};	
-						map =  new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-						google.maps.event.addListener(map, 'click', function(event) {
-						addTempMarker(event.latLng);
-					});
-					getMarkers();
-				}else{
-					//this means that the user has a markerId but it points to nothing, so we set the id to null and make the map accordingly
-					editUser(userId, {markerID:null});
-					markerId = null;
-					makeMap(userId, sessId, markerId);
-				}
-			}
-		}	
-	});
-	ajax.open("GET", "https://api.parse.com/1/classes/markers/" + markerId,false);
-	ajax.setRequestHeader("X-Parse-Application-Id", applicationid);
-	ajax.setRequestHeader("X-Parse-REST-API-Key", apikey);
-	ajax.setRequestHeader("Content-Type","application/json");
-	ajax.send();
 
-}
+
 
 function editUser(user, jsonToAdd){
-//	alert(sessId);
+	//alert(sessId);
+	
 	var ajax = xmlhttp(function(){
 		if(ajax.readyState == 4){
 			if(ajax.responseText != ""){
-//				alert("Edited user " + userId +  ":  " + ajax.responseText);
+				//alert("Edited user " + userId +  ":  " + ajax.responseText);
 				getMarkers();
 			}	
 		}
@@ -257,4 +261,14 @@ function editUser(user, jsonToAdd){
 	ajax.setRequestHeader("Content-Type","application/json");
 	ajax.send(JSON.stringify(jsonToAdd));
 
+}
+
+function xmlhttp(func){
+	try{
+		temp = new XMLHttpRequest();
+	}catch(e){
+		//alert("ERROR SUBMITTING AJAX REQUEST");
+	}
+	temp.onreadystatechange = func;
+	return temp;
 }
