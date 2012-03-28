@@ -123,10 +123,8 @@
         </script>
         <div id="email_reg">
             <form id="email_reg_form">
-                <input required name="Email" form="email_reg_form" placeholder="Email address"
-                type="URL" />
-                <input type="submit" form="email_reg_form" onclick="registerUser(this.form, registerHandler)"
-                />
+                <input required name="Email" form="email_reg_form" placeholder="Email address" type="email" />
+                <input type="submit" form="email_reg_form"/>
             </form>
         </div>
         <div id="dashboard" style="display:none;">
@@ -148,6 +146,13 @@
                 </form>
             </div>
         </div>
+    <script language="javascript"> <!-- must go after the form HTML -->
+        $('#email_reg_form').submit(function(event) {
+                event.preventDefault();
+                registerUser(document.getElementById('email_reg_form'), registerHandler);
+                return false;
+        });
+        </script>
     </body>
 
 </html>
