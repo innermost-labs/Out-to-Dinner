@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Test</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="foo/prototype.js"></script>
+</script>
+</head>
+<body>
+<script language="javascript">
+
+function registerHandler(dataIn) {
+	
+	
+}
+
+function registerUser(form, callback) {
+		
+	var emailIn = form.Email.value;
+	var dataIn = {"username":emailIn, 
+				  "password":"temp", 
+				  "email":emailIn, 
+				  "markerID":null, 
+				  "volunteer":false, 
+				  "host":false, 
+				  "guest":false,
+				  };
+	dataIn = Object.toJSON(dataIn);
+	jQuery.ajax( {
+		type: "POST",
+		url: "https://api.parse.com/1/users",
+		contentType: "application/json",
+		headers: {
+			"X-Parse-Application-Id": "oEhx7MD4NJ9dmwOTJVYIsDtSPRwxYYlXSwm13dI3",
+			"X-Parse-REST-API-Key": "jd6bIkiEcWb89gHyQUuMYhst6d6hkWkcB3ySWzUv",
+		  },
+		data: dataIn,
+		crossDomain: true,
+		processData: false,
+		dataType: "json",
+		error: function(xhr){ alert("Registration failed.");},
+	    success: function (data) {
+	    	console.info(data);
+			callback(data);
+	        }
+	    })
+	};
+</script>
+	<div id="email_reg">
+    	<form id="email_reg_form">
+        	<input required name="Email" form="email_reg_form" placeholder="Email address" type="email" />
+            <input type="submit" form="email_reg_form" onclick="registerUser(this.form), registerHandler" />
+		</form>
+    </div>
+</body>
+</html>
