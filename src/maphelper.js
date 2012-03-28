@@ -18,7 +18,7 @@ function makeMap(){
 		userId = arguments[0];
 		sessId = arguments[1];
 		markerId = arguments[2];
-		alert("User ID " + arguments[0] + " markerId " + markerId);
+		//alert("User ID " + arguments[0] + " markerId " + markerId);
 	    if(markerId){
 
 	    	//alert("do we have a marker id?, yes we do.");
@@ -67,10 +67,9 @@ function getMarkers(){
 					});
 					//alert("markers.results[" + i + "].owner: " + markers.results[i].objectId + " == markerId: " + markerId);
 					if(markers.results[i].objectId == markerId){
-						//alert("hello");
 						tempmark.setIcon(homeImage);
 					}
-					publicmarkers.push({marker:tempmark, content:markers.results[i].content});	
+					publicmarkers.push({marker:tempmark, content:markers.results[i].content, objectId:markers.results[i].objectId});	
 
 					google.maps.event.addListener(tempmark, 'click', function(event) {
 						for(var j = 0; j < publicmarkers.length; j++){
@@ -78,8 +77,12 @@ function getMarkers(){
 								if(marker){
 									marker.setMap(null);
 								}
-								infowindow.setContent("<div id = 'pincontent'>" + publicmarkers[j].content+"</div>");
-								//todo make the content different based on whether the the owner is checking it or not, edit the pin
+								var content = "<div id = 'pincontent'> " + publicmarkers[j].content +"</div>";
+								//alert(publicmarkers[j].objectId +" == " + markerId);
+								if(publicmarkers[j].objectId == markerId){
+									content +="<form>Edit Content <INPUT TYPE='text' id='content_box'> <INPUT TYPE='button' NAME='addmarker' Value='Change Pin Content' onClick='addMarker("+publicmarkers[j].marker.getPosition().lat()+","+publicmarkers[j].marker.getPosition().lng()+ ")'></form>";
+								}
+								infowindow.setContent(content);
 								infowindow.open(map, publicmarkers[j].marker);
 							}
 						}
@@ -142,7 +145,9 @@ function changeMarker(newlat, newlong, con){
 				//alert("Changed Marker " + ajax.responseText);
 				changedMarker = eval('(' + ajax.responseText + ')');
 				infowindow.close();
-				marker.setMap(null);
+				if(marker){
+					marker.setMap(null);
+				}
 				map.panTo(new google.maps.LatLng(newlat,newlong));
 				getMarkers();
 
@@ -252,41 +257,4 @@ function editUser(user, jsonToAdd){
 	ajax.setRequestHeader("Content-Type","application/json");
 	ajax.send(JSON.stringify(jsonToAdd));
 
-}
-
-function delMarker(ID){
-	alert('deleting marker');
-			var newthing  = xmlhttp(function(){
-			if(newthing.readyState == 4){
-				alert(newthing.responseText);
-				if(newthing.responseText != ""){
-					alert("deleted " + ID);
-				}
-			}
-		});
-		newthing.open("DELETE", "https://api.parse.com/1/classes/markers/"+ID,true);
-		newthing.setRequestHeader("X-Parse-Application-Id", applicationid);
-		newthing.setRequestHeader("X-Parse-REST-API-Key", apikey);
-		newthing.send();
-}
-
-function deletealot(){
-	var ajax = xmlhttp(function(){
-		if(ajax.readyState == 4){
-			var markers = eval( "(" + ajax.responseText + ")");
-							document.getElementById("test").innerHTML += ajax.responseText;
-
-			for(var i = 0; i < markers.results.length; i++)
-			{
-				delMarker(markers.results[i].objectId, markers.results[i].owner);
-			}
-			makeMap();
-		}
-	});
-	ajax.open("GET", "https://api.parse.com/1/classes/markers",true);
-	ajax.setRequestHeader("X-Parse-Application-Id", applicationid);
-	ajax.setRequestHeader("X-Parse-REST-API-Key", apikey);
-	ajax.setRequestHeader("Content-Type","application/json");
-	ajax.send();
-	
 }
