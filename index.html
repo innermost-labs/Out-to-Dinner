@@ -1,0 +1,212 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+    <title>Out to Dinner - Sign up!</title>
+
+    <link rel="stylesheet" type="text/css" href="src/map.css" />
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCeZsLgeVOHiLdy-NZzbaXhgz6ew731SZc&sensor=false"></script>
+
+    <script type="text/javascript" src="lib/cookie/jquery.cookie.js"></script>
+
+    <script type="text/javascript" src="src/maphelper.js"></script>
+  </script>
+</head>
+
+<body onload="makeMap()">
+  <script language="javascript">
+  $(document).ready(function() {
+          if ($.cookie("otd_email")) { 
+          logInUser(($.cookie("otd_email")), registerHandler);
+          }
+  });
+    var myObjectId;
+    var mySessToken;
+
+    var onError = function(xhr, sts, err) {
+      flashMessage(err, "error");
+    }
+
+    var apiCall = function(verb, uri, headers, data, callback, error) {
+      error = error || onError;
+
+      var params = {
+        type: verb,
+        url: uri,
+        headers: headers,
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        crossDomain: true,
+        error: function (xhr, textStatus, errorThrown) {
+          error(xhr, textStatus, errorThrown);
+        },
+        success: function (data) {
+          callback(data);
+        }
+      }
+
+      $.ajax(params);
+    };
+
+    var parseApiCall = function(verb, path, data, callback, session) {
+      var headers = {
+        //TODO config object from api_keys.js
+        "X-Parse-Application-Id": "oEhx7MD4NJ9dmwOTJVYIsDtSPRwxYYlXSwm13dI3",
+        "X-Parse-REST-API-Key": "jd6bIkiEcWb89gHyQUuMYhst6d6hkWkcB3ySWzUv",
+      };
+      var uri = "https://api.parse.com/1/" + path;
+      
+      if (session) {
+        headers["X-Parse-Session-Token"] = session;
+      }
+
+      apiCall(verb, uri, headers, data, callback);
+    }
+
+    function getURLParameter(name) {
+      name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+      var regexS = "[\\?&]" + name + "=([^&#]*)";
+      var regex = new RegExp(regexS);
+      var results = regex.exec(window.location.href);
+      if (results == null) return "";
+      else return results[1];
+    }
+    
+    function registerUser(email) {
+      var dataIn = {
+        "username": email,
+        "password": "temp",
+        "email": email,
+        "markerID": null,
+        "volunteer": false,
+        "host": false,
+        "guest": false,
+      };
+
+      parseApiCall("POST", "users", dataIn, registerHandler);
+    }
+
+    function registerHandler(data) {
+      myObjectId = data.objectId;
+      mySessToken = data.sessionToken;
+      $('#email_reg').hide();
+      $('#dashboard').show();
+      makeMap(data.objectId, data.sessionToken, data.markerId);
+    }
+
+    function volunteerUserAs(type, form) {
+      var userInput = form.value
+      ,   dataIn = {}
+      ,   types = ["guest","host","awesome"]
+
+      if (types.contains(type)) {
+        dataIn[type] = type;
+      }
+      
+      parseApiCall("PUT", myObjectId, dataIn, volunteerCallback,
+      volunteerErrorCallback, mySessionToken);
+    };
+
+    var volunteerErrorCallback = function() {
+      return false;
+    }
+
+    var flashMessage = function(messageText, cssClass) {
+      var cssClass = cssClass || "info",
+          notice = "";
+
+      notice += "<p class=\"" + cssClass + "\">";
+      notice += messageText;
+      notice += "</p>";
+      $('#messages').append(notice);
+    }
+
+    function logInUser(form, callback) {
+      var usernameIn = "username=" + form.Email.value;
+      var passwordIn = "password=" + "temp";
+      var dataIn = usernameIn + "&" + passwordIn;
+
+      parseApiCall("GET", "login", dataIn, callback);
+    };
+  </script>
+  <div id="messages"></div>
+
+  <form id="volunteer">
+    <input type="image" form="volunteer" id="hostbutton" src="click1.png">
+    <input type="image" form="volunteer" id="guestbutton" src="click1.png">
+    <input type="image" form="volunteer" id="superbutton" src="click1.png">
+  </form>
+
+  <div id="email_reg">
+    <form id="email_reg_form">
+      <input required name="Email" form="email_reg_form" placeholder="Email address" type="email" />
+      <input type="submit" form="email_reg_form"/>
+    </form>
+  </div>
+
+  <div id="dashboard" style="display:none;">
+    <div id="map_canvas"></div>
+    <div id="hostguest">Want to volunteer for things?
+      <br>
+    </div>
+  </div>
+
+  <script language="javascript"> <!-- must go after the form HTML -->
+    $('#email_reg_form').submit(function(event) {
+      event.preventDefault();
+      registerUser($('#email_reg_form input[name=email]').val);
+      return false;
+    });
+
+    $('#hostbutton').click(function(event) {
+      event.preventDefault();
+      if (($('#hostbutton')).src == "off.png") {
+        ($('#hostbutton')).src = "on.png";
+      }
+      else if (($('#hostbutton')).src == "on.png") {
+        ($('#hostbutton')).src = "off.png";
+      }
+
+      volunteerUserAs("host", $('#volunteer'));
+
+      return false;
+    });
+
+    $('#guestbutton').click(function(event) {
+      event.preventDefault();
+      if (($('#guestbutton')).src == "off.png") {
+        ($('#guestbutton')).src = "on.png";
+      }
+      else if (($('#guestbutton')).src == "on.png") {
+        ($('#guestbutton')).src = "off.png";
+      }
+
+      volunteerUserAs("guest", $('#volunteer'), volunteerHandler);
+
+      return false;
+    });
+
+    $('#superbutton').click(function(event) {
+      event.preventDefault();
+      if (($('#superbutton')).src == "off.png") {
+        ($('#superbutton')).src = "on.png";
+      }
+      else if (($('#superbutton')).src == "on.png") {
+        ($('#superbutton')).src = "off.png";
+      }
+
+      volunteerUserAs("guest", $('#volunteer'), volunteerHandler);
+
+      return 
+    });
+
+  </script>
+
+</body>
+
+</html>
+
