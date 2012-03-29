@@ -78,12 +78,11 @@
       ajax.onreadystatechange = function(){
         if(ajax.readyState == 4){
           if(ajax.responseText != ""){
-              alert(" + " + ajax.responseText + " + ");
-              alert("Congratulations for registering");
+              //alert(" + " + ajax.responseText + " + ");
+              //alert("Congratulations for registering");
           }
         }
       };
-
       ajax.open("POST", "src/mailchimpsubscribe.php", true);
       ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded");
       ajax.send("email="+email+"&MERGE3="+uurl);
@@ -111,8 +110,17 @@
         "host": false,
         "guest": false,
       };
-      //need to replace with actual method for geting unique urls
+      //need to replace with actual method for geting unique urls'
+      ////////////////////////
+      ///////////////////////
+      ///////////////////////
       registerForList(email,"http://outtodinner.org/?" + 12);
+      ////////////////\/
+      ///////////////
+      //////////////
+      /////////////////
+      /////////////////
+      ////////////////
       parseApiCall("POST", "users", dataIn, registerHandler);
     }
 
@@ -171,7 +179,7 @@
 
   <div id="email_reg">
     <form id="email_reg_form">
-      <input required name="Email" form="email_reg_form" placeholder="Email address" type="email" />
+      <input id='emailfield' required name="Email" form="email_reg_form" placeholder="Email address" type="email" />
       <input type="submit" form="email_reg_form"/>
     </form>
   </div>
@@ -186,7 +194,10 @@
   <script language="javascript"> <!-- must go after the form HTML -->
     $('#email_reg_form').submit(function(event) {
       event.preventDefault();
-      registerUser($('#email_reg_form input[name=email]').val);
+      //so this doesn't produce the email? fix it
+      //FUCK YOU and your dumb jquery 
+      registerUser(document.getElementById('emailfield').value);
+      //registerUser($('#email_reg_form input[name=email]').val);
       return false;
     });
 

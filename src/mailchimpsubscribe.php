@@ -10,6 +10,7 @@ $merge_vars = array('MERGE3'=>$_POST['MERGE3']);
 $email_addr = $_POST['email'];
 
 $result =  $api->listSubscribe($listId,$email_addr, $merge_vars);
+
 /**
 echo(" | " + $result + " |");
 if($api->errorCode){
@@ -17,9 +18,9 @@ if($api->errorCode){
 	echo "\n\tCode=".$api->errorCode;
 	echo "\n\tMsg=".$api->errorMessage."\n";
 }
-**/
-return $result;
 
+return $result;
+**/
 
 ?>
 
