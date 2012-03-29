@@ -4,6 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
         <title>Test</title>
+        <link rel="stylesheet" href="css/reset.css" />
         <link rel="stylesheet" type="text/css" href="map.css" />
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCeZsLgeVOHiLdy-NZzbaXhgz6ew731SZc&sensor=false">
@@ -16,6 +17,7 @@
     </head>
     
     <body onload="makeMap()">
+<<<<<<< HEAD
         <script language="javascript">
                     var myObjectId;
                         var mySessToken;
@@ -130,15 +132,151 @@
                 })
             };
         </script>
+=======
+						<script language="javascript">
+							function getURLParameter(name) {
+								name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+								var regexS = "[\\?&]" + name + "=([^&#]*)";
+								var regex = new RegExp(regexS);
+								var results = regex.exec(window.location.href);
+								if (results == null) return "";
+								else return results[1];
+							}
+				
+							function registerHandler(data) {
+				
+								$('#email_reg').hide();
+								$('#dashboard').show();
+								makeMap(data.objectId, data.sessionToken, data.markerId);
+				
+							}
+				
+							function volunteerUser(form, callback) {
+								var thisURL = "https://api.parse.com/1/users/" + objectID;
+								var userInput = form.group1.value;
+								var superVolunteer = form.vehicle.value;
+								var dataIn = {
+									"volunteer": superVolunteer,
+									"host": (userInput == "host"),
+									"guest": (userInput == "guest")
+								};
+								$.ajax({
+									type: "PUT",
+									url: thisURL,
+									headers: {
+										"X-Parse-Application-Id": "oEhx7MD4NJ9dmwOTJVYIsDtSPRwxYYlXSwm13dI3",
+										"X-Parse-REST-API-Key": "jd6bIkiEcWb89gHyQUuMYhst6d6hkWkcB3ySWzUv",
+										"X-Parse-Session-Token": sessToken,
+									},
+									contentType: "application/json",
+									data: JSON.stringify(dataIn),
+									error: function (xhr) {
+										alert(xhr.statusText);
+									},
+									success: function (data) {
+										callback(data);
+									}
+								})
+							};
+				
+							function logInUser(form, callback) {
+								var usernameIn = "username=" + form.Email.value;
+								var passwordIn = "password=" + "temp";
+								var dataIn = usernameIn + "&" + passwordIn;
+				
+								$.ajax({
+									type: "GET",
+									url: "https://api.parse.com/1/login",
+									headers: {
+										"X-Parse-Application-Id": "oEhx7MD4NJ9dmwOTJVYIsDtSPRwxYYlXSwm13dI3",
+										"X-Parse-REST-API-Key": "jd6bIkiEcWb89gHyQUuMYhst6d6hkWkcB3ySWzUv",
+									},
+									data: dataIn,
+									contentType: "application/json",
+									error: function (xhr) {
+										alert(xhr.statusText)
+									},
+									success: function (data) {
+										console.info(data);
+										callback(data);
+									}
+								})
+							};
+				
+							function registerUser(form, callback) {
+				
+								var emailIn = form.Email.value;
+								var dataIn = {
+									"username": emailIn,
+									"password": "temp",
+									"email": emailIn,
+									"markerID": null,
+									"volunteer": false,
+									"host": false,
+									"guest": false,
+								};
+								dataIn = JSON.stringify(dataIn);
+								jQuery.ajax({
+									type: "POST",
+									url: "https://api.parse.com/1/users",
+									contentType: "application/json",
+									headers: {
+										"X-Parse-Application-Id": "oEhx7MD4NJ9dmwOTJVYIsDtSPRwxYYlXSwm13dI3",
+										"X-Parse-REST-API-Key": "jd6bIkiEcWb89gHyQUuMYhst6d6hkWkcB3ySWzUv",
+									},
+									data: dataIn,
+									crossDomain: true,
+									processData: false,
+									dataType: "json",
+									error: function (xhr) {
+										alert("Registration failed.");
+									},
+									success: function (data) {
+										console.info(data);
+										callback(data);
+									}
+								})
+							};
+						</script>
+        
+>>>>>>> many things
         <div id="email_reg">
-            <form id="email_reg_form">
-                <input required name="Email" form="email_reg_form" placeholder="Email address" type="email" />
-                <input type="submit" form="email_reg_form"/>
-            </form>
+        	<section id="main" class="cf">	
+			<section id="outter-grad" class="cf">	
+			<section id="radial-grad" class="cf">
+			<section id="main-content">
+			<a href="index.html"><img src="http://westergaard.com/outtodinner/img/out-to-dinner.png" id="logo"></a>
+            <div id="email_canvas">
+            	<form id="email_reg_form">
+                	<input required name="Email" form="email_reg_form" placeholder="Email address" type="email" />
+                	<input type="submit" form="email_reg_form"/>
+            	</form>
+            <section id="buttons2">
+            			<section id="signup" class="button2"><img src="login.png"></section>
+						<section id="signup" class="button2"><img src="http://westergaard.com/outtodinner/img/signup.png"></section>
+			</section>
+			</div>
+            </section>
+            </section>
+            </section>
+            </section>
         </div>
-        <div id="dashboard" style="display:none;">
-            <div id="map_canvas"></div>
-            <div id="hostguest">Want to volunteer for things?
+        
+
+		<div id="dashboard" style="display:none;">
+			<section id="main" class="cf">	
+			<section id="outter-grad" class="cf">	
+			<section id="radial-grad" class="cf">
+			<section id="main-content">
+			<a href="index.html"><img src="http://westergaard.com/outtodinner/img/out-to-dinner.png" id="logo"></a>
+			<div id="map_canvas"></div>
+			<section id="buttons">
+						<section id="signup" class="button"><img src="http://westergaard.com/outtodinner/img/signup.png"></section>
+						<section id="donate" class="button"><img src="http://westergaard.com/outtodinner/img/donate.png"></section>
+			</section>
+			
+    		<!-- 
+			<div id="hostguest">Want to volunteer for things?
                 <br>
                 <form id="volunteer">
                     <input type="radio" form="volunteer" name="group1" value="host">I want to host
@@ -147,19 +285,34 @@
                     <br>
                     <input type="radio" form="volunteer" name="group1" value="notsure" checked>I don't know yet
                     <br>
+<<<<<<< HEAD
                     <input type="checkbox" form="volunteer" name="vehicle" value="supervolunteer"
                     />I want to help out in other ways.
                     <br />
                     <input type="submit" form="volunteer" />
+=======
+                    <input type="checkbox" form="volunteer" name="vehicle" value="supervolunteer">I want to help out in other ways.
+                    <br>
+                    <input type="submit" form="volunteer" onclick="volunteerUser(this.form, volunteerHandler)">
+>>>>>>> many things
                 </form>
             </div>
+ 			-->
+            
+            </section>
+            </section>
+            </section>
+            </section>
         </div>
+ 
+        
     <script language="javascript"> <!-- must go after the form HTML -->
         $('#email_reg_form').submit(function(event) {
                 event.preventDefault();
                 registerUser(document.getElementById('email_reg_form'), registerHandler);
                 return false;
         });
+<<<<<<< HEAD
         
         $('#volunteer').submit(function(event) {
                 event.preventDefault();
@@ -179,7 +332,9 @@
         });
         
         </script>
+=======
+    </script>    
+>>>>>>> many things
     
     </body>
-
 </html>
