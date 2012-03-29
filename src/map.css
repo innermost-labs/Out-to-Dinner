@@ -1,15 +1,232 @@
-html { 
-  height: 100%;
-}
+html
 
-body { 
-  height: 100%;
-  margin: 0; 
-  padding: 0;
-}
+ { height: 100% }
 
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0
+	}
+ 
 #map_canvas {
-  height: 80%;
-  width: 80%;
-  margin: 2%;
+	max-height:650px;
+	max-width:1280px;
+	height:100%;
+	width:100%;
+	margin-left: auto;
+    margin-right: auto;
+	}
+
+#email_canvas {
+	text-align: center;
+	max-height:750px;
+	max-width:640px;
+	height:100%;
+	width:100%;
+	margin-left: auto;
+    margin-right: auto;
+	}
+	
+#test {
+	padding-top: 10%;
+	}
+
+#main {
+	background:#aeb0b3;
+	}
+
+#outter-grad {
+	background:url('http://westergaard.com/outtodinner/img/grad-slice.jpg');
+	background-repeat:repeat-x;
+	}
+
+#radial-grad {
+	background:url('http://westergaard.com/outtodinner/img/gradient.jpg');
+	background-repeat:no-repeat;
+	background-position:top center;
+	}
+	
+#main-content {
+	margin:0 20px;
+	}
+	
+#logo {
+	display:block;
+	margin:0 auto;
+	max-width:260px;
+	width:75%;
+	padding:18px 0;
+	}	
+	
+#video-wrapper {
+	width: 1280px;
+	max-width: 100%;
+	margin:0 auto;
+}
+	
+#video {
+	position: relative;
+	padding-bottom: 56.25%;
+	padding-top: 30px;
+	height: 0;
+	overflow: hidden;
+	}
+	
+#video iframe,  
+#video object,  
+#video embed {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#buttons {
+	width: 1280px;
+	max-width: 100%;
+	margin:0 auto;
+	}
+
+.notbutton {
+	background:#666666;
+	border-radius:7px;
+	width:100%;
+	text-align:center;
+	margin:10px 0;
+	}
+	
+
+.button {
+	background:#9A5BA3;
+	border-radius:7px;
+	width:100%;
+	text-align:center;
+	margin:30px 0;
+	}
+	
+.button:hover {
+	background:#6E3A77;
+	cursor:pointer;
+	}
+
+.button2 {
+	background:#9A5BA3;
+	border-radius:7px;
+	width:100%;
+	text-align:center;
+	margin:10px 0;
+	}
+
+.button3 {
+	background:#9A5BA3;
+	border-radius:7px;
+	width:100%;
+	padding:25px 0px;
+	text-align:center;
+	margin:10px 0;
+	}
+
+.button2:hover {
+	background:#6E3A77;
+	cursor:pointer;
+	}
+
+.button3:hover {
+	background:#6E3A77;
+	cursor:pointer;
+	}
+
+#signup {
+	float:left;
+	}
+
+#login {
+	float:center;
+	}
+	
+#donate {
+	float:right;
+	display:none;
+	}
+	
+#signup img {
+	max-width:101px;
+	margin:25px 0;
+	}
+	
+#donate img {
+	max-width:98px;
+	margin:25px 0;
+	}
+
+#login img {
+	max-width:70px;
+	margin:10px 0;
+	}
+
+#socials	{
+	width:220px;
+	height:70px;
+	margin:30px auto;
+	}
+	
+.soc {
+	float:left;
+	}	
+
+.twit {
+	width:56px;
+	margin:0 10px;
+	}
+	
+.fb {
+	width:50px;
+	margin:0 10px;
+	}	
+	
+.plus {
+	width:50px;
+	margin:0 10px;
+	}
+	
+#footer {
+	text-align:center;
+	width:100%;
+	}
+	
+#footer p {
+	font-family:Helvetica;
+	color:#97999c;
+	font-size:12px;
+	padding:10px 10px 20px;
+	
+	}
+	
+#footer a {
+	color:#9A5BA3;
+	font-size:15px;
+	padding:10px 10px 20px;
+	}
+	
+#footcopy {
+	}
+	
+#footnav {
+	}
+	
+/* For modern browsers */
+.cf:before,
+.cf:after {
+    content:"";
+    display:table;
+}
+
+.cf:after {
+    clear:both;
+}
+
+/* For IE 6/7 (trigger hasLayout) */
+.cf {
+    zoom:1;
 }
