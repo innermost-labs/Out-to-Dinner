@@ -78,13 +78,14 @@
       ajax.onreadystatechange = function(){
         if(ajax.readyState == 4){
           if(ajax.responseText != ""){
-              alert(ajax.responseText);
+              alert(" + " + ajax.responseText + " + ");
               alert("Congratulations for registering");
           }
         }
       };
 
       ajax.open("POST", "src/mailchimpsubscribe.php", true);
+      ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded");
       ajax.send("email="+email+"&MERGE3="+uurl);
 
     }
@@ -110,8 +111,8 @@
         "host": false,
         "guest": false,
       };
-
-      registerForList(email,"http://outtodinner.org/" + getURLParameter(email));
+      //need to replace with actual method for geting unique urls
+      registerForList(email,"http://outtodinner.org/?" + 12);
       parseApiCall("POST", "users", dataIn, registerHandler);
     }
 
