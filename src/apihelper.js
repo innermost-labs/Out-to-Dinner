@@ -42,7 +42,7 @@ var parseApiCall = function(verb, path, data, callback, session) {
 
 // registers the user for the email list, and gives them a unique URL.
 var registerForList = function(email, uurl){
-  var dataIn = $.params({email:email, MERGE3:uurl});
+  var dataIn = $.param({email:email, MERGE3:uurl});
   apiCall("POST", 
     "src/mailchimpsubscribe.php", 
     {"Content-type":"application/x-www-form-urlencoded"},
