@@ -82,13 +82,13 @@
     <section id="buttons">
     <div style="text-align: center;">
       <form id="volunteer">
-        <span id="host">
+        <span id="host" class="button3">
           <input type="image" id="hostbutton" src="src/host.png" width="101" alt="submit" name="submit" value="submit" form="volunteer"/>
         </span>
-        <span id="guest">
+        <span id="guest" class="button3">
           <input type="image" id="guestbotton" src="src/guest.png" width="101" alt="submit" name="submit" value="submit" form="volunteer"/>
         </span>
-        <span id="super">
+        <span id="super" class="button3">
           <input type="image" id="superbutton" src="src/volunteer.png" height="25" alt="submit" name="submit" value="submit" form="volunteer"/>
         </span>
         <!-- 
@@ -171,21 +171,17 @@
 
     $('#volunteer input').click(function(event) {
       event.preventDefault();
-      debugger
       volunteerUserAs(this.id, $('#volunteer'));
       return false;
     });
-
-    $('#imgbutton').click(function(event) {
-      event.preventDefault();
-      if ((document.getElementById('imgbutton')).src == "off.png") {
-        (document.getElementById('imgbutton')).src = "on.png";
-      }
-      else if ((document.getElementById('imgbutton')).src == "on.png") {
-        (document.getElementById('imgbutton')).src = "off.png";
-      }
-      return false;
-    });
+	
+	$('.button3').toggle(function() {
+				$(this).css({"background-color":"#6E3A77"});
+			},
+			function () {
+				$(this).css({"background-color":"#9A5BA3"});
+			}
+	);
 
   </script>
 

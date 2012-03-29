@@ -137,18 +137,6 @@ body {
 	margin:10px 0;
 	}
 
-.button3 {
-	background:#9A5BA3;
-	border-radius:7px;
-	width:20%;
-	padding:25px 0px;
-	text-align:center;
-	margin-top:10px;
-	margin-left:50px;
-	margin-right:50px;
-	/*margin:10px 0;*/
-	}
-
 .button2:hover {
 	background:#6E3A77;
 	cursor:pointer;
