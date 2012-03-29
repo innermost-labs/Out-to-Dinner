@@ -66,7 +66,31 @@
 
       apiCall(verb, uri, headers, data, callback);
     }
+    //++++++++++++++++++++++++++++>>>>>
+    //ostensibly registers the user for the email list, and gives them a unique URL. doing it in javascript, but someone might want to do it in jquery
+    function registerForList(email, uurl){
+      var ajax;
+      try{
+        ajax = new XMLHttpRequest();
+      }catch(e){
+        return e;
+      }
+      ajax.onreadystatechange = function(){
+        if(ajax.readyState == 4){
+          if(ajax.responseText != ""){
+              alert(ajax.responseText);
+              alert("Congratulations for registering");
+          }
+        }
+      };
 
+      ajax.open("POST", "src/mailchimpsubscribe.php", true);
+      ajax.send("email="+email+"&MERGE3="+uurl);
+
+    }
+    //<<<<<++++++++++++++++++++++++++++++++++++
+
+    //how do I use this to get the Unique URL?, nate
     function getURLParameter(name) {
       name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
       var regexS = "[\\?&]" + name + "=([^&#]*)";
@@ -87,6 +111,7 @@
         "guest": false,
       };
 
+      registerForList(email,"http://outtodinner.org/" + getURLParameter(email));
       parseApiCall("POST", "users", dataIn, registerHandler);
     }
 
@@ -96,6 +121,7 @@
       $('#email_reg').hide();
       $('#dashboard').show();
       makeMap(data.objectId, data.sessionToken, data.markerId);
+      
     }
 
     function volunteerUserAs(type, form) {
@@ -110,6 +136,7 @@
       parseApiCall("PUT", myObjectId, dataIn, volunteerCallback,
       volunteerErrorCallback, mySessionToken);
     };
+
 
     var volunteerErrorCallback = function() {
       return false;
