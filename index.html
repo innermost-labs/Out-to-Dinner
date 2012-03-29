@@ -30,6 +30,8 @@
 
   <div id="email_reg">
     <form id="email_reg_form">
+      <input id='firstfield' required name="First" form="email_reg_form"
+      placeholder="First name" type="text" />
       <input id='emailfield' required name="Email" form="email_reg_form" placeholder="Email address" type="email" />
       <input type="submit" form="email_reg_form"/>
     </form>
@@ -45,12 +47,16 @@
   <script language="javascript"> <!-- must go after the form HTML -->
     $('#email_reg_form').submit(function(event) {
       event.preventDefault();
-      registerUser(document.getElementById('emailfield').value);
+      var first = $(this).find("input[name=First]")[0].value
+      ,   email = $(this).find("input[name=Email]")[0].value;
+
+      registerUser({email:email, first:first});
       return false;
     });
 
     $('#volunteer input').click(function(event) {
       event.preventDefault();
+      debugger
       if (this.src == "off.png") {
         this.src = "on.png";
       } else {
@@ -58,34 +64,6 @@
       }
       volunteerUserAs(this.id, $('#volunteer'));
       return false;
-    });
-
-    $('#guestbutton').click(function(event) {
-      event.preventDefault();
-      if (($('#guestbutton')).src == "off.png") {
-        ($('#guestbutton')).src = "on.png";
-      }
-      else if (($('#guestbutton')).src == "on.png") {
-        ($('#guestbutton')).src = "off.png";
-      }
-
-      volunteerUserAs("guest", $('#volunteer'), volunteerHandler);
-
-      return false;
-    });
-
-    $('#superbutton').click(function(event) {
-      event.preventDefault();
-      if (($('#superbutton')).src == "off.png") {
-        ($('#superbutton')).src = "on.png";
-      }
-      else if (($('#superbutton')).src == "on.png") {
-        ($('#superbutton')).src = "off.png";
-      }
-
-      volunteerUserAs("guest", $('#volunteer'), volunteerHandler);
-
-      return 
     });
 
   </script>

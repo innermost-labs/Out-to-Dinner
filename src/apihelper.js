@@ -53,11 +53,12 @@ var registerForList = function(email, uurl){
     onError);
 };
 
-var registerUser = function(email) {
+var registerUser = function(user) {
   var dataIn = {
-    "username": email,
+    "username": user.email,
+    "first_name": user.first,
     "password": "temp",
-    "email": email,
+    "email": user.email,
     "markerID": null,
     "volunteer": false,
     "host": false,
@@ -95,7 +96,7 @@ var volunteerUserAs = function(type, form) {
   ,   dataIn = {}
   ,   types = ["guest","host","awesome"]
 
-  if (types.contains(type)) {
+  if (types.indexOf(type)) {
     dataIn[type] = type;
   }
 
