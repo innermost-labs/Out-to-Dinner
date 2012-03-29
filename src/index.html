@@ -17,6 +17,9 @@
     
     <body onload="makeMap()">
         <script language="javascript">
+                    var myObjectId;
+                        var mySessToken;
+                        
             function getURLParameter(name) {
                 name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
                 var regexS = "[\\?&]" + name + "=([^&#]*)";
@@ -27,19 +30,25 @@
             }
 
             function registerHandler(data) {
-
+                            myObjectId = data.objectId;
+                                mySessToken = data.sessionToken;
                 $('#email_reg').hide();
                 $('#dashboard').show();
                 makeMap(data.objectId, data.sessionToken, data.markerId);
 
             }
 
+
+                        function volunteerHandler() {
+                                
+                        };
+
             function volunteerUser(form, callback) {
-                var thisURL = "https://api.parse.com/1/users/" + objectID;
+                var thisURL = "https://api.parse.com/1/users/" + myObjectId;
                 var userInput = form.group1.value;
                 var superVolunteer = form.vehicle.value;
                 var dataIn = {
-                    "volunteer": superVolunteer,
+                    "volunteer": (superVolunteer == "supervolunteer"),
                     "host": (userInput == "host"),
                     "guest": (userInput == "guest")
                 };
@@ -49,7 +58,7 @@
                     headers: {
                         "X-Parse-Application-Id": "oEhx7MD4NJ9dmwOTJVYIsDtSPRwxYYlXSwm13dI3",
                         "X-Parse-REST-API-Key": "jd6bIkiEcWb89gHyQUuMYhst6d6hkWkcB3ySWzUv",
-                        "X-Parse-Session-Token": sessToken,
+                        "X-Parse-Session-Token": mySessToken,
                     },
                     contentType: "application/json",
                     data: JSON.stringify(dataIn),
@@ -57,7 +66,7 @@
                         alert(xhr.statusText);
                     },
                     success: function (data) {
-                        callback(data);
+                        console.info(data);//callback(data);
                     }
                 })
             };
@@ -141,8 +150,7 @@
                     <input type="checkbox" form="volunteer" name="vehicle" value="supervolunteer"
                     />I want to help out in other ways.
                     <br />
-                    <input type="submit" form="volunteer" onclick="volunteerUser(this.form, volunteerHandler)"
-                    />
+                    <input type="submit" form="volunteer" />
                 </form>
             </div>
         </div>
@@ -152,7 +160,26 @@
                 registerUser(document.getElementById('email_reg_form'), registerHandler);
                 return false;
         });
+        
+        $('#volunteer').submit(function(event) {
+                event.preventDefault();
+                volunteerUser(document.getElementById('volunteer'), volunteerHandler);
+                return false;
+        });
+        
+        $('#imgbutton').click(function(event) {
+                event.preventDefault();
+                if ((document.getElementById('imgbutton')).src == "off.png") {
+                        (document.getElementById('imgbutton')).src = "on.png";
+                }
+                else if ((document.getElementById('imgbutton')).src == "on.png") {
+                        (document.getElementById('imgbutton')).src = "off.png";
+                }
+                return false;
+        });
+        
         </script>
+    
     </body>
 
 </html>
