@@ -17,7 +17,7 @@
     </head>
     
     <body onload="makeMap()">
-<<<<<<< HEAD
+
         <script language="javascript">
                     var myObjectId;
                         var mySessToken;
@@ -132,7 +132,7 @@
                 })
             };
         </script>
-=======
+
 						<script language="javascript">
 							function getURLParameter(name) {
 								name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
@@ -239,22 +239,39 @@
 							};
 						</script>
         
->>>>>>> many things
+
         <div id="email_reg">
-        	<section id="main" class="cf">	
+			<section id="main" class="cf">	
 			<section id="outter-grad" class="cf">	
 			<section id="radial-grad" class="cf">
 			<section id="main-content">
 			<a href="index.html"><img src="http://westergaard.com/outtodinner/img/out-to-dinner.png" id="logo"></a>
             <div id="email_canvas">
+            	<section id="test">
+				<section id="buttons">
+					<section id="signup" class="notbutton"><img src="email.png"></section>
+					<!-- 
+					<section id="login" class="notbutton"><img src="password.png"></section>
+					<section id="login" class="notbutton"><img src="forgotp.png"></section>
+ 					-->
+				</section>
             	<form id="email_reg_form">
-                	<input required name="Email" form="email_reg_form" placeholder="Email address" type="email" />
-                	<input type="submit" form="email_reg_form"/>
+                	<input required name="Email" form="email_reg_form" placeholder=" e-mail address" type="email" style="font-family: Verdna; font-size: 40px; width:100%"/>
+                	<br>
+                	<div id="buttons">
+                	<section id="signup" class="button3">
+                	<input type="image" src="http://westergaard.com/outtodinner/img/signup.png" width="101" alt="submit" name="submit" value="submit" form="email_reg_form"/>
+                	<!-- <input type="submit" form="email_reg_form"/> -->
+                	</section>
+                	</div>
             	</form>
-            <section id="buttons2">
+            	</section>
+			<!-- 
+            <section id="buttons">
             			<section id="signup" class="button2"><img src="login.png"></section>
 						<section id="signup" class="button2"><img src="http://westergaard.com/outtodinner/img/signup.png"></section>
 			</section>
+ 			-->
 			</div>
             </section>
             </section>
@@ -269,36 +286,54 @@
 			<section id="radial-grad" class="cf">
 			<section id="main-content">
 			<a href="index.html"><img src="http://westergaard.com/outtodinner/img/out-to-dinner.png" id="logo"></a>
+			<section id="buttons">
+				<div style="text-align: center;"><p>Click the location of your event to place your pin on the map
+				<br>Press 'Save' to save your location
+				<br>Share your thoughts with the Out to Dinner community
+				<br>To change your location, click a new location and press 'Save'</p></div>
+			</section>
 			<div id="map_canvas"></div>
 			<section id="buttons">
-						<section id="signup" class="button"><img src="http://westergaard.com/outtodinner/img/signup.png"></section>
-						<section id="donate" class="button"><img src="http://westergaard.com/outtodinner/img/donate.png"></section>
+				<div style="margin-left: auto; margin-right: auto; text-align: center;">
+				<form id="volunteer">
+					<span id="signup" class="button3">
+                	<input type="image" id="hostbutton" src="host.png" width="101" alt="submit" name="submit" value="submit" form="volunteer"/>
+                	</span>
+                	<span id="signup" class="button3">
+                	<input type="image" id="guestbotton" src="guest.png" width="101" alt="submit" name="submit" value="submit" form="volunteer"/>
+                	</span>
+                	<span id="signup" class="button3">
+                	<input type="image" id="superbutton" src="volunteer.png" height="25" alt="submit" name="submit" value="submit" form="volunteer"/>
+                	</span>
+			    	<!-- 
+					<input type="image" form="volunteer" id="hostbutton" src="click1.png">
+			    	<input type="image" form="volunteer" id="guestbutton" src="click1.png">
+			    	<input type="image" form="volunteer" id="superbutton" src="click1.png">
+ 					-->
+				</form>
+				</div>
 			</section>
+			<section id="buttons">
+						<section id="signup" class="button2"><img src="http://westergaard.com/outtodinner/img/signup.png"></section>
+						<section id="donate" class="button2"><img src="http://westergaard.com/outtodinner/img/donate.png"></section>
+			</section>
+			<br>
 			
-    		<!-- 
-			<div id="hostguest">Want to volunteer for things?
+			<!-- 
+			<div id="hostguest">Are you signing up to:
                 <br>
                 <form id="volunteer">
-                    <input type="radio" form="volunteer" name="group1" value="host">I want to host
+                    <input type="radio" form="volunteer" name="group1" value="host">Host an event
                     <br>
-                    <input type="radio" form="volunteer" name="group1" value="guest">I want to be a guest
+                    <input type="radio" form="volunteer" name="group1" value="guest">Attend an event
                     <br>
-                    <input type="radio" form="volunteer" name="group1" value="notsure" checked>I don't know yet
-                    <br>
-<<<<<<< HEAD
-                    <input type="checkbox" form="volunteer" name="vehicle" value="supervolunteer"
-                    />I want to help out in other ways.
-                    <br />
-                    <input type="submit" form="volunteer" />
-=======
-                    <input type="checkbox" form="volunteer" name="vehicle" value="supervolunteer">I want to help out in other ways.
+                    <input type="checkbox" form="volunteer" name="vehicle" value="supervolunteer">Become a media volunteer
                     <br>
                     <input type="submit" form="volunteer" onclick="volunteerUser(this.form, volunteerHandler)">
->>>>>>> many things
                 </form>
             </div>
- 			-->
-            
+			 -->
+
             </section>
             </section>
             </section>
@@ -312,7 +347,6 @@
                 registerUser(document.getElementById('email_reg_form'), registerHandler);
                 return false;
         });
-<<<<<<< HEAD
         
         $('#volunteer').submit(function(event) {
                 event.preventDefault();
@@ -332,9 +366,7 @@
         });
         
         </script>
-=======
-    </script>    
->>>>>>> many things
+		</script>    
     
     </body>
 </html>

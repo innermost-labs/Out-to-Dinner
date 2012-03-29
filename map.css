@@ -9,7 +9,7 @@ body {
 	}
  
 #map_canvas {
-	max-height:750px;
+	max-height:650px;
 	max-width:1280px;
 	height:100%;
 	width:100%;
@@ -25,6 +25,10 @@ body {
 	width:100%;
 	margin-left: auto;
     margin-right: auto;
+	}
+	
+#test {
+	padding-top: 10%;
 	}
 
 #main {
@@ -84,6 +88,15 @@ body {
 	margin:0 auto;
 	}
 
+.notbutton {
+	background:#666666;
+	border-radius:7px;
+	width:100%;
+	text-align:center;
+	margin:10px 0;
+	}
+	
+
 .button {
 	background:#9A5BA3;
 	border-radius:7px;
@@ -105,7 +118,21 @@ body {
 	margin:10px 0;
 	}
 
+.button3 {
+	background:#9A5BA3;
+	border-radius:7px;
+	width:100%;
+	padding:25px 0px;
+	text-align:center;
+	margin:10px 0;
+	}
+
 .button2:hover {
+	background:#6E3A77;
+	cursor:pointer;
+	}
+
+.button3:hover {
 	background:#6E3A77;
 	cursor:pointer;
 	}
@@ -115,7 +142,7 @@ body {
 	}
 
 #login {
-	float:left;
+	float:center;
 	}
 	
 #donate {
@@ -131,6 +158,11 @@ body {
 #donate img {
 	max-width:98px;
 	margin:25px 0;
+	}
+
+#login img {
+	max-width:70px;
+	margin:10px 0;
 	}
 
 #socials	{
