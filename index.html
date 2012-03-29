@@ -191,10 +191,7 @@
   <script language="javascript"> <!-- must go after the form HTML -->
     $('#email_reg_form').submit(function(event) {
       event.preventDefault();
-      //so this doesn't produce the email? fix it
-      //FUCK YOU and your dumb jquery 
       registerUser(document.getElementById('emailfield').value);
-      //registerUser($('#email_reg_form input[name=email]').val);
       return false;
     });
 
