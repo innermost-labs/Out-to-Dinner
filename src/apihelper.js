@@ -102,8 +102,9 @@ var volunteerUserAs = function(type, form) {
   volunteerErrorCallback, mySessionToken);
 };
 
-var volunteerCallback = function() {
-  return true;
+var volunteerCallback = function(data) {
+  //TODO toggle button based on choice
+  //TODO show flash message based on choice
 }
 
 var volunteerErrorCallback = function() {
