@@ -81,11 +81,13 @@
     function registerForList(email, uurl){
       var dataIn = $.params({email:email, MERGE3:uurl});
       apiCall("POST", 
-      "src/mailchimpsubscribe.php", 
-      {"Content-type":"application/x-www-form-urlencoded"},
-      dataIn, 
-      function(data) { alert("You have been registered for our list!"); },
-      onError);
+        "src/mailchimpsubscribe.php", 
+        {"Content-type":"application/x-www-form-urlencoded"},
+        dataIn, 
+        function(data) { 
+          flashMessage("Thank you for signing up!");
+        },
+        onError);
     }
 
     function getURLParameter(name) {
