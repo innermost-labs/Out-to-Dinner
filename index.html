@@ -108,7 +108,7 @@
       $('#email_reg').hide();
       $('#dashboard').show();
       makeMap(data.objectId, data.sessionToken, data.markerId);
-      registerForList(email, "http://outtodinner.org/?" + myObjectId);
+      registerForList(email, "http://outtodinner.org/?u=" + myObjectId);
     }
 
     function volunteerUserAs(type, form) {
