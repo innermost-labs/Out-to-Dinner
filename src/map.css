@@ -132,6 +132,7 @@ body {
 	background:#9A5BA3;
 	border-radius:7px;
 	width:100%;
+	padding:25px 0px;
 	text-align:center;
 	margin:10px 0;
 	}
@@ -139,10 +140,13 @@ body {
 .button3 {
 	background:#9A5BA3;
 	border-radius:7px;
-	width:100%;
+	width:20%;
 	padding:25px 0px;
 	text-align:center;
-	margin:10px 0;
+	margin-top:10px;
+	margin-left:50px;
+	margin-right:50px;
+	/*margin:10px 0;*/
 	}
 
 .button2:hover {
@@ -154,6 +158,45 @@ body {
 	background:#6E3A77;
 	cursor:pointer;
 	}
+
+#guest {
+	float:left;
+	background:#9A5BA3;
+	border-radius:7px;
+	width:20%;
+	padding-top:20px;
+	padding-bottom:20px;
+	text-align:center;
+	margin-top:10px;
+	margin-left:100px;
+	margin-right:100px;
+}
+
+#host {
+	float:left;
+background:#9A5BA3;
+	border-radius:7px;
+	width:20%;
+	padding-top:20px;
+	padding-bottom:20px;
+	text-align:center;
+	margin-top:10px;
+	margin-left:100px;
+	margin-right:50px;	
+}
+
+#super {
+	float:left;
+	background:#9A5BA3;
+	border-radius:7px;
+	width:20%;
+	padding-top:20px;
+	padding-bottom:20px;
+	text-align:center;
+	margin-top:10px;
+	margin-left:100px;
+	margin-right:50px;
+}
 
 #signup {
 	float:left;
