@@ -11,7 +11,7 @@ body {
 #map_canvas {
 	max-height:650px;
 	max-width:1280px;
-	height:100%;
+	height:50%;
 	width:100%;
 	margin-left: auto;
     margin-right: auto;
