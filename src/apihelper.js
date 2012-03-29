@@ -20,8 +20,6 @@ var apiCall = function(verb, uri, headers, data, callback, error) {
              }
   }
 
-  debugger
-
   $.ajax(params);
 };
 
