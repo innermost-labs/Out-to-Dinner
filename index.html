@@ -71,6 +71,7 @@
     <section id="outter-grad" class="cf">	
     <section id="radial-grad" class="cf">
     <section id="main-content">
+
     <a href="index.html"><img src="http://westergaard.com/outtodinner/img/out-to-dinner.png" id="logo"></a>
     <section id="buttons">
     <div style="text-align: center;"><p>Click the location of your event to place your pin on the map
@@ -131,7 +132,6 @@
       event.preventDefault();
       var first = $(this).find("input[name=First]")[0].value
       ,   email = $(this).find("input[name=Email]")[0].value;
-
       registerUser({email:email, first:first});
       return false;
     });
