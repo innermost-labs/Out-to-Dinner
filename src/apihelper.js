@@ -103,6 +103,9 @@ var volunteerUserAs = function(type, form) {
   volunteerErrorCallback, mySessionToken);
 };
 
+var volunteerCallback = function() {
+  return true;
+}
 
 var volunteerErrorCallback = function() {
   alert("Sorry, something went wrong...");

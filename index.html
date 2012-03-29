@@ -23,9 +23,9 @@
   <div id="messages"></div>
 
   <form id="volunteer">
-    <input type="image" form="volunteer" id="hostbutton" src="click1.png">
-    <input type="image" form="volunteer" id="guestbutton" src="click1.png">
-    <input type="image" form="volunteer" id="superbutton" src="click1.png">
+    <input type="image" id="host" src="click1.png">
+    <input type="image" id="guest" src="click1.png">
+    <input type="image" id="super" src="click1.png">
   </form>
 
   <div id="email_reg">
@@ -49,17 +49,14 @@
       return false;
     });
 
-    $('#hostbutton').click(function(event) {
+    $('#volunteer input').click(function(event) {
       event.preventDefault();
-      if (($('#hostbutton')).src == "off.png") {
-        ($('#hostbutton')).src = "on.png";
+      if (this.src == "off.png") {
+        this.src = "on.png";
+      } else {
+        this.src = "off.png";
       }
-      else if (($('#hostbutton')).src == "on.png") {
-        ($('#hostbutton')).src = "off.png";
-      }
-
-      volunteerUserAs("host", $('#volunteer'));
-
+      volunteerUserAs(this.id, $('#volunteer'));
       return false;
     });
 
