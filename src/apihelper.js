@@ -4,7 +4,7 @@ var onError = function(xhr, sts, err) {
 
 var apiCall = function(verb, uri, headers, data, callback, error) {
   error = error || onError;
-
+  alert("DATA: " + data)
   var params = {
     type: verb,
     url: uri,
@@ -64,6 +64,7 @@ var registerUser = function(user) {
     "host": false,
     "guest": false,
   };
+
   parseApiCall("POST", "users", dataIn, registerHandler);
 }
 
@@ -86,6 +87,7 @@ var registerHandler = function(data) {
 
   // this needs to set cookies
   // $.cookie("otd_email", ...
+  alert("HELLO");
   registerForList(email, "http://outtodinner.org/?u=" + myObjectId);
 
   showMap(data);

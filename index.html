@@ -49,7 +49,7 @@
       event.preventDefault();
       var first = $(this).find("input[name=First]")[0].value
       ,   email = $(this).find("input[name=Email]")[0].value;
-
+      alert(first + " " + email);
       registerUser({email:email, first:first});
       return false;
     });
