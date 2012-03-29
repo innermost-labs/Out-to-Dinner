@@ -13,19 +13,29 @@
 
     <script type="text/javascript" src="lib/cookie/jquery.cookie.js"></script>
 
+    <script type="text/javascript" src="src/apihelper.js"></script>
     <script type="text/javascript" src="src/maphelper.js"></script>
   </script>
 </head>
 
 <body onload="makeMap()">
   <script language="javascript">
+    // Keep our user information around
+    var myObjectId;
+    ,   mySessToken;
+
     $(document).ready(function() {
-      if ($.cookie("otd_email")) { 
-        logInUser(($.cookie("otd_email")), registerHandler);
+      var emailCookie = $.cookie("otd_email")
+      ,   userParam   = getUrlParameter("u")
+      ,   mapToggle   = getUrlParameter("map");
+
+      // Login the user if cookie or urlparam
+      if (emailCookie) { 
+        logInUser(emailCookie);
+      } else if (userParam) {
+        logInUser(emailFromId(userParam));
       }
     });
-    var myObjectId;
-    var mySessToken;
 
     var onError = function(xhr, sts, err) {
       flashMessage(err, "error");
@@ -100,6 +110,16 @@
       parseApiCall("POST", "users", dataIn, registerHandler);
     }
 
+    function getEmailFromId(objectId) {
+      var email = false;
+
+      parseApiCall("GET", "users/" + objectId, {}, function(data) {
+        email = data.email;
+      });
+
+      return email;
+    }
+
     function registerHandler(data) {
       // this needs to set cookies
       // $.cookie("otd_email", ...
@@ -117,19 +137,19 @@
       ,   types = ["guest","host","awesome"]
 
       if (types.contains(type)) {
-      dataIn[type] = type;
+        dataIn[type] = type;
       }
 
       parseApiCall("PUT", myObjectId, dataIn, volunteerCallback,
       volunteerErrorCallback, mySessionToken);
-      };
+    };
 
 
-      var volunteerErrorCallback = function() {
+    var volunteerErrorCallback = function() {
       alert("Sorry, something went wrong...");
-      }
+    }
 
-      var flashMessage = function(messageText, cssClass) {
+    var flashMessage = function(messageText, cssClass) {
       var cssClass = cssClass || "info",
       notice = "";
 
@@ -137,93 +157,92 @@
       notice += messageText;
       notice += "</p>";
       $('#messages').append(notice);
+    }
+
+    function logInUser(email) {
+      var dataIn = $.param({username:email, password:"temp"});
+      parseApiCall("GET", "login", dataIn, function(data) {
+        //TODO SHOW MAP ON LOGIN
+      });
+    };
+  </script>
+  <div id="messages"></div>
+
+  <form id="volunteer">
+    <input type="image" form="volunteer" id="hostbutton" src="click1.png">
+    <input type="image" form="volunteer" id="guestbutton" src="click1.png">
+    <input type="image" form="volunteer" id="superbutton" src="click1.png">
+  </form>
+
+  <div id="email_reg">
+    <form id="email_reg_form">
+      <input id='emailfield' required name="Email" form="email_reg_form" placeholder="Email address" type="email" />
+      <input type="submit" form="email_reg_form"/>
+    </form>
+  </div>
+
+  <div id="dashboard" style="display:none;">
+    <div id="map_canvas"></div>
+    <div id="hostguest">Want to volunteer for things?
+      <br>
+    </div>
+  </div>
+
+  <script language="javascript"> <!-- must go after the form HTML -->
+    $('#email_reg_form').submit(function(event) {
+      event.preventDefault();
+      //so this doesn't produce the email? fix it
+      //FUCK YOU and your dumb jquery 
+      registerUser(document.getElementById('emailfield').value);
+      //registerUser($('#email_reg_form input[name=email]').val);
+      return false;
+    });
+
+    $('#hostbutton').click(function(event) {
+      event.preventDefault();
+      if (($('#hostbutton')).src == "off.png") {
+        ($('#hostbutton')).src = "on.png";
+      }
+      else if (($('#hostbutton')).src == "on.png") {
+        ($('#hostbutton')).src = "off.png";
       }
 
-      function logInUser(form, callback) {
-      var usernameIn = "username=" + form.Email.value;
-      var passwordIn = "password=" + "temp";
-      var dataIn = usernameIn + "&" + passwordIn;
+      volunteerUserAs("host", $('#volunteer'));
 
-      parseApiCall("GET", "login", dataIn, callback);
-      };
-    </script>
-    <div id="messages"></div>
+      return false;
+    });
 
-    <form id="volunteer">
-      <input type="image" form="volunteer" id="hostbutton" src="click1.png">
-      <input type="image" form="volunteer" id="guestbutton" src="click1.png">
-      <input type="image" form="volunteer" id="superbutton" src="click1.png">
-    </form>
+    $('#guestbutton').click(function(event) {
+      event.preventDefault();
+      if (($('#guestbutton')).src == "off.png") {
+        ($('#guestbutton')).src = "on.png";
+      }
+      else if (($('#guestbutton')).src == "on.png") {
+        ($('#guestbutton')).src = "off.png";
+      }
 
-    <div id="email_reg">
-      <form id="email_reg_form">
-        <input id='emailfield' required name="Email" form="email_reg_form" placeholder="Email address" type="email" />
-        <input type="submit" form="email_reg_form"/>
-      </form>
-    </div>
+      volunteerUserAs("guest", $('#volunteer'), volunteerHandler);
 
-    <div id="dashboard" style="display:none;">
-      <div id="map_canvas"></div>
-      <div id="hostguest">Want to volunteer for things?
-        <br>
-      </div>
-    </div>
+      return false;
+    });
 
-    <script language="javascript"> <!-- must go after the form HTML -->
-      $('#email_reg_form').submit(function(event) {
-        event.preventDefault();
-        //so this doesn't produce the email? fix it
-        //FUCK YOU and your dumb jquery 
-        registerUser(document.getElementById('emailfield').value);
-        //registerUser($('#email_reg_form input[name=email]').val);
-        return false;
-      });
+    $('#superbutton').click(function(event) {
+      event.preventDefault();
+      if (($('#superbutton')).src == "off.png") {
+        ($('#superbutton')).src = "on.png";
+      }
+      else if (($('#superbutton')).src == "on.png") {
+        ($('#superbutton')).src = "off.png";
+      }
 
-      $('#hostbutton').click(function(event) {
-        event.preventDefault();
-        if (($('#hostbutton')).src == "off.png") {
-          ($('#hostbutton')).src = "on.png";
-        }
-        else if (($('#hostbutton')).src == "on.png") {
-          ($('#hostbutton')).src = "off.png";
-        }
+      volunteerUserAs("guest", $('#volunteer'), volunteerHandler);
 
-        volunteerUserAs("host", $('#volunteer'));
+      return 
+    });
 
-        return false;
-      });
+  </script>
 
-      $('#guestbutton').click(function(event) {
-        event.preventDefault();
-        if (($('#guestbutton')).src == "off.png") {
-          ($('#guestbutton')).src = "on.png";
-        }
-        else if (($('#guestbutton')).src == "on.png") {
-          ($('#guestbutton')).src = "off.png";
-        }
-
-        volunteerUserAs("guest", $('#volunteer'), volunteerHandler);
-
-        return false;
-      });
-
-      $('#superbutton').click(function(event) {
-        event.preventDefault();
-        if (($('#superbutton')).src == "off.png") {
-          ($('#superbutton')).src = "on.png";
-        }
-        else if (($('#superbutton')).src == "on.png") {
-          ($('#superbutton')).src = "off.png";
-        }
-
-        volunteerUserAs("guest", $('#volunteer'), volunteerHandler);
-
-        return 
-      });
-
-    </script>
-
-  </body>
+</body>
 
 </html>
 
