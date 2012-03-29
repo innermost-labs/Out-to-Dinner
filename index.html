@@ -69,28 +69,15 @@
     //++++++++++++++++++++++++++++>>>>>
     //ostensibly registers the user for the email list, and gives them a unique URL. doing it in javascript, but someone might want to do it in jquery
     function registerForList(email, uurl){
-      var ajax;
-      try{
-        ajax = new XMLHttpRequest();
-      }catch(e){
-        return e;
-      }
-      ajax.onreadystatechange = function(){
-        if(ajax.readyState == 4){
-          if(ajax.responseText != ""){
-              //alert(" + " + ajax.responseText + " + ");
-              //alert("Congratulations for registering");
-          }
-        }
-      };
-      ajax.open("POST", "src/mailchimpsubscribe.php", true);
-      ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-      ajax.send("email="+email+"&MERGE3="+uurl);
-
+      var dataIn = $.params({email:email, MERGE3:uurl});
+      apiCall("POST", 
+              "src/mailchimpsubscribe.php", 
+              {"Content-type":"application/x-www-form-urlencoded"},
+              dataIn, 
+              function(data) { alert("You have been registered for our list!"); },
+              onError);
     }
-    //<<<<<++++++++++++++++++++++++++++++++++++
 
-    //how do I use this to get the Unique URL?, nate
     function getURLParameter(name) {
       name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
       var regexS = "[\\?&]" + name + "=([^&#]*)";
@@ -110,27 +97,18 @@
         "host": false,
         "guest": false,
       };
-      //need to replace with actual method for geting unique urls'
-      ////////////////////////
-      ///////////////////////
-      ///////////////////////
-      registerForList(email,"http://outtodinner.org/?" + 12);
-      ////////////////\/
-      ///////////////
-      //////////////
-      /////////////////
-      /////////////////
-      ////////////////
       parseApiCall("POST", "users", dataIn, registerHandler);
     }
 
     function registerHandler(data) {
+      // this needs to set cookies
+      // $.cookie("otd_email", ...
       myObjectId = data.objectId;
       mySessToken = data.sessionToken;
       $('#email_reg').hide();
       $('#dashboard').show();
       makeMap(data.objectId, data.sessionToken, data.markerId);
-      
+      registerForList(email, "http://outtodinner.org/?" + myObjectId);
     }
 
     function volunteerUserAs(type, form) {
@@ -148,7 +126,7 @@
 
 
     var volunteerErrorCallback = function() {
-      return false;
+      alert("Sorry, something went wrong...");
     }
 
     var flashMessage = function(messageText, cssClass) {
