@@ -1,0 +1,81 @@
+#main{
+    padding-bottom:32px;
+}
+
+#socials	{
+    
+	width:206px;
+	margin:20px auto;
+	text-align:center;
+	height:70px;
+	padding-left:12px;
+	}
+	
+.soc {
+	float:left;
+	}	
+
+.twit {
+	width:56px;
+	margin:0 10px;
+	}
+	
+.fb {
+	width:50px;
+	margin:0 10px;
+	}	
+	
+.plus {
+	width:50px;
+	margin:0 0 0 10px;
+	}
+	
+#footer {
+	max-width:960px;
+	margin:0 auto;
+	width:100%;
+	}
+	
+#footer p {
+	font-family:Helvetica;
+	color:#97999c;
+	font-size:12px;
+	padding:10px 10px 20px;
+	
+	}
+	
+#footer a {
+	font-size:14px;
+	text-decoration:none;
+	color:#97999C;
+	font-weight:bold;
+	padding:0 15px;
+	}
+	
+#footer a:hover {
+	color:#9A5BA3;
+	}
+	
+#footcopy {
+	float:right;
+	}
+	
+#footnav {
+	float:left;
+	}
+	
+/* For modern browsers */
+.cf:before,
+.cf:after {
+    content:"";
+    display:table;
+}
+
+.cf:after {
+    clear:both;
+}
+
+/* For IE 6/7 (trigger hasLayout) */
+.cf {
+    zoom:1;
+}

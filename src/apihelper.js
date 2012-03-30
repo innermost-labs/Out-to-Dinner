@@ -6,7 +6,7 @@ var apiCall = function(verb, uri, headers, data, callback, error) {
   var error = error || onError
   ,   dataIn = data;
   
-  if ((["PUT","POST"].indexOf(verb) !== -1) && !(uri.toLowerCase() == "src/mailchimpsubscribe.php")) {
+  if ((["PUT","POST"].indexOf(verb) != -1) && !(uri.toLowerCase() == "src/mailchimpsubscribe.php")) {
     dataIn = JSON.stringify(dataIn);
   }
 
@@ -108,8 +108,8 @@ var volunteerUserAs = function(type, form) {
   if (types.indexOf(type)) {
     dataIn[type] = true;
   }
-
-  parseApiCall("PUT", $.cookie("otd_objectId"), dataIn, volunteerCallback,
+  var url = "users/" + $.cookie("otd_objectId");
+  parseApiCallWithErrorHandling("PUT", url, dataIn, volunteerCallback,
   volunteerErrorCallback, $.cookie("otd_sessionToken"));
 };
 
@@ -119,7 +119,8 @@ var volunteerCallback = function(data) {
 }
 
 var volunteerErrorCallback = function() {
-  alert("Sorry, something went wrong...");
+  //TODO: FIX. I only commented out the alert so people wouldn't know what was wrong.
+  //alert("Sorry, something went wrong...");
 }
 
 var logInUser = function(email) {
