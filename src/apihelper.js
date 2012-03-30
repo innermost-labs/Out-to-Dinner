@@ -105,8 +105,8 @@ var volunteerUserAs = function(type, form) {
   if (types.indexOf(type)) {
     dataIn[type] = true;
   }
-
-  parseApiCall("PUT", $.cookie("otd_objectId"), dataIn, volunteerCallback,
+  var url = "users" + $.cookie("otd_objectId");
+  parseApiCall("PUT", url, dataIn, volunteerCallback,
   volunteerErrorCallback, $.cookie("otd_sessionToken"));
 };
 
