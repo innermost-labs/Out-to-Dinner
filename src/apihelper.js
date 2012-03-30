@@ -48,10 +48,11 @@ var registerForList = function(email, uurl){
     function(data) { 
       flashMessage("Thank you for signing up!");
     },
-    onError);
+    registerErrorHandler);
 };
 
 var registerUser = function(user) {
+  $('#signup').addClass('disabled');
   var dataIn = {
     "username": user.email,
     "first_name": user.first,
@@ -79,15 +80,20 @@ var getEmailFromId = function(objectId) {
 var registerHandler = function(data) {
   var myObjectId = data.objectId,
       mySessToken = data.sessionToken,
-      email = data.email;
-  //TODO TEST
-
-  // this needs to set cookies
-  // $.cookie("otd_email", ...
+      email = data.Email;
+  
+  $.cookie("otd_email", email);
+  $.cookie("otd_objectId", myObjectId);
+  $.cookie("otd_sessionToken", mySessToken);
   registerForList(email, "http://outtodinner.org/?u=" + myObjectId);
 
   showMap(data);
 }
+
+var registerErrorHandler = function(xhr, sts, err) {
+  $('#signup').removeClass('disabled');
+  flashMessage("Something went wrong. Have you already signed up?", "error");
+};
 
 var volunteerUserAs = function(type, form) {
   var userInput = form.value

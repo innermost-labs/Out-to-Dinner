@@ -41,9 +41,11 @@ body {
   font-size: 20px;
   background-color: #333;
   color: #ccc;
+  text-align: center;
+  font-weight: bold;
 }
 
-#messages p {
+#messages p.info {
   margin: 0px;
   padding: 20px;
   color: #aea;
@@ -154,6 +156,10 @@ body {
 	background:#6E3A77;
 	cursor:pointer;
 	}
+
+.button.disabled {
+  background: #888;
+}
 
 #signup {
 	float:left;
