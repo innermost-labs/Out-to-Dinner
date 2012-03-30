@@ -58,7 +58,7 @@ var registerForList = function(data) {
       {"Content-type":"application/x-www-form-urlencoded"},
       dataIn, 
       function(data) {},
-      onError);
+      function(x, s, e) {});
   }, function() {})
 };
 
