@@ -50,7 +50,7 @@ var parseApiCall = function(verb, path, data, callback) {
 // registers the user for the email list, and gives them a unique URL.
 var registerForList = function(data) {
   withUserFromId(data.objectId, function(userData) {
-    var url = "http://outtodinner.org/?u=" + data.objectId
+    var url = "http://signup.outtodinner.org/?u=" + data.objectId
     ,   dataIn = $.param({first_name:userData.first_name, email:userData.email, url:url});
 
     apiCall("POST", 
