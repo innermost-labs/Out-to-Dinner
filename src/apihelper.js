@@ -58,7 +58,7 @@ var registerUser = function(user) {
     "password": "temp",
     "email": user.email,
     "markerID": null,
-    "volunteer": false,
+    "awesome": false,
     "host": false,
     "guest": false,
   };
