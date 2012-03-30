@@ -125,7 +125,7 @@ function getMarkers(){
 								var content = "<div id = 'pincontent'> " + publicmarkers[j].content +"</div>";
 								//alert(publicmarkers[j].objectId +" == " + markerId);
 								if(publicmarkers[j].objectId == markerId){
-									content +="<form>Edit Content <INPUT TYPE='text' id='content_box'> <INPUT TYPE='button' NAME='addmarker' Value='Change Pin Content' onClick='addMarker("+publicmarkers[j].marker.getPosition().lat()+","+publicmarkers[j].marker.getPosition().lng()+ ")'></form>";
+									content +="<form>Edit Thoughts <INPUT TYPE='text' id='content_box'> <INPUT TYPE='button' NAME='addmarker' Value='Change Comments' onClick='addMarker("+publicmarkers[j].marker.getPosition().lat()+","+publicmarkers[j].marker.getPosition().lng()+ ")'></form>";
 								}
 								infowindow.setContent(content);
 								infowindow.open(map, publicmarkers[j].marker);
@@ -152,9 +152,9 @@ function addTempMarker(location) {
 	var infoContent;
 	
 	if(markerId){
-		infoContent = "<div id='tempwindow'><form>Edit Content <INPUT TYPE='text' id='content_box'> <INPUT TYPE='button' NAME='addmarker' Value='Change Pin Position' onClick='addMarker("+location.lat()+","+location.lng()+ ")'></form></div>";
+		infoContent = "<div id='tempwindow'><form>Edit thoughts <INPUT TYPE='text' id='content_box'> <INPUT TYPE='button' NAME='addmarker' Value='Change Pin Position' onClick='addMarker("+location.lat()+","+location.lng()+ ")'></form></div>";
 	}else{
-		infoContent = "<div id='tempwindow'><form>Pin Content <INPUT TYPE='text' id='content_box'> <INPUT TYPE='button' NAME='addmarker' Value='Add to Map' onClick='addMarker("+location.lat()+","+location.lng()+ ")'></form></div>";
+		infoContent = "<div id='tempwindow'><form>Share your thoughts <INPUT TYPE='text' id='content_box'> <INPUT TYPE='button' NAME='addmarker' Value='Add to Map' onClick='addMarker("+location.lat()+","+location.lng()+ ")'></form></div>";
 	}
   	
   	infowindow = new google.maps.InfoWindow({
