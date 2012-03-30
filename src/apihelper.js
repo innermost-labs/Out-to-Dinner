@@ -3,14 +3,19 @@ var onError = function(xhr, sts, err) {
 };
 
 var apiCall = function(verb, uri, headers, data, callback, error) {
-  error = error || onError;
+  var error = error || onError
+  ,   dataIn = data;
+
+  if (["PUT","POST"].indexOf(verb) !== -1) {
+    dataIn = JSON.stringify(dataIn);
+  }
 
   var params = {
     type: verb,
     url: uri,
     headers: headers,
     contentType: "application/json",
-    data: JSON.stringify(data),
+    data: dataIn,
     crossDomain: true,
     error: function (xhr, textStatus, errorThrown) {
       error(xhr, textStatus, errorThrown);
@@ -23,7 +28,7 @@ var apiCall = function(verb, uri, headers, data, callback, error) {
   $.ajax(params);
 };
 
-var parseApiCall = function(verb, path, data, callback, session) {
+var parseApiCallWithErrorHandling = function(verb, path, data, callback, errorCallback, session) {
   var headers = {
     //TODO config object from api_keys.js
     "X-Parse-Application-Id": "oEhx7MD4NJ9dmwOTJVYIsDtSPRwxYYlXSwm13dI3",
@@ -35,7 +40,11 @@ var parseApiCall = function(verb, path, data, callback, session) {
     headers["X-Parse-Session-Token"] = session;
   }
 
-  apiCall(verb, uri, headers, data, callback);
+  apiCall(verb, uri, headers, data, callback, errorCallback);
+}
+
+var parseApiCall = function(verb, path, data, callback) {
+  parseApiCallWithErrorHandling(verb, path, data, callback, onError);
 }
 
 // registers the user for the email list, and gives them a unique URL.
@@ -48,7 +57,7 @@ var registerForList = function(email, uurl){
     function(data) { 
       flashMessage("Thank you for signing up!");
     },
-    registerErrorHandler);
+    onError);
 };
 
 var registerUser = function(user) {
@@ -63,7 +72,7 @@ var registerUser = function(user) {
     "host": false,
     "guest": false,
   };
-  parseApiCall("POST", "users", dataIn, registerHandler);
+  parseApiCallWithErrorHandling("POST", "users", dataIn, registerHandler, registerErrorHandler);
 }
 
 
