@@ -109,9 +109,10 @@ body {
 }
 
 #buttons {
+        
 	width: 1280px;
 	max-width: 100%;
-	margin:0 auto;
+	margin:10px auto;
 	}
 
 .notbutton {
@@ -147,9 +148,9 @@ body {
 	}
 
 .button3 {
-  height: 40px;
+  height: 40%;
   margin-top: 10px;
-  margin-right: 30px;
+  margin-right: 15px;
 }
 
 .button3:hover {
@@ -158,6 +159,8 @@ body {
 	}
 
   .button3 input {
+    position: relative;
+    top: 15px;
     height: 40px;
   }
 

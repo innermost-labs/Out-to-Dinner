@@ -48,16 +48,18 @@ var parseApiCall = function(verb, path, data, callback) {
 }
 
 // registers the user for the email list, and gives them a unique URL.
-var registerForList = function(user){
-  var url = "http://outtodinner.org/?u=" + user.objectId
-  ,   dataIn = $.param({first_name:user.first, email:user.email, url:url});
+var registerForList = function(data) {
+  withUserFromId(data.objectId, function(userData) {
+    var url = "http://outtodinner.org/?u=" + data.objectId
+    ,   dataIn = $.param({first_name:userData.first_name, email:userData.email, url:url});
 
-  apiCall("POST", 
-    "src/mailchimpsubscribe.php", 
-    {"Content-type":"application/x-www-form-urlencoded"},
-    dataIn, 
-    function(data) {},
-    onError);
+    apiCall("POST", 
+      "src/mailchimpsubscribe.php", 
+      {"Content-type":"application/x-www-form-urlencoded"},
+      dataIn, 
+      function(data) {},
+      onError);
+  }, function() {})
 };
 
 var registerUser = function(user) {
@@ -73,7 +75,6 @@ var registerUser = function(user) {
     "guest": false,
   };
   parseApiCallWithErrorHandling("POST", "users", dataIn, registerHandler, registerErrorHandler);
-  registerForList(user);
 }
 
 
@@ -87,6 +88,8 @@ var registerHandler = function(data) {
 
   $.cookie("otd_sessionToken", mySessToken);
   $.cookie("otd_objectId", myObjectId, { expires: 7 });
+
+  registerForList(data);
 
   flashMessage("Thank you for signing up!");
 
