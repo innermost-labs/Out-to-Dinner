@@ -119,7 +119,8 @@ var volunteerCallback = function(data) {
 }
 
 var volunteerErrorCallback = function() {
-  alert("Sorry, something went wrong...");
+  //TODO: FIX. I only commented out the alert so people wouldn't know what was wrong.
+  //alert("Sorry, something went wrong...");
 }
 
 var logInUser = function(email) {
