@@ -15,6 +15,7 @@ var flashMessage = function(messageText, cssClass) {
   $(message).addClass(cssClass);
   message.innerHTML = messageText;
   $('#messages').append(message);
+  $(message).delay(5000).slideUp();
 }
 
 var showMap = function(data) {

@@ -4,16 +4,16 @@ var myObjectId
 
 // App runtime js goes here
 $(document).ready(function() {
-  var emailCookie = $.cookie("otd_email")
+  var objectIdCookie = $.cookie("otd_objectId")
   ,   userParam   = getUrlParameter("u")
   ,   mapToggle   = getUrlParameter("map");
 
+  objectId = objectIdCookie || userParam;
+
   // Login the user if cookie or urlparam
-  if (emailCookie) { 
-    logInUser(emailCookie);
-  } else if (userParam) {
+  if (objectId) { 
     // See if user exists in Parse
-    withUserFromId(userParam, function(data) {
+    withUserFromId(objectId, function(data) {
       logInUser(data.email);
     }, function(x, s, err) {
       if (err == "Not Found") {

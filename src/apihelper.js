@@ -54,8 +54,7 @@ var registerForList = function(email, uurl){
     "src/mailchimpsubscribe.php", 
     {"Content-type":"application/x-www-form-urlencoded"},
     dataIn, 
-    function(data) { 
-      flashMessage("Thank you for signing up!");
+    function(data) {
     },
     onError);
 };
@@ -82,13 +81,14 @@ var withUserFromId = function(objectId, callback, errorCallback) {
 
 var registerHandler = function(data) {
   var myObjectId = data.objectId,
-      mySessToken = data.sessionToken,
-      email = data.Email;
-  
-  $.cookie("otd_email", email);
-  $.cookie("otd_objectId", myObjectId);
+      mySessToken = data.sessionToken;
+
   $.cookie("otd_sessionToken", mySessToken);
+  $.cookie("otd_objectId", myObjectId, { expires: 7 });
+
   registerForList(email, "http://outtodinner.org/?u=" + myObjectId);
+
+  flashMessage("Thank you for signing up!");
 
   showMap(data);
 }
@@ -99,16 +99,15 @@ var registerErrorHandler = function(xhr, sts, err) {
 };
 
 var volunteerUserAs = function(type, form) {
-  var userInput = form.value
-  ,   dataIn = {}
-  ,   types = ["guest","host","awesome"]
-
+  var dataIn = {}
+  ,   types = ["guest","host","awesome"];
+  
   if (types.indexOf(type)) {
-    dataIn[type] = type;
+    dataIn[type] = true;
   }
 
   parseApiCall("PUT", myObjectId, dataIn, volunteerCallback,
-  volunteerErrorCallback, mySessionToken);
+  volunteerErrorCallback, $.cookie("otd_sessionToken"));
 };
 
 var volunteerCallback = function(data) {
