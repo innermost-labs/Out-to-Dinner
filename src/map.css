@@ -45,10 +45,16 @@ body {
   font-weight: bold;
 }
 
-#messages p.info {
+#messages p {
   margin: 0px;
   padding: 20px;
+}
+
+#messages p.info {
   color: #aea;
+}
+
+#message p.error {
 }
 
 #main {

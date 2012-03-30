@@ -13,7 +13,7 @@ var flashMessage = function(messageText, cssClass) {
 
   message = document.createElement("p");
   $(message).addClass(cssClass);
-  $(message).html = messageText;
+  message.innerHTML = messageText;
   $('#messages').append(message);
 }
 

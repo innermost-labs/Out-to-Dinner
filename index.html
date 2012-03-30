@@ -14,155 +14,153 @@
 
     <script type="text/javascript" src="lib/jquery.cookie.js"></script>
 
+    <script type="text/javascript" src="src/helper.js"></script>
     <script type="text/javascript" src="src/apihelper.js"></script>
     <script type="text/javascript" src="src/maphelper.js"></script>
-    <script type="text/javascript">
-	$(document).ready( function() {
-		if(getUrlParameter("map")) {
-			showMap();
-		}
-	});
-  </script>
-</head>
+  </head>
 
-<body onLoad="makeMap()">
-  <script type="text/javascript" src="src/app.js"></script>
-  <div id="messages"></div>
+  <body onLoad="makeMap()">
+    <script type="text/javascript" src="src/app.js"></script>
+    <div id="messages"></div>
 
 
-  <div id="email_reg" >
-    <section id="main" class="cf">	
-    <section id="outter-grad" class="cf">	
-    <section id="radial-grad" class="cf">
-    <section id="main-content">
-    <a href="index.html"><img src="http://westergaard.com/outtodinner/img/out-to-dinner.png" id="logo"></a>
-    <div id="email_canvas">
-      <section id="test">
-      <section id="buttons">
-      <!-- 
-      <section id="signup" class="notbutton"><img src="src/email.png"></section>
-      <section id="login" class="notbutton"><img src="password.png"></section>
-      <section id="login" class="notbutton"><img src="forgotp.png"></section>
-      -->
-      </section>
-      <form id="email_reg_form">
-        <input id='firstfield' required name="First" form="email_reg_form"
-        placeholder="First name" type="text" />
-        <input id='emailfield' required name="Email" form="email_reg_form" placeholder="Email" type="email"/>
-
-        <br>
-        <div id="buttons">
-          <section id="signup" class="button2">
-
-          <input type="image" src="http://westergaard.com/outtodinner/img/signup.png" width="101" alt="submit" name="submit" value="submit" form="email_reg_form"/>
-          <!-- <input type="submit" form="email_reg_form"/> -->
-          </section>
-        </div>
-      </form>
-      </section>
-      <!-- 
-      <section id="buttons">
-      <section id="signup" class="button2"><img src="login.png"></section>
-      <section id="signup" class="button2"><img src="http://westergaard.com/outtodinner/img/signup.png"></section>
-      </section>
-      -->
-    </div>
-    </section>
-    </section>
-    </section>
-    </section>
-  </div>
-
-  <div id="dashboard" style="display:none;">
-    <section id="main" class="cf">	
-    <section id="outter-grad" class="cf">	
-    <section id="radial-grad" class="cf">
-    <section id="main-content">
-
-    <a href="index.html"><img src="http://westergaard.com/outtodinner/img/out-to-dinner.png" id="logo"></a>
-    <section id="buttons">
-    <div style="text-align: center;"><p>Click the location of your event to place your pin on the map. Remember to press 'Save'!</p></div>
-    </section>
-    <div id="map_canvas"></div>
-    <section id="buttons">
-    <div style="text-align: center;">
-      <form id="volunteer">
-        <span id="host" class="button3">
-          <input type="image" id="hostbutton" src="src/host.png" width="101" alt="Be a host!" name="submit" value="host" form="volunteer"/>
-        </span>
-        <span id="guest" class="button3">
-          <input type="image" id="guestbotton" src="src/guest.png" width="101" alt="Be a guest!" name="submit" value="guest" form="volunteer"/>
-        </span>
-        <span id="super" class="button3">
-          <input type="image" id="superbutton" src="src/volunteer.png" height="25" alt="Help us out!" name="submit" value="awesome" form="volunteer"/>
-        </span>
+    <div id="email_reg" >
+      <section id="main" class="cf">	
+      <section id="outter-grad" class="cf">	
+      <section id="radial-grad" class="cf">
+      <section id="main-content">
+      <a href="index.html"><img src="http://westergaard.com/outtodinner/img/out-to-dinner.png" id="logo"></a>
+      <div id="email_canvas">
+        <section id="test">
+        <section id="buttons">
         <!-- 
-        <input type="image" form="volunteer" id="hostbutton" src="click1.png">
-        <input type="image" form="volunteer" id="guestbutton" src="click1.png">
-        <input type="image" form="volunteer" id="superbutton" src="click1.png">
+        <section id="signup" class="notbutton"><img src="src/email.png"></section>
+        <section id="login" class="notbutton"><img src="password.png"></section>
+        <section id="login" class="notbutton"><img src="forgotp.png"></section>
         -->
-      </form>
-    </div>
-    </section>
-    <!-- 
-    <div id="hostguest">Are you signing up to:
-      <br>
-      <form id="volunteer">
-        <input type="radio" form="volunteer" name="group1" value="host">Host an event
-        <br>
-        <input type="radio" form="volunteer" name="group1" value="guest">Attend an event
-        <br>
-        <input type="checkbox" form="volunteer" name="vehicle" value="supervolunteer">Become a media volunteer
-        <br>
-        <input type="submit" form="volunteer" onclick="volunteerUser(this.form, volunteerHandler)">
-      </form>
-    </div>
-    -->
+        </section>
+        <form id="email_reg_form">
+          <input id='firstfield' required name="First" form="email_reg_form"
+          placeholder="First name" type="text" />
+          <input id='emailfield' required name="Email" form="email_reg_form" placeholder="Email" type="email"/>
 
-<section id="socials">
+          <br>
+          <div id="buttons">
+            <section id="signup" class="button button2">
 
-	<section id="social-grid">
-		<section class="soc fb">
-			<div id="fb-root"></div>
-			<script>(function(d, s, id) {
-			  var js, fjs = d.getElementsByTagName(s)[0];
-			  if (d.getElementById(id)) return;
-			  js = d.createElement(s); js.id = id;
-			  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=138581072906968";
-			  fjs.parentNode.insertBefore(js, fjs);
-			}(document, 'script', 'facebook-jssdk'));</script>
-			<div class="fb-like" data-send="false" data-layout="box_count" data-width="52" data-show-faces="true"></div>
-		</section>
-		<section class="soc twit">
-			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://westergaard.com/outtodinner/" data-text="Out To Dinner" data-count="vertical">Tweet</a>
-			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-		</section>
-		<section class="soc plus">
-			<!-- Place this tag where you want the +1 button to render -->
-			<g:plusone size="tall"></g:plusone>
-			
-			<!-- Place this render call where appropriate -->
-			<script type="text/javascript">
-			  (function() {
-			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-			    po.src = 'https://apis.google.com/js/plusone.js';
-			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-			  })();
-			</script>
-		</section>
-		<!-- <section class="soc pin">
-			<a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwestergaard.com%2Fouttodinner%2F&media=http%3A%2F%2Fvimeo.com%2F38745437&description=Out%20To%20Dinner" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
-		</section> -->
-	</section>
+            <input type="image" src="http://westergaard.com/outtodinner/img/signup.png" width="101" alt="submit" name="submit" value="submit" form="email_reg_form"/>
+            <!-- <input type="submit" form="email_reg_form"/> -->
+            </section>
+          </div>
+        </form>
+        </section>
+        <!-- 
+        <section id="buttons">
+        <section id="signup" class="button2"><img src="login.png"></section>
+        <section id="signup" class="button2"><img src="http://westergaard.com/outtodinner/img/signup.png"></section>
+        </section>
+        -->
+      </div>
+      </section>
+      </section>
+      </section>
+      </section>
+    </div>
+
+    <div id="dashboard" style="display:none;">
+      <section id="main" class="cf">	
+      <section id="outter-grad" class="cf">	
+      <section id="radial-grad" class="cf">
+      <section id="main-content">
+
+      <a href="index.html"><img src="http://westergaard.com/outtodinner/img/out-to-dinner.png" id="logo"></a>
+      <section id="buttons">
+      <div style="text-align: center;"><p>Click the location of your event to place your pin on the map. Remember to press 'Save'!</p></div>
+      </section>
+      <div id="map_canvas"></div>
+      <section id="buttons">
+      <div style="text-align: center;">
+        <form id="volunteer">
+          <span id="host" class="button3">
+            <input type="image" id="hostbutton" src="src/host.png" alt="Be a host!" name="submit" value="host" form="volunteer"/>
+          </span>
+          <span id="guest" class="button3">
+            <input type="image" id="guestbotton" src="src/guest.png" alt="Be a guest!" name="submit" value="guest" form="volunteer"/>
+          </span>
+          <span id="super" class="button3">
+            <input type="image" id="superbutton" src="src/volunteer.png" alt="Help us out!" name="submit" value="awesome" form="volunteer"/>
+          </span>
+          <!-- 
+          <input type="image" form="volunteer" id="hostbutton" src="click1.png">
+          <input type="image" form="volunteer" id="guestbutton" src="click1.png">
+          <input type="image" form="volunteer" id="superbutton" src="click1.png">
+          -->
+        </form>
+      </div>
+      </section>
+      <!-- 
+      <div id="hostguest">Are you signing up to:
+        <br>
+        <form id="volunteer">
+          <input type="radio" form="volunteer" name="group1" value="host">Host an event
+          <br>
+          <input type="radio" form="volunteer" name="group1" value="guest">Attend an event
+          <br>
+          <input type="checkbox" form="volunteer" name="vehicle" value="supervolunteer">Become a media volunteer
+          <br>
+          <input type="submit" form="volunteer" onclick="volunteerUser(this.form, volunteerHandler)">
+        </form>
+      </div>
+      -->
+
+      <section id="socials">
+
+      <section id="social-grid">
+      <section class="soc fb">
+      <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=138581072906968";
+        fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+      <div class="fb-like" data-send="false" data-layout="box_count" data-width="52" data-show-faces="true"></div>
+      </section>
+      <section class="soc twit">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://westergaard.com/outtodinner/" data-text="Out To Dinner" data-count="vertical">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+      </section>
+      <section class="soc plus">
+      <!-- Place this tag where you want the +1 button to render -->
+      <g:plusone size="tall"></g:plusone>
+
+      <!-- Place this render call where appropriate -->
+      <script type="text/javascript">
+        (function() {
+         var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+         po.src = 'https://apis.google.com/js/plusone.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+         })();
+</script>
+</section>
+<!-- <section class="soc pin">
+<a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwestergaard.com%2Fouttodinner%2F&media=http%3A%2F%2Fvimeo.com%2F38745437&description=Out%20To%20Dinner" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
+</section> -->
+</section>
 </section>
 
-    </section>
-    </section>
-    </section>
-    </section>
+</section>
+</section>
+</section>
+</section>
   </div>
 
   <script language="javascript"> <!-- must go after the form HTML -->
+    $('#signup').click(function() {
+      $('#email_reg_form').submit();
+    });
+
     $('#email_reg_form').submit(function(event) {
       event.preventDefault();
       var first = $(this).find("input[name=First]")[0].value
@@ -176,14 +174,14 @@
       volunteerUserAs(this.value, $('#volunteer'));
       return false;
     });
-	
-	$('.button3').toggle(function() {
-				$(this).css({"background-color":"#6E3A77"});
-			},
-			function () {
-				$(this).css({"background-color":"#9A5BA3"});
-			}
-	);
+
+    $('.button3').toggle(function() {
+      $(this).css({"background-color":"#6E3A77"});
+    },
+    function () {
+      $(this).css({"background-color":"#9A5BA3"});
+    }
+    );
 
   </script>
 

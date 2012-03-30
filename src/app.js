@@ -12,9 +12,14 @@ $(document).ready(function() {
   if (emailCookie) { 
     logInUser(emailCookie);
   } else if (userParam) {
-    if (var email = getEmailFromId(userParam)) {
-      logInUser(email);
-    }
+    // See if user exists in Parse
+    withUserFromId(userParam, function(data) {
+      logInUser(data.email);
+    }, function(x, s, err) {
+      if (err == "Not Found") {
+        flashMessage("No user found with that ID. You have an incorrect link!", "error");
+      }
+    });
   // Otherwise, show the public map if map param in url
   } else if(getUrlParameter("map")) {
     showMap();

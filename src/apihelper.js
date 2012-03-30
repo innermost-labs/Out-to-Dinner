@@ -76,14 +76,8 @@ var registerUser = function(user) {
 }
 
 
-var getEmailFromId = function(objectId) {
-  var email = false;
-
-  parseApiCall("GET", "users/" + objectId, {}, function(data) {
-    email = data.email;
-  });
-
-  return email;
+var withUserFromId = function(objectId, callback, errorCallback) {
+  parseApiCallWithErrorHandling("GET", "users/" + objectId, {}, callback, errorCallback);
 }
 
 var registerHandler = function(data) {
@@ -128,7 +122,9 @@ var volunteerErrorCallback = function() {
 
 var logInUser = function(email) {
   var dataIn = $.param({username:email, password:"temp"});
-  parseApiCall("GET", "login", dataIn, function(data) {
+  parseApiCallWithErrorHandling("GET", "login", dataIn, function(data) {
     showMap(data);
+  }, function(xhr, sts, err) {
+    flashMessage("Login failed", "error");
   });
 };
