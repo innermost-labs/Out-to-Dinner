@@ -116,10 +116,9 @@ var volunteerUserAs = function(type, value) {
 
 var volunteerCallback = function(type, value) {
   var cb = function(data) {
-    debugger;
     var newVal = (value === "false");
     $('input[name=' + type + ']')[0].setAttribute('value', newVal);
-    $('#' + value + 'button').toggleClass("on", !newVal);
+    $($('#' + type + 'button')[0]).toggleClass("on", !newVal);
     if (!newVal) 
       flashMessage('Thanks! We will be in touch shortly.', 'info');
   }
