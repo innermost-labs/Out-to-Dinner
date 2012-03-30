@@ -16,6 +16,12 @@
 
     <script type="text/javascript" src="src/apihelper.js"></script>
     <script type="text/javascript" src="src/maphelper.js"></script>
+    <script type="text/javascript">
+	$(document).ready( function() {
+		if(getUrlParameter("map")) {
+			showMap();
+		}
+	});
   </script>
 </head>
 
