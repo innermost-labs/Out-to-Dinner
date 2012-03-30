@@ -89,13 +89,13 @@
     <div style="text-align: center;">
       <form id="volunteer">
         <span id="host" class="button3">
-          <input type="image" id="hostbutton" src="src/host.png" width="101" alt="submit" name="submit" value="submit" form="volunteer"/>
+          <input type="image" id="hostbutton" src="src/host.png" width="101" alt="Be a host!" name="submit" value="host" form="volunteer"/>
         </span>
         <span id="guest" class="button3">
-          <input type="image" id="guestbotton" src="src/guest.png" width="101" alt="submit" name="submit" value="submit" form="volunteer"/>
+          <input type="image" id="guestbotton" src="src/guest.png" width="101" alt="Be a guest!" name="submit" value="guest" form="volunteer"/>
         </span>
         <span id="super" class="button3">
-          <input type="image" id="superbutton" src="src/volunteer.png" height="25" alt="submit" name="submit" value="submit" form="volunteer"/>
+          <input type="image" id="superbutton" src="src/volunteer.png" height="25" alt="Help us out!" name="submit" value="awesome" form="volunteer"/>
         </span>
         <!-- 
         <input type="image" form="volunteer" id="hostbutton" src="click1.png">
@@ -177,7 +177,7 @@
 
     $('#volunteer input').click(function(event) {
       event.preventDefault();
-      volunteerUserAs(this.id, $('#volunteer'));
+      volunteerUserAs(this.value, $('#volunteer'));
       return false;
     });
 	
