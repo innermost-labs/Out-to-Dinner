@@ -5,7 +5,6 @@ var onError = function(xhr, sts, err) {
 var apiCall = function(verb, uri, headers, data, callback, error) {
   var error = error || onError
   ,   dataIn = data;
-  debugger
   
   if ((["PUT","POST"].indexOf(verb) !== -1) && !(uri.toLowerCase() == "src/mailchimpsubscribe.php")) {
     dataIn = JSON.stringify(dataIn);
