@@ -122,7 +122,14 @@ function getMarkers(){
 								if(marker){
 									marker.setMap(null);
 								}
-								var content = "<div id = 'pincontent'> " + publicmarkers[j].content +"</div>";
+								if(publicmarkers[j].content != undefined){
+								    var content = "<div id = 'pincontent'> " + publicmarkers[j].content +"</div>";
+								}
+								else{
+								    var content = "<div id = 'pincontent'> </div>";
+								}
+								
+								
 								//alert(publicmarkers[j].objectId +" == " + markerId);
 								if(publicmarkers[j].objectId == markerId){
 									content +="<form>Edit Thoughts <INPUT TYPE='text' id='content_box'> <INPUT TYPE='button' NAME='addmarker' Value='Change Comments' onClick='addMarker("+publicmarkers[j].marker.getPosition().lat()+","+publicmarkers[j].marker.getPosition().lng()+ ")'></form>";
