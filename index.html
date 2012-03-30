@@ -175,7 +175,21 @@
       return false;
     });
 
-    $('.button3').toggle(function() {
+    $('#hostbutton').toggle(function() {
+      $(this).css({"background-color":"#6E3A77"});
+    },
+    function () {
+      $(this).css({"background-color":"#9A5BA3"});
+    }
+    );
+	 $('#guestbutton').toggle(function() {
+      $(this).css({"background-color":"#6E3A77"});
+    },
+    function () {
+      $(this).css({"background-color":"#9A5BA3"});
+    }
+    );
+	 $('#superbutton').toggle(function() {
       $(this).css({"background-color":"#6E3A77"});
     },
     function () {
