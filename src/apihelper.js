@@ -101,31 +101,42 @@ var registerErrorHandler = function(xhr, sts, err) {
   flashMessage("Something went wrong. Have you already signed up?", "error");
 };
 
-var volunteerUserAs = function(type, form) {
+var volunteerUserAs = function(type, value) {
   var dataIn = {}
-  ,   types = ["guest","host","awesome"];
+  ,   types = ["guest","host","super"];
   
   if (types.indexOf(type)) {
-    dataIn[type] = true;
+    dataIn[type] = (value === "true");
   }
+
   var url = "users/" + $.cookie("otd_objectId");
-  parseApiCallWithErrorHandling("PUT", url, dataIn, volunteerCallback,
-  volunteerErrorCallback, $.cookie("otd_sessionToken"));
+  parseApiCallWithErrorHandling("PUT", url, dataIn, volunteerCallback(type, value),
+  volunteerErrorCallback(type, value), $.cookie("otd_sessionToken"));
 };
 
-var volunteerCallback = function(data) {
-  //TODO toggle button based on choice
-  //TODO show flash message based on choice
+var volunteerCallback = function(type, value) {
+  var cb = function(data) {
+    debugger;
+    var newVal = (value === "false");
+    $('input[name=' + type + ']')[0].setAttribute('value', newVal);
+    $('#' + value + 'button').toggleClass("on", !newVal);
+    if (!newVal) 
+      flashMessage('Thanks! We will be in touch shortly.', 'info');
+  }
+  return cb;
 }
 
-var volunteerErrorCallback = function() {
-  //TODO: FIX. I only commented out the alert so people wouldn't know what was wrong.
-  //alert("Sorry, something went wrong...");
+var volunteerErrorCallback = function(type, value) {
+  var cb = function(x, s, err) {
+    flashMessage("There was an error. Please try again later!", "error");
+  }
+  return cb;
 }
 
 var logInUser = function(email) {
   var dataIn = $.param({username:email, password:"temp"});
   parseApiCallWithErrorHandling("GET", "login", dataIn, function(data) {
+    $.cookie("otd_sessionToken", data.sessionToken);
     showMap(data);
   }, function(xhr, sts, err) {
     flashMessage("Login failed", "error");

@@ -55,12 +55,6 @@
           </div>
         </form>
         </section>
-        <!-- 
-        <section id="buttons">
-        <section id="signup" class="button2"><img src="login.png"></section>
-        <section id="signup" class="button2"><img src="http://westergaard.com/outtodinner/img/signup.png"></section>
-        </section>
-        -->
       </div>
       </section>
       </section>
@@ -75,86 +69,70 @@
       <section id="main-content">
 
       <a href="index.html"><img src="http://westergaard.com/outtodinner/img/out-to-dinner.png" id="logo"></a>
-      <section id="buttons">
-      <div style="text-align: center;"><p>Click the location of your event to place your pin on the map. Remember to press 'Save'!</p></div>
+      <section id="help">
+      <p>Click the location of your event to place your pin on the map. Remember to press 'Save'!</p>
       </section>
       <div id="map_canvas"></div>
       <section id="buttons">
       <div style="text-align: center;">
         <form id="volunteer">
           <span id="hostbutton" class="button button3">
-            <input type="image" id="host" src="src/host.png" alt="Be a host!" name="submit" value="host" form="volunteer"/>
+            <input type="image" name="host" id="host" src="src/host.png" alt="Be
+            a host!" name="submit" value="true" form="volunteer"/>
           </span>
           <span id="guestbutton" class="button button3">
-            <input type="image" id="guest" src="src/guest.png" alt="Be a guest!" name="submit" value="guest" form="volunteer"/>
+            <input type="image" name="guest" id="guest" src="src/guest.png"
+            alt="Be a guest!" name="submit" value="true" form="volunteer"/>
           </span>
           <span id="superbutton" class="button button3">
-            <input type="image" id="super" src="src/volunteer.png" alt="Help us out!" name="submit" value="awesome" form="volunteer"/>
+            <input type="image" name="super" id="super" src="src/volunteer.png"
+            alt="Help us out!" name="submit" value="true" form="volunteer"/>
           </span>
-          <!-- 
-          <input type="image" form="volunteer" id="hostbutton" src="click1.png">
-          <input type="image" form="volunteer" id="guestbutton" src="click1.png">
-          <input type="image" form="volunteer" id="superbutton" src="click1.png">
-          -->
         </form>
       </div>
       </section>
-      <!-- 
-      <div id="hostguest">Are you signing up to:
-        <br>
-        <form id="volunteer">
-          <input type="radio" form="volunteer" name="group1" value="host">Host an event
-          <br>
-          <input type="radio" form="volunteer" name="group1" value="guest">Attend an event
-          <br>
-          <input type="checkbox" form="volunteer" name="vehicle" value="supervolunteer">Become a media volunteer
-          <br>
-          <input type="submit" form="volunteer" onclick="volunteerUser(this.form, volunteerHandler)">
-        </form>
-      </div>
-      -->
 </section>
 </section>
 </section>
 </section>
 
-      <section id="socials">
+<section id="socials">
 
-		<section id="social-grid">
-			<section class="soc fb">
-				<div id="fb-root"></div>
-				<script>(function(d, s, id) {
-				  var js, fjs = d.getElementsByTagName(s)[0];
-				  if (d.getElementById(id)) return;
-				  js = d.createElement(s); js.id = id;
-				  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=138581072906968";
-				  fjs.parentNode.insertBefore(js, fjs);
-				}(document, 'script', 'facebook-jssdk'));</script>
-				<div class="fb-like" data-send="false" data-layout="box_count" data-width="52" data-show-faces="true"></div>
-			</section>
-			<section class="soc twit">
-				<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://outtodinner.org/" data-text="Out To Dinner" data-count="vertical">Tweet</a>
-				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-			</section>
-			<section class="soc plus">
-				<!-- Place this tag where you want the +1 button to render -->
-				<g:plusone size="tall"></g:plusone>
+<section id="social-grid">
+<section class="soc fb">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=138581072906968";
+  fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-like" data-send="false" data-layout="box_count" data-width="52" data-show-faces="true"></div>
+</section>
+<section class="soc twit">
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://outtodinner.org/" data-text="Out To Dinner" data-count="vertical">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</section>
+<section class="soc plus">
+<!-- Place this tag where you want the +1 button to render -->
+<g:plusone size="tall"></g:plusone>
 
-				<!-- Place this render call where appropriate -->
-				<script type="text/javascript">
-				  (function() {
-				    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-				    po.src = 'https://apis.google.com/js/plusone.js';
-				    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-				  })();
-				</script>
-			</section>
-		</section>
-	</section>
-	<section id="footer" class="cf">
-		<p id="footnav"><a href="" style="padding-left:0;">Sign Up</a>|<a href="mailto:outtodinnerproject@gmail.com">Contact</a>|<a href="">About</a></p>
-		<p id="footcopy">&copy; Copyright 2012 Out To Dinner</p>
-	</section>
+<!-- Place this render call where appropriate -->
+<script type="text/javascript">
+  (function() {
+   var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+   po.src = 'https://apis.google.com/js/plusone.js';
+   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+   })();
+</script>
+</section>
+</section>
+</section>
+<section id="footer" class="cf">
+<p id="footnav"><a href="" style="padding-left:0;">Sign Up</a>|<a href="mailto:outtodinnerproject@gmail.com">Contact</a>|<a href="">About</a></p>
+<p id="footcopy">&copy; Copyright 2012 Out To Dinner</p>
+</section>
 
   </div>
 
@@ -173,31 +151,9 @@
 
     $('#volunteer input').click(function(event) {
       event.preventDefault();
-      volunteerUserAs(this.value, $('#volunteer'));
+      volunteerUserAs(this.name, this.value);
       return false;
     });
-
-    $('#hostbutton').toggle(function() {
-      $(this).css({"background-color":"#6E3A77"});
-    },
-    function () {
-      $(this).css({"background-color":"#9A5BA3"});
-    }
-    );
-	 $('#guestbutton').toggle(function() {
-      $(this).css({"background-color":"#6E3A77"});
-    },
-    function () {
-      $(this).css({"background-color":"#9A5BA3"});
-    }
-    );
-	 $('#superbutton').toggle(function() {
-      $(this).css({"background-color":"#6E3A77"});
-    },
-    function () {
-      $(this).css({"background-color":"#9A5BA3"});
-    }
-    );
 
     $('.button3').click(function() {
       $(this).find("input").click();

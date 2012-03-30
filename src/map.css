@@ -108,6 +108,12 @@ body {
 	height: 100%;
 }
 
+#help {
+  text-align: center;
+  font-weight: bold;
+  color: #555;
+}
+
 #buttons {
         
 	width: 1280px;
@@ -162,6 +168,10 @@ body {
     position: relative;
     top: 15px;
     height: 40px;
+  }
+
+  .button3.on {
+    background: #6E3A77;
   }
 
 .button.disabled {
