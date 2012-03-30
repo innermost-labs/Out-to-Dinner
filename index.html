@@ -30,7 +30,7 @@
   <div id="messages"></div>
 
 
-  <div id="email_reg">
+  <div id="email_reg" >
     <section id="main" class="cf">	
     <section id="outter-grad" class="cf">	
     <section id="radial-grad" class="cf">
@@ -47,12 +47,13 @@
       </section>
       <form id="email_reg_form">
         <input id='firstfield' required name="First" form="email_reg_form"
-        placeholder="first name" type="text" />
-        <input id='emailfield' required name="Email" form="email_reg_form" placeholder="e-mail address" type="email"/>
+        placeholder="First name" type="text" />
+        <input id='emailfield' required name="Email" form="email_reg_form" placeholder="Email" type="email"/>
 
         <br>
         <div id="buttons">
           <section id="signup" class="button2">
+
           <input type="image" src="http://westergaard.com/outtodinner/img/signup.png" width="101" alt="submit" name="submit" value="submit" form="email_reg_form"/>
           <!-- <input type="submit" form="email_reg_form"/> -->
           </section>
@@ -77,12 +78,10 @@
     <section id="outter-grad" class="cf">	
     <section id="radial-grad" class="cf">
     <section id="main-content">
+
     <a href="index.html"><img src="http://westergaard.com/outtodinner/img/out-to-dinner.png" id="logo"></a>
     <section id="buttons">
-    <div style="text-align: center;"><p>Click the location of your event to place your pin on the map
-      <br>Press 'Save' to save your location
-      <br>Share your thoughts with the Out to Dinner community
-      <br>To change your location, click a new location and press 'Save'</p></div>
+    <div style="text-align: center;"><p>Click the location of your event to place your pin on the map. Remember to press 'Save'!</p></div>
     </section>
     <div id="map_canvas"></div>
     <section id="buttons">
@@ -105,8 +104,6 @@
       </form>
     </div>
     </section>
-    <br>
-
     <!-- 
     <div id="hostguest">Are you signing up to:
       <br>
@@ -170,7 +167,6 @@
       event.preventDefault();
       var first = $(this).find("input[name=First]")[0].value
       ,   email = $(this).find("input[name=Email]")[0].value;
-
       registerUser({email:email, first:first});
       return false;
     });
