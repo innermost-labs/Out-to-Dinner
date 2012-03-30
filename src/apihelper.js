@@ -109,7 +109,7 @@ var volunteerUserAs = function(type, form) {
     dataIn[type] = true;
   }
 
-  parseApiCall("PUT", myObjectId, dataIn, volunteerCallback,
+  parseApiCall("PUT", $.cookie("otd_objectId"), dataIn, volunteerCallback,
   volunteerErrorCallback, $.cookie("otd_sessionToken"));
 };
 
