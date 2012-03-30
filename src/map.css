@@ -127,6 +127,7 @@ body {
 	background:#9A5BA3;
 	border-radius:7px;
 	width:100%;
+        padding:25px 0px;
 	text-align:center;
 	margin:30px 0;
 	}
@@ -137,11 +138,6 @@ body {
 	}
 
 .button2 {
-	background:#9A5BA3;
-	border-radius:7px;
-	width:100%;
-	padding:25px 0px;
-	text-align:center;
 	margin:10px 0;
 	}
 
@@ -150,50 +146,20 @@ body {
 	cursor:pointer;
 	}
 
+.button3 {
+  height: 40px;
+  margin-top: 10px;
+  margin-right: 30px;
+}
+
 .button3:hover {
 	background:#6E3A77;
 	cursor:pointer;
 	}
 
-#guest {
-	float:left;
-	background:#9A5BA3;
-	border-radius:7px;
-	width:20%;
-	padding-top:20px;
-	padding-bottom:20px;
-	text-align:center;
-	margin-top:10px;
-	margin-left:100px;
-	margin-right:100px;
-}
-
-#host {
-	float:left;
-background:#9A5BA3;
-	border-radius:7px;
-	width:20%;
-	padding-top:20px;
-	padding-bottom:20px;
-	text-align:center;
-	margin-top:10px;
-	margin-left:100px;
-	margin-right:50px;	
-}
-
-#super {
-	float:left;
-	background:#9A5BA3;
-	border-radius:7px;
-	width:20%;
-	padding-top:20px;
-	padding-bottom:20px;
-	text-align:center;
-	margin-top:10px;
-	margin-left:100px;
-	margin-right:50px;
-
-}
+  .button3 input {
+    height: 40px;
+  }
 
 .button.disabled {
   background: #888;
