@@ -103,7 +103,7 @@ var registerErrorHandler = function(xhr, sts, err) {
 
 var volunteerUserAs = function(type, value) {
   var dataIn = {}
-  ,   types = ["guest","host","super"];
+  ,   types = ["guest","host"];
   
   if (types.indexOf(type)) {
     dataIn[type] = (value === "true");
