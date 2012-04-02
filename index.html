@@ -43,8 +43,13 @@
         <form id="email_reg_form">
           <input id='firstfield' required name="First" form="email_reg_form"
           placeholder="First name" type="text" />
+          <input id='lastnamefield' required name="Last" form="email_reg_form"
+          placeholder="Last name" type="text" />
+          <input id='zipcodefield' required name="Zipcode" form="email_reg_form"
+          placeholder="Zip code" type="text" />
           <input id='emailfield' required name="Email" form="email_reg_form" placeholder="Email" type="email"/>
-
+          <input id='lgbtbox' name="lgbt" form="email_reg_form" type="checkbox" /> <label for="lgbtbox">I am an LGBT person who will recruit a host.</label>
+          <input id='allybox' name="ally" form="email_reg_form" type="checkbox" /> <label for="allybox">I am a straight ally who will host a dinner.</label>
           <br>
           <div id="buttons">
             <section id="signup" class="button button2">
@@ -141,9 +146,13 @@
 
     $('#email_reg_form').submit(function(event) {
       event.preventDefault();
-      var first = $(this).find("input[name=First]")[0].value
-      ,   email = $(this).find("input[name=Email]")[0].value;
-      registerUser({email:email, first:first});
+      var 	first		= $(this).find("input[name=First]")[0].value
+	  ,		last		= $(this).find("input[name=Last]")[0].value
+      ,		email		= $(this).find("input[name=Email]")[0].value
+	  ,		zip			= $(this).find("input[name=Zipcode]")[0].value
+	  ,		lgbt		= $(this).find("input[name=lgbt]")[0].value
+	  ,		ally		= $(this).find("input[name=ally]")[0].value;
+      registerUser({email:email, first:first, last:last, zip:zip, lgbt:lgbt, ally:ally});
       return false;
     });
 

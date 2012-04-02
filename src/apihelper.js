@@ -67,11 +67,13 @@ var registerUser = function(user) {
   var dataIn = {
     "username": user.email,
     "first_name": user.first,
+	"last_name": user.last,
+	"zip_code": user.zip,
     "password": "temp",
     "email": user.email,
     "markerID": null,
-    "awesome": false,
-    "host": false,
+    "lgbtguest": user.lgbt,
+    "allyhost": user.ally,
     "guest": false,
   };
   parseApiCallWithErrorHandling("POST", "users", dataIn, registerHandler, registerErrorHandler);
