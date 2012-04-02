@@ -52,8 +52,8 @@
           <br>
           <div id="buttons">
           <section style="padding-top:10px;float:left;width:50%; text-align:left">
-          <input id='lgbtbox' name="lgbt" form="email_reg_form" type="checkbox" /> <label for="lgbtbox" style="font-size:14px">I am an LGBT person who will recruit a host.</label><br />
-          <input id='allybox' name="ally" form="email_reg_form" type="checkbox" /> <label for="allybox" style="font-size:14px">I am a straight ally who will host a dinner.</label>
+          <input required id='lgbtbox' name="lgbt_ally" form="email_reg_form" type="radio" value="lgbt"/> <label for="lgbtbox" style="font-size:14px">I am an LGBT person who will recruit a host.</label><br />
+          <input required id='allybox' name="lgbt_ally" form="email_reg_form" type="radio" value="ally" /> <label for="allybox" style="font-size:14px">I am a straight ally who will host a dinner.</label>
           </section>
             <section id="signup" style="float:right;width:50%" class="button button2">
             <input type="image" src="http://www.outtodinner.org/img/signup.png" width="101" alt="submit" name="submit" value="submit" form="email_reg_form"/>
@@ -151,8 +151,7 @@
 	  ,		last		= $(this).find("input[name=Last]")[0].value
       ,		email		= $(this).find("input[name=Email]")[0].value
 	  ,		zip			= $(this).find("input[name=Zipcode]")[0].value
-	  ,		lgbt		= $(this).find("input[name=lgbt]")[0].value
-	  ,		ally		= $(this).find("input[name=ally]")[0].value;
+	  ,		lgbt		= $(this).find("input[name=lgbt_ally]")[0].value
       registerUser({email:email, first:first, last:last, zip:zip, lgbt:lgbt, ally:ally});
       return false;
     });

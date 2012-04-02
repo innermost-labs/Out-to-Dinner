@@ -54,9 +54,8 @@ var registerForList = function(data) {
     ,   dataIn = $.param({	first_name	:	userData.first_name, 
 							last_name	:	userData.last_name, 
 							zip_code	:	userData.zip_code, 
-							email		:	userData.email, 
-							lgbtguest	:	userData.lgbtguest, 
-							allyhost	:	userData.allyhost, 
+							email		:	userData.email,  
+							lgbt_ally	:	userData.lgbt_ally, 
 							url			:	url});
 
     apiCall("POST", 
@@ -78,9 +77,7 @@ var registerUser = function(user) {
     "password": "temp",
     "email": user.email,
     "markerID": null,
-    "lgbtguest": user.lgbt,
-    "allyhost": user.ally,
-    "guest": false,
+	"lgbt_ally": user.lgbt_ally,
   };
   parseApiCallWithErrorHandling("POST", "users", dataIn, registerHandler, registerErrorHandler);
 }
