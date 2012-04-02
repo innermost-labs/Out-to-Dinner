@@ -51,7 +51,13 @@ var parseApiCall = function(verb, path, data, callback) {
 var registerForList = function(data) {
   withUserFromId(data.objectId, function(userData) {
     var url = "http://signup.outtodinner.org/?u=" + data.objectId
-    ,   dataIn = $.param({first_name:userData.first_name, email:userData.email, url:url});
+    ,   dataIn = $.param({	first_name	:	userData.first_name, 
+							last_name	:	userData.last_name, 
+							zip_code	:	userData.zip_code, 
+							email		:	userData.email, 
+							lgbtguest	:	userData.lgbtguest, 
+							allyhost	:	userData.allyhost, 
+							url			:	url});
 
     apiCall("POST", 
       "src/mailchimpsubscribe.php", 
