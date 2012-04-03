@@ -55,7 +55,8 @@ var registerForList = function(data) {
                           last_name: userData.last_name,
                           zip_code:  userData.zip_code,
                           email:     userData.email,
-                          lgbt_ally:      userData.lgbt_ally,
+                          lgbt:      userData.lgbt,
+                          ally:      userData.ally,
                           url:       url});
     
     apiCall("POST", 
@@ -77,10 +78,9 @@ var registerUser = function(user) {
     "zip_code": user.zip,
     "password": "temp",
     "email": user.email,
-    "markerID": null,
     "lgbt": user.lgbt,
     "ally": user.ally
-  };
+  }
   parseApiCallWithErrorHandling("POST", "users", dataIn, registerCallback, registerErrorCallback);
 }
 
