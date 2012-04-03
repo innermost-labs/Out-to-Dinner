@@ -6,7 +6,7 @@ var apiCall = function(verb, uri, headers, data, callback, error) {
   var error = error || onError
   ,   dataIn = data;
   
-  if ((["PUT","POST"].indexOf(verb) != -1) && !(uri.toLowerCase() == "src/mailchimpsubscribe.php")) {
+  if ((["PUT","POST"].indexOf(verb) != -1) && !(uri.toLowerCase() == "src/php/mailchimpsubscribe.php")) {
     dataIn = JSON.stringify(dataIn);
   }
 
@@ -59,7 +59,7 @@ var registerForList = function(data) {
                           url:       url});
 
     apiCall("POST", 
-      "src/mailchimpsubscribe.php", 
+      "src/php/mailchimpsubscribe.php", 
       {"Content-type":"application/x-www-form-urlencoded"},
       dataIn, 
       function(data) {},
