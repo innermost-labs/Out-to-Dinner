@@ -58,7 +58,6 @@ var registerForList = function(data) {
                           lgbt:      userData.lgbt,
                           ally:      userData.ally, 
                           url:       url});
-    debugger
     apiCall("POST", 
       "src/php/mailchimpsubscribe.php", 
       {"Content-type":"application/x-www-form-urlencoded"},
