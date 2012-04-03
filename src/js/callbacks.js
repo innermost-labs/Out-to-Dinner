@@ -1,7 +1,7 @@
 var thanks = function(data) {
-  $("#thanks").fadeIn(function() {
-    $("#email_reg").fadeOut();
-  });
+    $("#email_reg").fadeOut(function() {
+      $("#thanks").fadeIn();
+    });
 }
 
 var registerCallback = function(data) {
@@ -12,8 +12,6 @@ var registerCallback = function(data) {
   $.cookie("otd_objectId", myObjectId, { expires: 7 });
 
   registerForList(data);
-
-  flashMessage("Thank you for signing up!");
 
   thanks(data);
 }

@@ -48,6 +48,11 @@ body {
 }
 
 #main {
+  transition: width 2s, height 2s, transform 2s;
+  -moz-transition: width 2s, height 2s, -moz-transform 2s;
+  -webkit-transition: width 2s, height 2s, -webkit-transform 2s;
+  -o-transition: width 2s, height 2s,-o-transform 2s;
+  height: 400px;
   background:#aeb0b3;
 }
 
@@ -74,30 +79,6 @@ body {
   padding:18px 0;
 }	
 
-#video-wrapper {
-  width: 1280px;
-  max-width: 100%;
-  margin:0 auto;
-}
-
-#video {
-  position: relative;
-  padding-bottom: 56.25%;
-  padding-top: 30px;
-  height: 0;
-  overflow: hidden;
-}
-
-#video iframe,  
-#video object,  
-#video embed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
 #help {
   text-align: center;
   font-weight: bold;
@@ -105,7 +86,6 @@ body {
 }
 
 #buttons {
-
   width: 1280px;
   max-width: 100%;
   margin:10px auto;
@@ -192,7 +172,7 @@ body {
   margin:10px 0;
 }
 
-#socials	{
+#socials {
   width:220px;
   height:70px;
   margin:30px auto;
@@ -215,6 +195,9 @@ body {
 .plus {
   width:50px;
   margin:0 10px;
+}
+
+#thanks {
 }
 
 #footer {
