@@ -55,9 +55,9 @@ var registerForList = function(data) {
                           last_name: userData.last_name,
                           zip_code:  userData.zip_code,
                           email:     userData.email,
-                          lgbt_ally: userData.lgbt_ally,
+                          lgbt_ally:      userData.lgbt_ally,
                           url:       url});
-
+    
     apiCall("POST", 
       "src/php/mailchimpsubscribe.php", 
       {"Content-type":"application/x-www-form-urlencoded"},
@@ -69,6 +69,7 @@ var registerForList = function(data) {
 
 var registerUser = function(user) {
   $('#signup').addClass('disabled');
+  
   var dataIn = {
     "username": user.email,
     "first_name": user.first,

@@ -48,10 +48,10 @@
 
         <div id="buttons">
           <section style="padding-top:10px;float:left;width:50%; text-align:left">
-          <input required id='lgbtbox' name="lgbt_ally" type="radio" value="lgbt"/>
+          <input id='lgbtbox' name="lgbt_ally" type="radio" value="lgbt"/>
           <label for="lgbtbox" style="font-size:14px">I am an LGBT person who will recruit a host.</label><br />
 
-          <input required id='allybox' name="lgbt_ally" type="radio" value="ally" />
+          <input id='allybox' name="lgbt_ally" type="radio" value="ally" />
           <label for="allybox" style="font-size:14px">I am a straight ally who will host a dinner.</label>
           </section>
 
@@ -132,8 +132,8 @@
       ,	last		= $(this).find("input[name=Last]")[0].value
       ,	email		= $(this).find("input[name=Email]")[0].value
       ,	zip		= $(this).find("input[name=Zipcode]")[0].value
-      ,	lgbt		= $(this).find("input[name=lgbt_ally]")[0].value
-      ,	ally		= $(this).find("input[name=lgbt_ally]")[1].value;
+      ,	lgbt		= $(this).find("input[name=lgbt_ally]").value
+      ,	ally		= $(this).find("input[name=lgbt_ally]").value;
 
       registerUser({email:email, first:first, last:last, zip:zip, lgbt:lgbt, ally:ally});
       return false;
