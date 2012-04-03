@@ -18,9 +18,9 @@ var flashMessage = function(messageText, cssClass) {
   $(message).delay(5000).slideUp();
 }
 
-var showMap = function(data) {
-  $('#email_reg').hide();
-  $('#dashboard').show();
-  makeMap(data.objectId, data.sessionToken, data.markerId);
-}
+// var showMap = function(data) {
+//   $('#email_reg').hide();
+//   $('#dashboard').show();
+//   makeMap(data.objectId, data.sessionToken, data.markerId);
+// }
 
