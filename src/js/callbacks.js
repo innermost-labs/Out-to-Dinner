@@ -18,7 +18,7 @@ var registerCallback = function(data) {
 
 var registerErrorCallback = function(xhr, sts, err) {
   $('#signup').removeClass('disabled');
-  flashMessage("Something went wrong. Have you already signed up?", "error");
+  flashMessage("Are you sure you filled out the form correctly?", "error");
 };
 
 var noUserExists =  function(x, s, err) {
