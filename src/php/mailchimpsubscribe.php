@@ -9,10 +9,10 @@ $email_addr = $_POST['email'];
 $ally = $_POST['ally'];
 $lgbt = $_POST['lgbt'];
  
-if($ally){
+if(strcmp($ally, 'true')==0){
 	$listId = $hostListId;
 }
-elseif ($lgbt) {
+elseif (strcmp($lgbt, 'true')==0) {
 	$listId = $lgbtListId;
 }
 else{

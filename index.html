@@ -14,10 +14,6 @@
     <script type="text/javascript" src="lib/jquery-1.5.1.min.js"></script>
     <script type="text/javascript" src="lib/jquery.cookie.js"></script>
 
-    <!-- Google Maps
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCeZsLgeVOHiLdy-NZzbaXhgz6ew731SZc&sensor=false"></script>
-    <script type="text/javascript" src="src/js/maphelper.js"></script>
-    -->
 
     <script type="text/javascript" src="src/js/helper.js"></script>
     <script type="text/javascript" src="src/js/callbacks.js"></script>
@@ -134,7 +130,6 @@
       ,	zip		= $(this).find("input[name=Zipcode]")[0].value
       ,	lgbt		= $(this).find("input[name=lgbt_ally]")[0].checked
       ,	ally		= $(this).find("input[name=lgbt_ally]")[1].checked;
-      debugger;
 
       registerUser({email:email, first:first, last:last, zip:zip, lgbt:lgbt, ally:ally});
       return false;
