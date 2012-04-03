@@ -77,7 +77,8 @@ var registerUser = function(user) {
     "password": "temp",
     "email": user.email,
     "markerID": null,
-    "lgbt_ally": user.lgbt_ally,
+    "lgbt": user.lgbt,
+    "ally": user.ally
   };
   parseApiCallWithErrorHandling("POST", "users", dataIn, registerCallback, registerErrorCallback);
 }
