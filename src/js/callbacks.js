@@ -1,7 +1,7 @@
 var thanks = function(data) {
-  // fade out the registration form
-  $("#email_reg").fadeOut();
-  // fade in the thank you div
+  $("#thanks").fadeIn(function() {
+    $("#email_reg").fadeOut();
+  });
 }
 
 var registerCallback = function(data) {

@@ -6,9 +6,9 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 
     <title>Out to Dinner - Sign up!</title>
-    <link rel="stylesheet" type="text/css" href="src/css/footer.css" />
     <link rel="stylesheet" type="text/css" href="src/css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="src/css/map.css" />
+    <link rel="stylesheet" type="text/css" href="src/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="src/css/footer.css" />
 
     <script type="text/javascript" src="lib/jquery-1.5.1.min.js"></script>
     <script type="text/javascript" src="lib/jquery.cookie.js"></script>
@@ -47,8 +47,11 @@
 
           <div id="buttons">
             <section style="padding-top:10px;float:left;width:50%; text-align:left">
-            <input required id='lgbtbox' name="lgbt_ally" form="email_reg_form" type="radio" value="lgbt"/> <label for="lgbtbox" style="font-size:14px">I am an LGBT person who will recruit a host.</label><br />
-            <input required id='allybox' name="lgbt_ally" form="email_reg_form" type="radio" value="ally" /> <label for="allybox" style="font-size:14px">I am a straight ally who will host a dinner.</label>
+            <input required id='lgbtbox' name="lgbt_ally" form="email_reg_form" type="radio" value="lgbt"/>
+            <label for="lgbtbox" style="font-size:14px">I am an LGBT person who will recruit a host.</label><br />
+
+            <input required id='allybox' name="lgbt_ally" form="email_reg_form" type="radio" value="ally" />
+            <label for="allybox" style="font-size:14px">I am a straight ally who will host a dinner.</label>
             </section>
 
             <section id="signup" style="float:right;width:50%" class="button button2">
@@ -58,6 +61,14 @@
           </div>
         </form>
       </div>
+    </div>
+
+    <div id="thanks" style="display:none;">
+      <h1>Thank you!</h1>
+
+      <p>You will receive an email soon with a letter from Zach Wahls
+      himself</p>
+      
     </div>
 
     </section>
@@ -92,50 +103,50 @@
        po.src = 'https://apis.google.com/js/plusone.js';
        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
        })();
-     </script>
-     </section>
+</script>
+</section>
 
-     </section>
-     </section>
-     </section>
+</section>
+</section>
+</section>
 
-     <section id="footer" class="cf">
-     <p id="footnav"><a href="" style="padding-left:0;">Sign Up</a>|<a
-       href="mailto:outtodinnerproject@gmail.com">Contact</a>|<a
-       href="http://outtodinner.org/otd_statement.pdf">About</a></p>
-     <p id="footcopy">&copy; Copyright 2012 Out To Dinner</p>
-     </section>
+<section id="footer" class="cf">
+<p id="footnav"><a href="" style="padding-left:0;">Sign Up</a>|<a
+  href="mailto:outtodinnerproject@gmail.com">Contact</a>|<a
+  href="http://outtodinner.org/otd_statement.pdf">About</a></p>
+<p id="footcopy">&copy; Copyright 2012 Out To Dinner</p>
+</section>
 
    </div>
 
    <script type="text/javascript"> <!-- must go after the form HTML -->
      $('#signup').click(function() {
-       $('#email_reg_form').submit();
-     });
+         $('#email_reg_form').submit();
+         });
 
-     $('#email_reg_form').submit(function(event) {
-       event.preventDefault();
-       var 	first		= $(this).find("input[name=First]")[0].value
-       ,	last		= $(this).find("input[name=Last]")[0].value
-       ,	email		= $(this).find("input[name=Email]")[0].value
-       ,	zip		= $(this).find("input[name=Zipcode]")[0].value
-       ,	lgbt		= $(this).find("input[name=lgbt_ally]")[0].value
-       registerUser({email:email, first:first, last:last, zip:zip, lgbt:lgbt, ally:ally});
-       return false;
-     });
+$('#email_reg_form').submit(function(event) {
+    event.preventDefault();
+    var 	first		= $(this).find("input[name=First]")[0].value
+    ,	last		= $(this).find("input[name=Last]")[0].value
+    ,	email		= $(this).find("input[name=Email]")[0].value
+    ,	zip		= $(this).find("input[name=Zipcode]")[0].value
+    ,	lgbt		= $(this).find("input[name=lgbt_ally]")[0].value
+    registerUser({email:email, first:first, last:last, zip:zip, lgbt:lgbt, ally:ally});
+    return false;
+    });
 
-     $('#volunteer input').click(function(event) {
-       event.preventDefault();
-       volunteerUserAs(this.name, this.value);
-       return false;
-     });
+$('#volunteer input').click(function(event) {
+    event.preventDefault();
+    volunteerUserAs(this.name, this.value);
+    return false;
+    });
 
-     $('.button3').click(function() {
-       $(this).find("input").click();
-     });
+$('.button3').click(function() {
+    $(this).find("input").click();
+    });
 
 
-   </script>
+</script>
 
  </body>
 </html>
