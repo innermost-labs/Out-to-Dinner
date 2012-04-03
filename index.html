@@ -132,8 +132,9 @@
       ,	last		= $(this).find("input[name=Last]")[0].value
       ,	email		= $(this).find("input[name=Email]")[0].value
       ,	zip		= $(this).find("input[name=Zipcode]")[0].value
-      ,	lgbt		= $(this).find("input[name=lgbt_ally]").value
-      ,	ally		= $(this).find("input[name=lgbt_ally]").value;
+      ,	lgbt		= $(this).find("input[name=lgbt_ally]")[0].checked
+      ,	ally		= $(this).find("input[name=lgbt_ally]")[1].checked;
+      debugger;
 
       registerUser({email:email, first:first, last:last, zip:zip, lgbt:lgbt, ally:ally});
       return false;
