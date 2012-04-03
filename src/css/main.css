@@ -198,6 +198,26 @@ body {
 }
 
 #thanks {
+  font: 13px/1.5 'Helvetica Neue', Arial, 'Liberation Sans', FreeSans, sans-serif;
+  background-color: #9A5BA3;
+  max-height:400px;
+  max-width:640px;
+  height:100%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius:7px;
+}
+
+#thanks p {
+  font-size:15px;
+  color:#ffffff;
+  padding:0px 20px 20px 30px;
+}
+
+#thanks h1 {
+  font-size: 25px;
+  color:#ffffff;
+  padding:20px 20px 20px 30px;
 }
 
 #footer {
