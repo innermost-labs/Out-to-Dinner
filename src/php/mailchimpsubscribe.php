@@ -6,12 +6,13 @@ $api = new MCAPI($api_key);
 $merge_vars = array('FNAME'=>$_POST['first_name'],'LNAME'=>$_POST['last_name'], 'MERGE3'=>$_POST['url'], 'MERGE4'=>$_POST['zip_code'] );
 $email_addr = $_POST['email'];
 
-$isally = $_POST['lgbt_ally'];
+$ally = $_POST['ally'];
+$lgbt = $_POST['lgbt'];
  
-if(strcmp($isally, 'ally')==0){
+if($ally){
 	$listId = $hostListId;
 }
-elseif (strcmp($isally, 'lgbt') == 0) {
+elseif ($lgbt) {
 	$listId = $lgbtListId;
 }
 else{
