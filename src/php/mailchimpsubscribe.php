@@ -9,5 +9,5 @@ $email_addr = $_POST['email'];
 $result =  $api->listSubscribe($listId,$email_addr, $merge_vars);
 
 
-echo(" | " + $result + " |");
+return " | " + $result + " |";
 ?>

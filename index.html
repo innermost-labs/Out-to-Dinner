@@ -125,9 +125,12 @@
       event.preventDefaults();
       return false;
     });
-
+      
     $('#email_reg_form').submit(function(event) {
       event.preventDefault();
+      alert($(this).find("input[name=lgbt_ally]")[0].value);
+      alert($(this).find("input[name=lgbt_ally]")[1].value);
+
       var 	first		= $(this).find("input[name=First]")[0].value
       ,	last		= $(this).find("input[name=Last]")[0].value
       ,	email		= $(this).find("input[name=Email]")[0].value
