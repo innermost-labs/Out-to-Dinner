@@ -24,6 +24,7 @@ function makeMap(){
 	    if(markerId){
 		    	return getUserMap(markerId);
 		}else{
+			userHasNoMarker = true;
 			makeMarkerFromZip(userId);
 		}
 	}
