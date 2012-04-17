@@ -59,17 +59,24 @@
 
     <div id="thanks" style="display:none">
       <h1>Thank you!</h1>
+      <section id="next-steps">
+      <h2>Here are three next steps:</h2>
 
-      <p>This project is only going to succeed with the courage and support of people like you.
-      Thank you so much for pledging to be part of the event. Here are three next steps:
-      <br>
-      <br>1) Go put the date on your calendar—now!
-      <br>2) Respond to the confirmation e-mail we just sent you
-      <br>3) Share this with your friends and family
-      <br>
-      <br>This is going to be a great night, and I’m thrilled you’re going to be a part of it.
-      <br>
-      <br><br><span style="display: block; text-align: center;"><i>-- Zach Wahls</i></span></p>
+      <ul>
+        <li><span>1</span> Go put the date on your calendar—now!</li>
+        <li><span>2</span> Respond to your confirmation e-mail</li>
+        <li><span>3</span> Share this with your friends and family</li>
+      </ul>
+      </section>
+
+
+      <p>This project is only going to succeed with the courage and support of
+      people like you.<br />
+      Thank you so much for pledging to be part of the event.</p>
+
+      <p>This is going to be a great night, and I’m thrilled you’re going to be
+      a part of it.</p>
+      <p id="signature">-Zach Wahls</p>
     </div>
 
     </section>
@@ -119,8 +126,8 @@
 
      <script type="text/javascript"> <!-- must go after the form HTML -->
        $('#signup').click(function() {
-           $('#email_reg_form').submit();
-           });
+         $('#email_reg_form').submit();
+       });
 
 $('#email_reg_form input[type=submit]').click(function(event) {
     event.preventDefaults();
@@ -135,7 +142,7 @@ $('#email_reg_form').submit(function(event) {
     ,	zip		= $(this).find("input[name=Zipcode]")[0].value
     ,	lgbt		= $(this).find("input[name=lgbt_ally]")[0].checked
     ,	ally		= $(this).find("input[name=lgbt_ally]")[1].checked
-	,	refer		= getUrlParameter(r);
+	,	refer		= getUrlParameter("r");
 
     registerUser({email:email, first:first, last:last, zip:zip, lgbt:lgbt, ally:ally, refer:refer});
     return false;

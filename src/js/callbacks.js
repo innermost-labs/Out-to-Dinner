@@ -8,7 +8,6 @@ var thanks = function(data) {
 var registerCallback = function(data) {
   var myObjectId  = data.objectId,
       mySessToken = data.sessionToken;
-      alert(JSON.stringify(data));
   $.cookie("otd_sessionToken", mySessToken);
   // $.cookie("otd_objectId", myObjectId, { expires: 7 });
 

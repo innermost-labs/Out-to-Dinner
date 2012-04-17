@@ -10,7 +10,7 @@
 ----------------------------------------------------------------------------------------------------*/
 
 body {
-  font: 13px/1.5 'Helvetica Neue', Arial, 'Liberation Sans', FreeSans, sans-serif;
+  font-family: Helvetica, 'Helvetica Neue', sans-serif;
 }
 
 a:focus {
