@@ -1,6 +1,7 @@
 var thanks = function(data) {
     $("#email_reg").fadeOut(function() {
       $("#thanks").fadeIn();
+      $("body").addClass("thanks");
     });
 }
 

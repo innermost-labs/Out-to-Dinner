@@ -25,6 +25,17 @@ body {
 #email_reg_form input[type=email] {
   width: 99%;
   font-size: 30px;
+}                    
+
+.box {
+  background-color: #aaa;
+  border: solid 6px #fff;
+
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border-color: white;
+  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
 }
 
 #messages {
@@ -48,10 +59,6 @@ body {
 }
 
 #main {
-  transition: width 2s, height 2s, transform 2s;
-  -moz-transition: width 2s, height 2s, -moz-transform 2s;
-  -webkit-transition: width 2s, height 2s, -webkit-transform 2s;
-  -o-transition: width 2s, height 2s,-o-transform 2s;
   height: 400px;
   background:#aeb0b3;
 }
@@ -68,7 +75,47 @@ body {
 }
 
 #main-content {
-  margin:0 20px;
+  transition: width 2s, height 2s, transform 2s;
+  -moz-transition: width 2s, height 2s, -moz-transform 2s;
+  -webkit-transition: width 2s, height 2s, -webkit-transform 2s;
+  -o-transition: width 2s, height 2s,-o-transform 2s;
+  margin: 0px auto 30px;
+  max-width: 700px;
+  width: 100%;
+  padding: 20px;
+  background-color: white;
+  min-height: 240px;
+  background-image: -webkit-gradient(radial, center center, circle farthest-corner, from(#eeeeee), to(#cccccc));
+  background-image: -webkit-radial-gradient(center center, circle farthest-corner, #eeeeee, #cccccc);
+  background-image:    -moz-radial-gradient(center center, circle farthest-corner, #eeeeee, #cccccc);
+  background-image:     -ms-radial-gradient(center center, circle farthest-corner, #eeeeee, #cccccc);
+  background-image:      -o-radial-gradient(center center, circle farthest-corner, #eeeeee, #cccccc);
+  background-image:         radial-gradient(center center, circle farthest-corner, #eeeeee, #cccccc);
+
+  -webkit-box-shadow: 0 0 71px 11px rgba(255,255,255,0.5);
+  -moz-box-shadow: 0 0 71px 11px rgba(255,255,255,0.5);
+  box-shadow: 0 0 71px 11px rgba(255,255,255,0.5);
+
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+
+  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+
+}
+
+.thanks #main-content {
+  background-color: #9A5BA3;
+  background-image: -webkit-gradient(radial, center center, circle farthest-corner, from(#e19feb), to(#9a5ba3));
+  background-image: -webkit-radial-gradient(center center, circle farthest-corner, #e19feb, #9a5ba3);
+  background-image:    -moz-radial-gradient(center center, circle farthest-corner, #e19feb, #9a5ba3);
+  background-image:     -ms-radial-gradient(center center, circle farthest-corner, #e19feb, #9a5ba3);
+  background-image:      -o-radial-gradient(center center, circle farthest-corner, #e19feb, #9a5ba3);
+  background-image:         radial-gradient(center center, circle farthest-corner, #e19feb, #9a5ba3);
+
+  -webkit-box-shadow: 0 0 71px 11px rgba(255,255,255,0.5);
+  -moz-box-shadow: 0 0 71px 11px rgba(255,255,255,0.5);
+  box-shadow: 0 0 71px 11px rgba(255,255,255,0.5);
 }
 
 #logo {
@@ -86,7 +133,6 @@ body {
 }
 
 #buttons {
-  width: 1280px;
   max-width: 100%;
   margin:10px auto;
 }
@@ -199,13 +245,6 @@ body {
 
 #thanks {
   font: 13px/1.5 'Helvetica Neue', Arial, 'Liberation Sans', FreeSans, sans-serif;
-  background-color: #9A5BA3;
-  max-height:400px;
-  max-width:640px;
-  height:100%;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius:7px;
 }
 
 #thanks p {
