@@ -57,7 +57,8 @@ var registerForList = function(data) {
                           email:     userData.email,
                           lgbt:      userData.lgbt,
                           ally:      userData.ally, 
-                          url:       url});
+                          url:       url,
+						  refer:	 userData.refer});
     apiCall("POST", 
       "src/php/mailchimpsubscribe.php", 
       {"Content-type":"application/x-www-form-urlencoded"},
@@ -78,7 +79,8 @@ var registerUser = function(user) {
     "password": "temp",
     "email": user.email,
     "lgbt": user.lgbt,
-    "ally": user.ally
+    "ally": user.ally,
+	"refer": user.refer
   }
   parseApiCallWithErrorHandling("POST", "users", dataIn, registerCallback, registerErrorCallback);
 }
