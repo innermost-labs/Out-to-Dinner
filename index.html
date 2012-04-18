@@ -145,6 +145,7 @@ $('#email_reg_form').submit(function(event) {
     ,	ally		= $(this).find("input[name=lgbt_ally]")[1].checked
 	,	refer		= getUrlParameter("r");
 
+	if( lgbt == false && ally == false) { flashMessage("Please choose a role.", null); return false; }
     registerUser({email:email, first:first, last:last, zip:zip, lgbt:lgbt, ally:ally, refer:refer});
     return false;
     });
