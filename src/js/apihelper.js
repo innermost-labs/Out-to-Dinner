@@ -122,8 +122,8 @@ var makeMarkerFromZip = function(data){
     {'address':data.zip_code},
       function(results, status){
        if (status == google.maps.GeocoderStatus.OK){
-          newLat = results[0].geometry.location.lat();
-          newLng = results[0].geometry.location.lng();
+           newLat = results[0].geometry.location.lat() + Math.random();
+           newLng = results[0].geometry.location.lng() + Math.random();
 	        markerParams = {location:
               {__type:"GeoPoint", 
               latitude:newLat, 
