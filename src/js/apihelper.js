@@ -117,17 +117,17 @@ var makeMarkerFromZip = function(data){
   parseApiCall(
     "GET",
     "users/" + data.objectId,
-    ,
+    null,
     function(dataout){
       geocoder = new google.maps.Geocoder();
       geocoder.geocode( 
-        {
-          'address':dataout.zip_code,
+        {'address':dataout.zip_code},
           function(results, status){
            if (status == google.maps.GeocoderStatus.OK){
-              //adds or subtracts  a number [0,1]*.5 to the lat and long to space out the points
-              newLat = results.location.lat();
-              newLng = results.location.lng();
+              //use the first results long and lat
+              newLat = results[0].geometry.location.lat();
+              newLng = results[0].geometry.location.lng();
+              alert("made points lat:" + newLat + " long:" + newLng);
               newMarker(
                 {location:
                   {__type:"GeoPoint", 
@@ -136,6 +136,9 @@ var makeMarkerFromZip = function(data){
                   owner:data.objectId, 
                   content:""}
               ); 
+            }
+            else {
+              //ask for new zip code?
             }
           }
         }
@@ -151,6 +154,7 @@ function newMarker(userData, markerParams){
     "markers", 
     markerParams, 
     function(data){   
+      alert("made Marker objectId" + data.objectId + " owner: " + userData.objectId);
       editUser(userData, {markerID:data.objectId});
     }
   );

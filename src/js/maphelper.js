@@ -95,13 +95,57 @@ function getUserMap(markerId){
 
 
 function getMarkers(){
-	if(marker){
-		marker.setMap(null);
-	}
 	for(i = 0; i < publicmarkers.length; i++){
 			publicmarkers[i].marker.setMap(null);
 	}
 	publicmarkers = [];
+	parseApiCall(
+		"GET",
+		"classes/markers",
+		null,
+		function(data)
+		{
+			homeImage = "http://www.google.com/intl/en_us/mapfiles/ms/micons/purple-dot.png";
+				for(var i = 0; i < data.results.length; i++)
+				{
+					//alert(JSON.stringify(markers.results[i].owner));
+					var tempmark = new google.maps.Marker({
+						position:new google.maps.LatLng(markers.results[i].location.latitude, markers.results[i].location.longitude),
+						map:map
+					});
+					if(markers.results[i].objectId == markerId){
+						tempmark.setIcon(homeImage);
+					}
+					publicmarkers.push({marker:tempmark, content:markers.results[i].content, objectId:markers.results[i].objectId});	
+
+					google.maps.event.addListener(tempmark, 'click', function(event) {
+						for(var j = 0; j < publicmarkers.length; j++){
+							if(publicmarkers[j].marker.position == event.latLng){
+								if(marker){
+									marker.setMap(null);
+								}
+								if(publicmarkers[j].content != undefined){
+								    var content = "<div id = 'pincontent'> " + publicmarkers[j].content +"</div>";
+								}
+								else{
+								    var content = "<div id = 'pincontent'> </div>";
+								}
+								
+								
+								//alert(publicmarkers[j].objectId +" == " + markerId);
+								if(publicmarkers[j].objectId == markerId){
+									content +="<form>Edit Thoughts <INPUT TYPE='text' id='content_box'> <INPUT TYPE='button' NAME='addmarker' Value='Change Comments' onClick='addMarker("+publicmarkers[j].marker.getPosition().lat()+","+publicmarkers[j].marker.getPosition().lng()+ ")'></form>";
+								}
+								infowindow.setContent(content);
+								infowindow.open(map, publicmarkers[j].marker);
+							}
+						}
+			   		});
+				}
+			}
+		}
+		}
+		)
 	var	ajax = xmlhttp(function(){
 		if(ajax.readyState == 4){
 			if(ajax.responseText != ""){
