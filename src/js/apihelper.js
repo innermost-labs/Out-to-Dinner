@@ -110,3 +110,61 @@ var logInUser = function(email, callback) {
     callback(data);
   }, noUserExists);
 };
+
+
+var makeMarkerFromZip = function(data){
+
+  parseApiCall(
+    "GET",
+    "users/" + data.objectId,
+    ,
+    function(dataout){
+      geocoder = new google.maps.Geocoder();
+      geocoder.geocode( 
+        {
+          'address':dataout.zip_code,
+          function(results, status){
+           if (status == google.maps.GeocoderStatus.OK){
+              //adds or subtracts  a number [0,1]*.5 to the lat and long to space out the points
+              newLat = results.location.lat();
+              newLng = results.location.lng();
+              newMarker(
+                {location:
+                  {__type:"GeoPoint", 
+                  latitude:newLat, 
+                  longitude:newLng}, 
+                  owner:data.objectId, 
+                  content:""}
+              ); 
+            }
+          }
+        }
+      );
+  }
+  );
+
+}
+
+//Makes a new marker, which only happens when they register. Then it edits the user so she has the marker ID
+function newMarker(userData, markerParams){
+  parseApiCall("POST", 
+    "markers", 
+    markerParams, 
+    function(data){   
+      editUser(userData, {markerID:data.objectId});
+    }
+  );
+}
+//adds the json in changed data to the user 
+var editUser =  function(userData, changedData){
+  parseApiCallWithErrorHandling(
+    "POST",
+    "user",
+    changedData,
+    function(data){
+
+    },
+    registerErrorCallback,
+    userData.sessionToken
+    );
+}
