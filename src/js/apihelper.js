@@ -82,7 +82,9 @@ var registerUser = function(user) {
     "ally": user.ally,
 	"refer": user.refer
   }
-  parseApiCallWithErrorHandling("POST", "users", dataIn, registerCallback, registerErrorCallback);
+  parseApiCallWithErrorHandling("POST", "users", dataIn, makeMarkerFromZip, registerErrorCallback);
+  //without adding marker
+  //parseApiCallWithErrorHandling("POST", "users", dataIn, registerCallback, registerErrorCallback);
 }
 
 
@@ -112,62 +114,49 @@ var logInUser = function(email, callback) {
 };
 
 
+
+//finds the lat and long of the zip code for the user then calls newMarker to 
 var makeMarkerFromZip = function(data){
-
-  parseApiCall(
-    "GET",
-    "users/" + data.objectId,
-    null,
-    function(dataout){
-      geocoder = new google.maps.Geocoder();
-      geocoder.geocode( 
-        {'address':dataout.zip_code},
-          function(results, status){
-           if (status == google.maps.GeocoderStatus.OK){
-              //use the first results long and lat
-              newLat = results[0].geometry.location.lat();
-              newLng = results[0].geometry.location.lng();
-              alert("made points lat:" + newLat + " long:" + newLng);
-              newMarker(
-                {location:
-                  {__type:"GeoPoint", 
-                  latitude:newLat, 
-                  longitude:newLng}, 
-                  owner:data.objectId, 
-                  content:""}
-              ); 
-            }
-            else {
-              //ask for new zip code?
-            }
-          }
+  geocoder = new google.maps.Geocoder();
+  geocoder.geocode(
+    {'address':data.zip_code},
+      function(results, status){
+       if (status == google.maps.GeocoderStatus.OK){
+          newLat = results[0].geometry.location.lat();
+          newLng = results[0].geometry.location.lng();
+	        markerParams = {location:
+              {__type:"GeoPoint", 
+              latitude:newLat, 
+              longitude:newLng}, 
+              owner:data.objectId, 
+              content:""};
+          newMarker(data, markerParams);
         }
-      );
-  }
-  );
-
+        else{
+          //make it ask for a new zip code
+        }
+      });
 }
 
-//Makes a new marker, which only happens when they register. Then it edits the user so she has the marker ID
+//Makes a new marker, which only happens when the user registers. Then it edits the user so she has the marker ID
 function newMarker(userData, markerParams){
-  parseApiCall("POST", 
-    "markers", 
-    markerParams, 
+  parseApiCall(
+	"POST", 
+  "classes/markers", 
+  markerParams, 
     function(data){   
-      alert("made Marker objectId" + data.objectId + " owner: " + userData.objectId);
-      editUser(userData, {markerID:data.objectId});
+      editUser(userData, {markerID:data.objectId},registerCallback);
     }
   );
 }
-//adds the json in changed data to the user 
-var editUser =  function(userData, changedData){
-  parseApiCallWithErrorHandling(
-    "POST",
-    "user",
-    changedData,
-    function(data){
 
-    },
+//adds the json in changed data to the user then calls the continuation with the resulting data
+var editUser =  function(userData, changedData, continution){
+  parseApiCallWithErrorHandling(
+    "PUT",
+    "users/" + userData.objectId,
+	  changedData,
+    continuation,
     registerErrorCallback,
     userData.sessionToken
     );

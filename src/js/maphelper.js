@@ -25,7 +25,7 @@ function makeMap(){
 		    	return getUserMap(markerId);
 		}else{
 			userHasNoMarker = true;
-			//make a marker for the user and then make the map
+			makeMarkerFromZip(userId);
 		}
 	}
 	var coord = new google.maps.LatLng(lat,long);
@@ -34,7 +34,6 @@ function makeMap(){
     		zoom: 4,
     		mapTypeId: google.maps.MapTypeId.SATELLITE
     };
-    //alert(coord);
     map =  new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
     if(userHasNoMarker){
@@ -51,8 +50,8 @@ function makeMap(){
     getMarkers();
 }
 
-
 function getUserMap(markerId){
+
 	var ajax = xmlhttp(function(){
 		if(ajax.readyState == 4){
 			if(ajax.responseText != ""){
@@ -95,57 +94,14 @@ function getUserMap(markerId){
 
 
 function getMarkers(){
+	if(marker){
+		marker.setMap(null);
+	}
 	for(i = 0; i < publicmarkers.length; i++){
 			publicmarkers[i].marker.setMap(null);
 	}
 	publicmarkers = [];
-	parseApiCall(
-		"GET",
-		"classes/markers",
-		null,
-		function(data)
-		{
-			homeImage = "http://www.google.com/intl/en_us/mapfiles/ms/micons/purple-dot.png";
-				for(var i = 0; i < data.results.length; i++)
-				{
-					//alert(JSON.stringify(markers.results[i].owner));
-					var tempmark = new google.maps.Marker({
-						position:new google.maps.LatLng(markers.results[i].location.latitude, markers.results[i].location.longitude),
-						map:map
-					});
-					if(markers.results[i].objectId == markerId){
-						tempmark.setIcon(homeImage);
-					}
-					publicmarkers.push({marker:tempmark, content:markers.results[i].content, objectId:markers.results[i].objectId});	
-
-					google.maps.event.addListener(tempmark, 'click', function(event) {
-						for(var j = 0; j < publicmarkers.length; j++){
-							if(publicmarkers[j].marker.position == event.latLng){
-								if(marker){
-									marker.setMap(null);
-								}
-								if(publicmarkers[j].content != undefined){
-								    var content = "<div id = 'pincontent'> " + publicmarkers[j].content +"</div>";
-								}
-								else{
-								    var content = "<div id = 'pincontent'> </div>";
-								}
-								
-								
-								//alert(publicmarkers[j].objectId +" == " + markerId);
-								if(publicmarkers[j].objectId == markerId){
-									content +="<form>Edit Thoughts <INPUT TYPE='text' id='content_box'> <INPUT TYPE='button' NAME='addmarker' Value='Change Comments' onClick='addMarker("+publicmarkers[j].marker.getPosition().lat()+","+publicmarkers[j].marker.getPosition().lng()+ ")'></form>";
-								}
-								infowindow.setContent(content);
-								infowindow.open(map, publicmarkers[j].marker);
-							}
-						}
-			   		});
-				}
-			}
-		}
-		}
-		)
+	
 	var	ajax = xmlhttp(function(){
 		if(ajax.readyState == 4){
 			if(ajax.responseText != ""){
@@ -200,6 +156,24 @@ function getMarkers(){
 
 }
 
+function makeMarkerFromZip(var userID){
+
+	parseApiCall("GET", "users/" + userID, , function(dataout){
+		alert("this works so far");
+		geocoder = new google.maps.Geocoder();
+		geocoder.geocode( {'address':dataout.zip_code, function(results, status){
+			 if (status == google.maps.GeocoderStatus.OK){
+			 	//adds or subtracts  a number [0,1]*.5 to the lat and long to space out the points
+			 	randLat = results.location.lat();
+			 	randLong = results.location.lng();
+			 	newMarker(randLat, randLong, ""); 
+			}
+		}});
+	});
+
+}
+
+
 //this will change a markers content or position, right now we are only using it for content, but once long ago we could change both properties
 function changeMarker(con){
 	var ajax = xmlhttp(function(){
@@ -244,3 +218,52 @@ function xmlhttp(func){
 	return temp;
 }
 
+
+//we don't need to add temp markers anymore :(
+
+/*
+function addTempMarker(location) {
+	if(marker){
+		marker.setMap(null);
+	}
+	infowindow.close();
+	var infoContent;
+	
+	if(markerId){
+		infoContent = "<div id='tempwindow'><form>Edit thoughts <INPUT TYPE='text' id='content_box'> <INPUT TYPE='button' NAME='addmarker' Value='Change Pin Position' onClick='addMarker("+location.lat()+","+location.lng()+ ")'></form></div>";
+	}else{
+		infoContent = "<div id='tempwindow'><form>Share your thoughts <INPUT TYPE='text' id='content_box'> <INPUT TYPE='button' NAME='addmarker' Value='Add to Map' onClick='addMarker("+location.lat()+","+location.lng()+ ")'></form></div>";
+	}
+  	
+  	infowindow = new google.maps.InfoWindow({
+  		content:infoContent
+	});
+  
+  marker = new google.maps.Marker({
+	position:location,
+	map: map,
+	icon:"http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png"
+  });
+  infowindow.open(map, marker);
+}
+
+*/
+
+//automatically adds marker for user, don't need this either
+
+/*
+function addMarker(newlat, newlong){
+
+	var content = document.getElementById("content_box").value;
+	if(content == ""){
+		content = undefined;
+	}
+	//alert("adding marker" + markerId + content);
+	if(markerId){
+		changeMarker(newlat, newlong, content);
+	}else{
+		newMarker(newlat,newlong,content);
+	}
+
+}
+*/
