@@ -1,0 +1,45 @@
+Welcome to the Out To Dinner codebase.
+
+What follows is an overview of how the code is layed out, and what everything does.
+
+Out-To-Dinner
+├── event
+│   └── otdevent.ics
+├── inc
+│   ├── config.inc.php
+│   └── MCAPI.class.php
+├── index.html - The main page for the website.
+├── lib
+│   ├── jasmine-1.1.0 - Jasmine is our testing suite. 
+│   │   ├── jasmine.css
+│   │   ├── jasmine_favicon.png
+│   │   ├── jasmine-html.js
+│   │   ├── jasmine.js
+│   │   └── MIT.LICENSE
+│   ├── jquery-1.5.1.min.js - JQuery is a Javascript Development Framework
+│   └── jquery.cookie.js 
+├── README - This readme file.
+├── src - The directory containing all the source code EXCEPT the libraries and index.html
+│   ├── css - All of our style sheets
+│   │   ├── footer.css
+│   │   ├── main.css
+│   │   ├── reset.css
+│   │   └── text.css
+│   ├── img - All the images for the website
+│   │   ├── email.png
+│   │   ├── guest.png
+│   │   ├── host.png
+│   │   ├── login.png
+│   │   ├── signon.png
+│   │   └── volunteer.png
+│   ├── js - All of the javascript files. Note that there are scripts embeded in index.html too.
+│   │   ├── apihelper.js 
+│   │   ├── app.js
+│   │   ├── callbacks.js
+│   │   ├── helper.js
+│   │   ├── mapadmin.js
+│   │   └── maphelper.js
+│   └── php - The php files
+│       └── mailchimpsubscribe.php
+
+
