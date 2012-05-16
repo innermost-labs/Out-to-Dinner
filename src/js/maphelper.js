@@ -8,7 +8,6 @@ var markerId = null;
 var infowindow = new google.maps.InfoWindow();
 
 function makeMap(){
-	alert("Called makeMap()");
 	//Just take userId as argument, if no argument show the public map
 	if(arguments.length == 1){
 		userId = arguments[0];
@@ -29,19 +28,17 @@ function makeMap(){
 
 //creates a map centered on a user's marker
 function getUserMap(userId){
-	alert("Called getUserMap(" + userId + ")");
 	getUser(
 		userId,
 		function(data){
 			if(data.markerID){
-				alert("data.markerID: " + data.markerID);
+				//alert("markerId = " + data.markerID);
 				markerId = data.markerID;
 				parseApiCall(
 					"GET",
 					"classes/markers/" + data.markerID,
 					null,
 					function(markerData){
-						alert("Marker Data: " + JSON.stringify(markerData));
 						if(markerData.objectId && markerData.location.latitude && markerData.location.longitude){
 							//set the map options object that will be used to create the map
 							mapOptions = {
@@ -55,19 +52,19 @@ function getUserMap(userId){
 							getMarkers();
 						}else{
 						// the markerId is invalid. make a new one?
+							makeMap();
 						}
 					}
 				);
 			}else{
 				//user has no markerID! do something about that
-			}	
+			}	makeMap();
 		}
 	);
 }
 
 //gets the user's data then calls the continuation with it
 function getUser(userId, continuation){
-	alert("Called getUser(" + userId + ", " + continuation + ")");
 	parseApiCall(
 	"GET",
 	"users/"+userId,
@@ -77,7 +74,6 @@ function getUser(userId, continuation){
 }
 
 function getMarkers(){
-	alert("Called getMarkers()");
 	//blank all the markers in the publicmarkers array and then clear out the array
 	for(i = 0; i < publicmarkers.length; i++){
 		publicmarkers[i].marker.setMap(null);
@@ -101,6 +97,7 @@ function getMarkers(){
 				});
 				//if the marker's objectId is the same as the owner's markerId then we make change the icon
 				if(data.results[i].objectId == markerId){
+						alert("hello");
 						tempmark.setIcon(homeImage);
 				}
 				//add the temporary marker and its associated data to the array so we can get to it later
@@ -138,7 +135,6 @@ function getMarkers(){
 
 //edits a marker, then calls getMarkers in update the map.
 function editMarker(markerId, changedData){
-	alert("Called editMarker()");
 	parseApiCall(
 		"PUT",
 		"classes/markers" + markerId,

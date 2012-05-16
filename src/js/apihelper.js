@@ -21,7 +21,7 @@ var apiCall = function(verb, uri, headers, data, callback, error) {
       error(xhr, textStatus, errorThrown);
     },
     success: function (data) {
-              alert(JSON.stringify(data));
+              //alert(JSON.stringify(data));
                callback(data);
              }
   }
@@ -139,7 +139,7 @@ var makeMarkerFromZip = function(creationData){
               newMarker(creationData, markerParams);
 
             }else{
-              alert("Google Maps didn't work | " + status + "/n user registered but no marker added and not added to mailchimp list");
+              alert("Google Maps didn't work | " + status + "\n user registered but no marker added and not added to mailchimp list");
             }
           });
     });
@@ -152,21 +152,26 @@ function newMarker(userData, markerParams){
   "classes/markers", 
   markerParams, 
     function(data){
-      editUser(userData, {markerID:data.objectId});
+      editUser(
+        userData, 
+        {markerID:data.objectId},
+        function(data){
+          registerCallback(userData);
+        });
     }
   );
 }
 
 //adds the json in changed data to the user then calls the continuation with the resulting data (right now, only using registerCallback, cause I was getting errors earlier)
-var editUser =  function(userData, changedData){
+var editUser =  function(userData, changedData, continuation){
   //alert("USERDATA: " + JSON.stringify(userData) + " CHANGEDDDATA: " + JSON.stringify(changedData));
   parseApiCallWithErrorHandling(
     "PUT",
     "users/" + userData.objectId,
 	  changedData,
-    function(data){
-    registerCallback(userData);},
+    continuation,
     registerErrorCallback,
     userData.sessionToken
     );
 }
+
