@@ -116,26 +116,32 @@ var logInUser = function(email, callback) {
 
 
 //finds the lat and long of the zip code for the user then calls newMarker to 
-var makeMarkerFromZip = function(data){
-  geocoder = new google.maps.Geocoder();
-  geocoder.geocode(
-    {'address':data.zip_code},
-      function(results, status){
-       if (status == google.maps.GeocoderStatus.OK){
-           newLat = results[0].geometry.location.lat() + Math.random();
-           newLng = results[0].geometry.location.lng() + Math.random();
-	        markerParams = {location:
-              {__type:"GeoPoint", 
-              latitude:newLat, 
-              longitude:newLng}, 
-              owner:data.objectId, 
-              content:""};
-          newMarker(data, markerParams);
-        }
-        else{
-          //make it ask for a new zip code
-        }
-      });
+var makeMarkerFromZip = function(creationData){
+  parseApiCall("GET", 
+    "users/" + creationData.objectId, 
+    null, 
+    function(data){
+      geocoder = new google.maps.Geocoder();
+      geocoder.geocode(
+        {'address':data.zip_code},
+          function(results, status){
+           if (status == google.maps.GeocoderStatus.OK){
+               newLat = results[0].geometry.location.lat() + Math.random();
+               newLng = results[0].geometry.location.lng() + Math.random();
+    	        markerParams = {location:
+                  {__type:"GeoPoint", 
+                  latitude:newLat, 
+                  longitude:newLng}, 
+                  owner:data.objectId, 
+                  content:""};
+                  //alert("lat: " + markerParams.location.latitude + " lng:" + markerParams.location.longitude);
+              newMarker(creationData, markerParams);
+
+            }else{
+              alert("Google Maps didn't work | " + status + "/n user registered but no marker added and not added to mailchimp list");
+            }
+          });
+    });
 }
 
 //Makes a new marker, which only happens when the user registers. Then it edits the user so she has the marker ID
@@ -144,19 +150,21 @@ function newMarker(userData, markerParams){
 	"POST", 
   "classes/markers", 
   markerParams, 
-    function(data){   
-      editUser(userData, {markerID:data.objectId},registerCallback);
+    function(data){
+      editUser(userData, {markerID:data.objectId});
     }
   );
 }
 
-//adds the json in changed data to the user then calls the continuation with the resulting data
-var editUser =  function(userData, changedData, continution){
+//adds the json in changed data to the user then calls the continuation with the resulting data (right now, only using registerCallback, cause I was getting errors earlier)
+var editUser =  function(userData, changedData){
+  //alert("USERDATA: " + JSON.stringify(userData) + " CHANGEDDDATA: " + JSON.stringify(changedData));
   parseApiCallWithErrorHandling(
     "PUT",
     "users/" + userData.objectId,
 	  changedData,
-    continuation,
+    function(data){
+    registerCallback(userData);},
     registerErrorCallback,
     userData.sessionToken
     );

@@ -4,8 +4,6 @@ var lat = 38.971667;
 var long = -95.235278;
 var map;
 
-//var marker;
-
 var publicmarkers = [];
 var userId = null;
 var sessId = null;
@@ -25,7 +23,7 @@ function makeMap(){
 		    	return getUserMap(markerId);
 		}else{
 			userHasNoMarker = true;
-			makeMarkerFromZip(userId);
+			//makeMarkerFromZip(userId);
 		}
 	}
 	var coord = new google.maps.LatLng(lat,long);

@@ -10,7 +10,7 @@ var registerCallback = function(data) {
       mySessToken = data.sessionToken;
   $.cookie("otd_sessionToken", mySessToken);
   // $.cookie("otd_objectId", myObjectId, { expires: 7 });
-
+  alert("In registerCallback");
   registerForList(data);
   
   thanks(data);
