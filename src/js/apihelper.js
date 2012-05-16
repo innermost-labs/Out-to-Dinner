@@ -21,6 +21,7 @@ var apiCall = function(verb, uri, headers, data, callback, error) {
       error(xhr, textStatus, errorThrown);
     },
     success: function (data) {
+              alert(JSON.stringify(data));
                callback(data);
              }
   }

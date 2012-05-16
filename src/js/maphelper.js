@@ -8,6 +8,7 @@ var markerId = null;
 var infowindow = new google.maps.InfoWindow();
 
 function makeMap(){
+	alert("Called makeMap()");
 	//Just take userId as argument, if no argument show the public map
 	if(arguments.length == 1){
 		userId = arguments[0];
@@ -27,17 +28,20 @@ function makeMap(){
 }
 
 //creates a map centered on a user's marker
-function getUsermap(userId){
+function getUserMap(userId){
+	alert("Called getUserMap(" + userId + ")");
 	getUser(
 		userId,
 		function(data){
 			if(data.markerID){
+				alert("data.markerID: " + data.markerID);
 				markerId = data.markerID;
 				parseApiCall(
 					"GET",
-					"classes/markers" + data.markerID,
+					"classes/markers/" + data.markerID,
 					null,
 					function(markerData){
+						alert("Marker Data: " + JSON.stringify(markerData));
 						if(markerData.objectId && markerData.location.latitude && markerData.location.longitude){
 							//set the map options object that will be used to create the map
 							mapOptions = {
@@ -49,7 +53,7 @@ function getUsermap(userId){
 							map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 							//populate the map
 							getMarkers();
-						}else
+						}else{
 						// the markerId is invalid. make a new one?
 						}
 					}
@@ -63,21 +67,23 @@ function getUsermap(userId){
 
 //gets the user's data then calls the continuation with it
 function getUser(userId, continuation){
+	alert("Called getUser(" + userId + ", " + continuation + ")");
 	parseApiCall(
 	"GET",
 	"users/"+userId,
 	null,
-	continuation(data)
+	continuation
 	);
 }
 
 function getMarkers(){
+	alert("Called getMarkers()");
 	//blank all the markers in the publicmarkers array and then clear out the array
 	for(i = 0; i < publicmarkers.length; i++){
 		publicmarkers[i].marker.setMap(null);
 	}
 	publicmarkers = [];
-	//get the markers, then add them to the publicmarkers array
+	//get the all the markers, then add them to the publicmarkers array
 	parseApiCall(
 		"GET",
 		"classes/markers",
@@ -90,15 +96,15 @@ function getMarkers(){
 			{
 				//make a temporary marker to be added to the array later
 				var tempmark = new google.maps.Marker({
-					position:new google.maps.LatLng(markers.results[i].location.latitude, markers.results[i].location.longitude),
+					position:new google.maps.LatLng(data.results[i].location.latitude, data.results[i].location.longitude),
 					map:map
 				});
 				//if the marker's objectId is the same as the owner's markerId then we make change the icon
-				if(markers.results[i].objectId == markerId){
+				if(data.results[i].objectId == markerId){
 						tempmark.setIcon(homeImage);
 				}
 				//add the temporary marker and its associated data to the array so we can get to it later
-				publicmarkers.push({marker:tempmark, content:markers.results[i].content, objectId:markers.results[i].objectId});
+				publicmarkers.push({marker:tempmark, content:data.results[i].content, objectId:data.results[i].objectId});
 				/*
 				//Allows you to click on a marker and view it's content.
 				//Because we don't have any way of adding content right now this is commented out
@@ -132,6 +138,7 @@ function getMarkers(){
 
 //edits a marker, then calls getMarkers in update the map.
 function editMarker(markerId, changedData){
+	alert("Called editMarker()");
 	parseApiCall(
 		"PUT",
 		"classes/markers" + markerId,
