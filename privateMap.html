@@ -20,12 +20,24 @@
     <script type="text/javascript" src="src/js/mapadmin.js"></script>
 
 </head>
-
-<body onload='makeMap("CS8lQ2ePV6")'>
-	Testing one two three	
 	<div id="map_canvas">
-		Testing four five six
-	</div
+	</div>
+<script type="text/javascript">
+var myObjectId
+,   mySessToken;
+
+// App runtime js goes here
+$(document).ready(function() {
+  var userParam   = getUrlParameter("u")
+
+  makeMap(userParam);
+
+});
+</script>
+
+
+	  
+
 
 </body>
 </html>
